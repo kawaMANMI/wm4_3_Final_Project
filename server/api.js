@@ -9,4 +9,11 @@ router.get("/", (_, res) => {
 	res.json({ message: "Hello, world!" });
 });
 
+
+router.post("/login", (req, res) => {
+	logger.debug("Welcoming everyone...");
+	logger.debug(req.body.username);
+	logger.debug(req.body.hashPassword);
+	res.json({ message: "Hello, world!" });
+});
 export default router;
