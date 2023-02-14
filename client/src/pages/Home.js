@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import "./Home.css";
 import logo from "./logo.svg";
-
+import Login from "./Login";
 export function Home() {
 	const [message, setMessage] = useState("Loading...");
 
@@ -38,6 +38,8 @@ export function Home() {
 				<Link to="/about/this/site">About</Link>
 				<Link to="/mentor">Mentor</Link>
 			</div>
+			<hr />
+			<Login />
 		</main>
 	);
 }
