@@ -1,5 +1,4 @@
 import { Router } from "express";
-
 import logger from "./utils/logger";
 
 const router = Router();
@@ -10,9 +9,22 @@ router.get("/", (_, res) => {
 });
 
 router.post("/login", (req, res) => {
-	logger.debug("Welcoming everyone...");
-	logger.debug(req.body.username);
-	logger.debug(req.body.hashPassword);
-	res.json({ message: "Hello, world!" });
+	const { username, hashPassword } = req.body;
+	logger.debug(username);
+	logger.debug(hashPassword);
+	knex("users")
+		.select("*")
+		.where({ username, hashPassword })
+		.first()
+		.then((user) => {
+			if (user) {
+				res.send("Login successful");
+			} else {
+				res.send("Invalid login credentials");
+			}
+		})
+		.catch((error) => {
+			throw error;
+		});
 });
 export default router;
