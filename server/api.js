@@ -1,11 +1,16 @@
 import { Router } from "express";
 import logger from "./utils/logger";
-import db from "./db";
+
 const router = Router();
 
 router.get("/", (_, res) => {
 	logger.debug("Welcoming everyone...");
 	res.json({ message: "Hello, world!" });
+
+});
+router.get("/students", (_, res) => {
+	let students = data;
+	res.send(students);
 });
 
 router.post("/login", (req, res) => {

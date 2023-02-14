@@ -9,3 +9,12 @@
 .message:hover {
 	background-color: yellow;
 }
+.table_container {
+	width:50%;
+	margin:auto;
+}
+h2{
+	font-size:1.5em;
+	font-weight:bold;
+	margin:1em;
+}
