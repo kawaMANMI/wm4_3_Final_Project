@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./Home.css";
 import logo from "./logo.svg";
 import Login from "./Login";
+import Footer from "./Footer";
 export function Home() {
 	const [message, setMessage] = useState("Loading...");
 
@@ -39,6 +40,7 @@ export function Home() {
 			</div>
 			<hr />
 			<Login />
+			<Footer />
 		</main>
 	);
 }
