@@ -38,7 +38,6 @@ function SignupForm(props) {
 		// Handle form dismissal here
 		props.onDismiss();
 	};
-
 	return (
 		<Modal show={true} onHide={handleDismiss}>
 			<Modal.Header closeButton>
@@ -89,6 +88,7 @@ function SignupForm(props) {
 							<option value="WestMidland">West Midland</option>
 							<option value="NorthWest">North West</option>
 							<option value="CapeTown">Cape Town</option>
+							<option value="Scontland">Scontland</option>
 						</Form.Select>
 					</Form.Group>
 
