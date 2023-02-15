@@ -54,9 +54,8 @@ export function Login() {
 				/>
 			</div>
 			<div className="form-group">
-
 				<div className="input-group">
-				<label htmlFor="password">Password:</label>
+					<label htmlFor="password">Password:</label>
 					<input
 						type={isPasswordVisible ? "text" : "password"}
 						id="password"

@@ -4,7 +4,8 @@ import { Form, Button, Modal } from "react-bootstrap";
 function SignupForm(props) {
 	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
-	const [classValue, setClassValue] = useState("");
+	const [roleValue, setRoleValue] = useState("");
+	const [regionValue, setRegionValue] = useState("");
 	const [password, setPassword] = useState("");
 
 	const handleNameChange = (event) => {
@@ -15,8 +16,12 @@ function SignupForm(props) {
 		setEmail(event.target.value);
 	};
 
-	const handleClassChange = (event) => {
-		setClassValue(event.target.value);
+	const handleRoleChange = (event) => {
+		setRoleValue(event.target.value);
+	};
+
+	const handleRegionChange = (event) => {
+		setRegionValue(event.target.value);
 	};
 
 	const handlePasswordChange = (event) => {
@@ -26,7 +31,7 @@ function SignupForm(props) {
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		// Handle form submission here
-		console.log({ name, email, classValue, password });
+		console.log({ name, email, roleValue, regionValue, password });
 	};
 
 	const handleDismiss = () => {
@@ -61,14 +66,30 @@ function SignupForm(props) {
 						/>
 					</Form.Group>
 
-					<Form.Group className="mb-3" controlId="formBasicClass">
-						<Form.Label>Class</Form.Label>
-						<Form.Control
-							type="text"
-							placeholder="Enter class"
-							value={classValue}
-							onChange={handleClassChange}
-						/>
+					<Form.Group className="mb-3" controlId="formBasicRole">
+						<Form.Label>Role</Form.Label>
+						<Form.Select
+							value={roleValue}
+							onChange={handleRoleChange}
+						>
+							<option value="">Select role</option>
+							<option value="Mentor">Mentor</option>
+							<option value="Student">Student</option>
+						</Form.Select>
+					</Form.Group>
+
+					<Form.Group className="mb-3" controlId="formBasicRegion">
+						<Form.Label>Region</Form.Label>
+						<Form.Select
+							value={regionValue}
+							onChange={handleRegionChange}
+						>
+							<option value="">Select region</option>
+							<option value="London">London</option>
+							<option value="WestMidland">West Midland</option>
+							<option value="NorthWest">North West</option>
+							<option value="CapeTown">Cape Town</option>
+						</Form.Select>
 					</Form.Group>
 
 					<Form.Group className="mb-3" controlId="formBasicPassword">
