@@ -35,7 +35,6 @@ const router = Router();
 router.get("/", (_, res) => {
 	logger.debug("Welcoming everyone...");
 	res.json({ message: "Hello, world!" });
-
 });
 router.get("/students", (_, res) => {
 	let students = data;

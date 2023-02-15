@@ -2,25 +2,23 @@ import Table from "react-bootstrap/Table";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-
 function Mentor() {
-
 	const [studentData, setStudentData] = useState([]);
 	useEffect(() => {
-  axios
-    .get("/api/students")
-    .then((res) => {
-      if (res.status === 200) {
-        return res.data;
-      } else {
-        throw new Error("Something went wrong");
-      }
-    })
-    .then((data) => setStudentData(data))
-    .catch((error) => {
-      console.log({ error: error.message });
-    });
-}, []);
+		axios
+			.get("/api/students")
+			.then((res) => {
+				if (res.status === 200) {
+					return res.data;
+				} else {
+					throw new Error("Something went wrong");
+				}
+			})
+			.then((data) => setStudentData(data))
+			.catch((error) => {
+				console.log({ error: error.message });
+			});
+	}, []);
 
 	return (
 		<div className="table_container">
