@@ -6,7 +6,7 @@ exports.seed = async function (knex) {
 	// Deletes ALL existing entries
 	await knex("learning_objectives").del();
 	await knex("learning_objectives").insert([
-    {
+		{
 			id: 1,
 			objective: "Understand what 'parent' and 'child' is",
 			skill_id: 1,
