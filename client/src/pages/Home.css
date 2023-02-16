@@ -27,10 +27,7 @@ h2 {
 	background-color: #f8f9fa;
 	color: #212529;
 	border: none;
-
 }
-
-
 
 .btn:hover {
 	background-color: #dc3545;
@@ -62,7 +59,6 @@ h2 {
 	border-color: #ced4da;
 	box-shadow: none;
 }
-
 
 .footer {
 	color: black;

@@ -2,7 +2,6 @@ import { Router } from "express";
 import logger from "./utils/logger";
 import db from "./db";
 
-
 const router = Router();
 
 router.get("/", (_, res) => {
@@ -10,7 +9,6 @@ router.get("/", (_, res) => {
 	res.json({ message: "Hello, world!" });
 });
 router.get("/students", (_, res) => {
-
 	db.query(
 		"SELECT new_users.name, user_learning_obj.score FROM new_users INNER JOIN user_learning_obj ON new_users.id = user_learning_obj.user_id"
 	)

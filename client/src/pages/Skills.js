@@ -22,11 +22,11 @@ function Skills({ skill, selectedScore, handleSelectScore }) {
 											selectedScore[obj.objective_id] === 1
 												? "danger"
 												: score === selectedScore[obj.objective_id] &&
-												selectedScore[obj.objective_id] >= 2 &&
-												selectedScore[obj.objective_id] <= 4
+												  selectedScore[obj.objective_id] >= 2 &&
+												  selectedScore[obj.objective_id] <= 4
 												? "warning"
 												: score === selectedScore[obj.objective_id] &&
-												selectedScore[obj.objective_id] === 5
+												  selectedScore[obj.objective_id] === 5
 												? "success"
 												: "outline-secondary"
 										}
