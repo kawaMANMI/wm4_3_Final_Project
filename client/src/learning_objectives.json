@@ -1,54 +1,54 @@
 {
-	"SKILLS": [
-		{
-			"name": "HTML/CSS",
-			"learning_objectives": [
-				"Form creation",
-				"Flexbox implementation",
-				"Button creation",
-				"Tags usage"
-			]
-		},
-		{
-			"name": "GIT",
-			"learning_objectives": [
-				"Repo creation",
-				"Pull request",
-				"Handling merge conflict"
-			]
-		},
-		{
-			"name": "JAVASCRIPT",
-			"learning_objectives": [
-				"Console display",
-				"Creation of HTML elements with JavaScript",
-				"Callback function usage"
-			]
-		},
-		{
-			"name": "REACT",
-			"learning_objectives": [
-				"React app creation",
-				"Event handling",
-				"Understanding hooks"
-			]
-		},
-		{
-			"name": "NODE",
-			"learning_objectives": [
-				"Express server creation",
-				"Using npm",
-				"CRUD application"
-			]
-		},
-		{
-			"name": "Database",
-			"learning_objectives": [
-				"Database creation",
-				"Data retrieval",
-				"Data insertion",
-				"Data deletion"
-			]
-		}
-	]
+  "SKILLS": [
+    {
+      "name": "HTML/CSS",
+      "learning_objectives": [
+        "Form creation",
+        "Flexbox implementation",
+        "Button creation",
+        "Tags usage"
+      ]
+    },
+    {
+      "name": "GIT",
+      "learning_objectives": [
+        "Repo creation",
+        "Pull request",
+        "Handling merge conflict"
+      ]
+    },
+    {
+      "name": "JAVASCRIPT",
+      "learning_objectives": [
+        "Console display",
+        "Creation of HTML elements with JavaScript",
+        "Callback function usage"
+      ]
+    },
+    {
+      "name": "REACT",
+      "learning_objectives": [
+        "React app creation",
+        "Event handling",
+        "Understanding hooks"
+      ]
+    },
+    {
+      "name": "NODE",
+      "learning_objectives": [
+        "Express server creation",
+        "Using npm",
+        "CRUD application"
+      ]
+    },
+    {
+      "name": "Database",
+      "learning_objectives": [
+        "Database creation",
+        "Data retrieval",
+        "Data insertion",
+        "Data deletion"
+      ]
+    }
+  ]
 }
