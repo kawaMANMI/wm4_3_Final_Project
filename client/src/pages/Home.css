@@ -9,10 +9,12 @@
 .message:hover {
 	background-color: yellow;
 }
+
 .table_container {
 	width: 50%;
 	margin: auto;
 }
+
 h2 {
 	font-size: 1.5em;
 	font-weight: bold;
@@ -25,6 +27,7 @@ h2 {
 	background-color: #f8f9fa;
 	color: #212529;
 	border: none;
+}
 }
 
 .btn:hover {
