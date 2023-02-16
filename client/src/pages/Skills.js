@@ -1,6 +1,21 @@
 import React from "react";
 import { Card, ListGroup, Button } from "react-bootstrap";
-
+function getClassName(score, selectedScore) {
+	if (score === selectedScore) {
+		switch (score) {
+			case 1:
+				return "danger";
+			case 2:
+			case 3:
+			case 4:
+				return "warning";
+			case 5:
+				return "success";
+		}
+	} else {
+		return "outline-secondary";
+	}
+}
 function Skills({ skill, selectedScore, handleSelectScore }) {
 	return (
 		<Card style={{ width: "100rem", marginTop: "15px" }}>
@@ -17,19 +32,10 @@ function Skills({ skill, selectedScore, handleSelectScore }) {
 									<Button
 										style={{ marginLeft: "10px" }}
 										key={score}
-										variant={
-											score === selectedScore[obj.objective_id] &&
-											selectedScore[obj.objective_id] === 1
-												? "danger"
-												: score === selectedScore[obj.objective_id] &&
-												selectedScore[obj.objective_id] >= 2 &&
-												selectedScore[obj.objective_id] <= 4
-												? "warning"
-												: score === selectedScore[obj.objective_id] &&
-												selectedScore[obj.objective_id] === 5
-												? "success"
-												: "outline-secondary"
-										}
+										variant={getClassName(
+											score,
+											selectedScore[obj.objective_id]
+										)}
 										onClick={() => handleSelectScore(obj.objective_id, score)}
 									>
 										{score}
