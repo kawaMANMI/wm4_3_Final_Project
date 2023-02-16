@@ -36,7 +36,10 @@ export function Home() {
 					{message}
 				</h1>
 				<Link to="/about/this/site">About</Link>
+				<br />
 				<Link to="/mentor">Mentor</Link>
+				<br />
+				<Link to="/student">student</Link>
 			</div>
 			<hr />
 			<Login />
