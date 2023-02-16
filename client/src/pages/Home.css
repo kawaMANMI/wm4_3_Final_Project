@@ -10,16 +10,14 @@
 	background-color: yellow;
 }
 .table_container {
-	width:50%;
-	margin:auto;
+	width: 50%;
+	margin: auto;
 }
-h2{
-	font-size:1.5em;
-	font-weight:bold;
-	margin:1em;
+h2 {
+	font-size: 1.5em;
+	font-weight: bold;
+	margin: 1em;
 }
-
-
 
 .btn {
 	width: 120px;
@@ -27,44 +25,41 @@ h2{
 	background-color: #f8f9fa;
 	color: #212529;
 	border: none;
-  }
-  
-  .btn:hover {
+}
+
+.btn:hover {
 	background-color: #dc3545;
 	color: #fff;
-  }
-  
-  .login-icon {
+}
+
+.login-icon {
 	margin-right: 0.5rem;
 	padding-right: 0.5rem;
 	font-size: 1.3rem;
-  }
+}
 
- .signup-icon {
+.signup-icon {
 	margin-right: 0.5rem;
 	padding-right: 0.5rem;
 	font-size: 1.5rem;
-  }
-  
+}
 
-  .password-toggle-icon {
+.password-toggle-icon {
 	cursor: pointer;
-  }
-  
-  .input-group-text:focus {
+}
+
+.input-group-text:focus {
 	outline: none;
 	box-shadow: none;
-  }
-  
-  .form-control:focus {
+}
+
+.form-control:focus {
 	border-color: #ced4da;
 	box-shadow: none;
-  }
-		.footer {
-			color:black;
-			padding: 3rem 0;
-			text-align: center;
-		}
-  
-	
-  
+}
+
+.footer {
+	color: black;
+	padding: 3rem 0;
+	text-align: center;
+}
