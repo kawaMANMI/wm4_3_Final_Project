@@ -56,14 +56,10 @@ h2 {
 .form-control:focus {
 	border-color: #ced4da;
 	box-shadow: none;
-
 }
 
-		.footer {
-			color:black;
-			padding: 3rem 0;
-			text-align: center;
-		}
-  
-	
-  
+.footer {
+	color: black;
+	padding: 3rem 0;
+	text-align: center;
+}
