@@ -31,12 +31,13 @@ export function Login() {
 
 		// send the username and password to the server
 		try {
-			const hashPassword = bcrypt.hashSync(password, 10);
+			// const hashPassword = bcrypt.hashSync(password, 10);
 			const response = await axios.post("/api/login", {
 				username,
-				hashPassword,
+				password,
 			});
-			alert(response);
+         alert (response.data);
+
 
 			// handle the response from the server
 		} catch (error) {
