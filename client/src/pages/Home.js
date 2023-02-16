@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./Home.css";
 import logo from "./logo.svg";
 import Login from "./Login";
+import Footer from "./Footer";
 export function Home() {
 	const [message, setMessage] = useState("Loading...");
 
@@ -35,10 +36,14 @@ export function Home() {
 					{message}
 				</h1>
 				<Link to="/about/this/site">About</Link>
+				<br />
 				<Link to="/mentor">Mentor</Link>
+				<br />
+				<Link to="/student">student</Link>
 			</div>
 			<hr />
 			<Login />
+			<Footer />
 		</main>
 	);
 }
