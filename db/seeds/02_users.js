@@ -13,7 +13,7 @@ exports.seed = async function (knex) {
 			role: "Trainee",
 			region_id: 3,
 			classCode: "LDN5",
-			password: "dsds"
+			password: "dsds",
 		},
 		{
 			id: 2,

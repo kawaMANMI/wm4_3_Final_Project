@@ -67,10 +67,7 @@ function SignupForm(props) {
 
 					<Form.Group className="mb-3" controlId="formBasicRole">
 						<Form.Label>Role</Form.Label>
-						<Form.Select
-							value={roleValue}
-							onChange={handleRoleChange}
-						>
+						<Form.Select value={roleValue} onChange={handleRoleChange}>
 							<option value="">Select role</option>
 							<option value="Mentor">Mentor</option>
 							<option value="Student">Student</option>
@@ -79,10 +76,7 @@ function SignupForm(props) {
 
 					<Form.Group className="mb-3" controlId="formBasicRegion">
 						<Form.Label>Region</Form.Label>
-						<Form.Select
-							value={regionValue}
-							onChange={handleRegionChange}
-						>
+						<Form.Select value={regionValue} onChange={handleRegionChange}>
 							<option value="">Select region</option>
 							<option value="London">London</option>
 							<option value="WestMidland">West Midland</option>
