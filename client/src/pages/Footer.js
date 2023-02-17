@@ -18,7 +18,7 @@ function Footer() {
       </Container>
       <div className="footer-bottom">
         <Container>
-          <p>&copy; 2023 <span className="code"> &lt;CODE&gt;</span> YOUR FUTURE. All Rights Reserved.</p>
+          <p>&copy; 2023  &lt; <span className="code">CODE</span>&gt; YOUR FUTURE. All Rights Reserved.</p>
         </Container>
       </div>
     </footer>

@@ -1,8 +1,4 @@
 import { useEffect, useState } from "react";
-import {
-	Routes,
-	Route,
-} from "react-router-dom";
 import "./Home.css";
 import Login from "./Login";
 import Header from "./Header";
@@ -38,11 +34,9 @@ export function Home() {
 		<main role="main">
 			<Header />
 			<h1>{loginResponse}</h1>
-			<Routes>
-			{(loginResponse !== "Trainee" && loginResponse !== "Mentor")?		<Route path="/" element={<Login handleLogin={handleLogin} />} />:null};
-			{loginResponse === "Trainee"	?		<Route path="/" element={<Student /> } />: null};
-			{loginResponse === "Mentor"	?		<Route path="/" element={<Mentor /> } />: null};
-			</Routes>
+			{(loginResponse !== "Trainee" && loginResponse !== "Mentor")?	<Login handleLogin={handleLogin} /> :null}
+			{loginResponse === "Trainee"	?		<Student /> : null}
+			{loginResponse === "Mentor"	?		<Mentor />: null}
 			<Footer />
 		</main>
 	);
