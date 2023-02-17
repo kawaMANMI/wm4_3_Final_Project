@@ -34,9 +34,11 @@ export function Home() {
 		<main role="main">
 			<Header />
 			<h1>{loginResponse}</h1>
-			{(loginResponse !== "Trainee" && loginResponse !== "Mentor")?	<Login handleLogin={handleLogin} /> :null}
-			{loginResponse === "Trainee"	?		<Student /> : null}
-			{loginResponse === "Mentor"	?		<Mentor />: null}
+			{loginResponse !== "Trainee" && loginResponse !== "Mentor" ? (
+				<Login handleLogin={handleLogin} />
+			) : null}
+			{loginResponse === "Trainee" ? <Student /> : null}
+			{loginResponse === "Mentor" ? <Mentor /> : null}
 			<Footer />
 		</main>
 	);

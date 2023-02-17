@@ -43,10 +43,9 @@ router.get("/students", (_, res) => {
 router.post("/login", async (req, res) => {
 	const { username, password } = req.body;
 	try {
-		const result = await db.query(
-			"SELECT * FROM new_users WHERE name=$1",
-			[username]
-		);
+		const result = await db.query("SELECT * FROM new_users WHERE name=$1", [
+			username,
+		]);
 		const user = result.rows[0];
 
 		if (!user) {
@@ -55,7 +54,7 @@ router.post("/login", async (req, res) => {
 		const match = await bcrypt.compare(password, user.password);
 		if (match) {
 			res.send(user.role);
-			return ;
+			return;
 		} else {
 			return res.status(401).json({ error: "Invalid username or password" });
 		}

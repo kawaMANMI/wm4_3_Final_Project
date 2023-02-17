@@ -1,17 +1,14 @@
 .header-container {
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-  }
-  
-  .header-line {
+}
+
+.header-line {
 	border: none;
 	height: 6px;
-	background-color:  #000000;
-  }
-  
+	background-color: #000000;
+}
 
-  
-
-  .logo-img{
+.logo-img {
 	width: 20%;
 	padding-left: 2%;
-  }
+}
