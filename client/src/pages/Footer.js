@@ -9,10 +9,10 @@ function Footer() {
       <Container>
         <div className="d-flex justify-content-center align-items-center">
           <div className="social-icons">
-            <a href="#"><FaFacebook /></a>
-            <a href="#"><FaTwitter /></a>
-            <a href="#"><FaInstagram /></a>
-            <a href="#"><FaLinkedin /></a>
+            <a href="https://www.linkedin.com/in/kawa-manmi-5244ab53/"><FaFacebook /></a>
+            <a href="https://www.linkedin.com/in/kawa-manmi-5244ab53/"><FaTwitter /></a>
+            <a href="https://www.linkedin.com/in/kawa-manmi-5244ab53/"><FaInstagram /></a>
+            <a href="https://www.linkedin.com/in/kawa-manmi-5244ab53/"><FaLinkedin /></a>
           </div>
         </div>
       </Container>
