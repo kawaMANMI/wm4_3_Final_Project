@@ -62,7 +62,6 @@
 		"prop-types": "^15.8.1",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"react-router-dom": "^6.8.1",
 		"rimraf": "^4.1.2",
 		"style-loader": "^3.3.1",
 		"wait-on": "^7.0.1",
@@ -86,6 +85,7 @@
 		"pg": "^8.9.0",
 		"react-bootstrap": "^2.7.2",
 		"react-icons": "^4.7.1",
+		"react-router-dom": "^6.8.1",
 		"winston": "^3.8.2"
 	},
 	"engines": {

@@ -1,9 +1,28 @@
 import React from "react";
+import { Container } from "react-bootstrap";
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
+import "./Footer.css";
 
-export default function Footer() {
-	return (
-		<div className="footer">
-			<h3>©Code Your Future {new Date().getFullYear()}</h3>
-		</div>
-	);
+function Footer() {
+  return (
+    <footer className="footer">
+      <Container>
+        <div className="d-flex justify-content-center align-items-center">
+          <div className="social-icons">
+            <a href="#"><FaFacebook /></a>
+            <a href="#"><FaTwitter /></a>
+            <a href="#"><FaInstagram /></a>
+            <a href="#"><FaLinkedin /></a>
+          </div>
+        </div>
+      </Container>
+      <div className="footer-bottom">
+        <Container>
+          <p>&copy; 2023 <span className="code"> &lt;CODE&gt;</span> YOUR FUTURE. All Rights Reserved.</p>
+        </Container>
+      </div>
+    </footer>
+  );
 }
+
+export default Footer;

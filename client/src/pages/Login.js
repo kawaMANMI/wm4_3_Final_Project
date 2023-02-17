@@ -2,14 +2,13 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 // import Form from "react-bootstrap/Form";
 import axios from "axios";
-import bcrypt from "bcryptjs-react";
 import SignupForm from "./SignupForm";
 import { FaUser } from "react-icons/fa";
 import { FaUserPlus } from "react-icons/fa";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "./Home.css";
 
-export function Login() {
+export function Login({ handleLogin }) {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [showSignupForm, setShowSignupForm] = useState(false);
@@ -44,7 +43,7 @@ export function Login() {
 		} catch (error) {
 			console.error(error);
 		}
-		alert(responseData);
+		handleLogin(responseData);
 	};
 
 	return (
@@ -91,7 +90,6 @@ export function Login() {
 				<FaUserPlus className="signup-icon" />
 				<span className="signup-text">Sign Up</span>
 			</Button>
-
 			{/* <a href="#" className="link-primary">Forgot password?</a> */}
 			{showSignupForm ? (
 				<SignupForm onDismiss={handleSignupFormDismiss} />

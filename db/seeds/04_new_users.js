@@ -5,7 +5,7 @@
 const bcrypt = require("bcrypt");
 exports.seed = async function (knex) {
 	// Deletes ALL existing entries
-	await knex("user_learning_obj").del();
+	// await knex("user_learning_obj").del();
 	await knex("new_users").del();
 	const password="123";
 	const hashedPassword = await bcrypt.hash(password, 10);
@@ -25,7 +25,7 @@ exports.seed = async function (knex) {
 			name: "Mark",
 			email: "markdoe@fakemail.com",
 			role: "Trainee",
-			password: "ashah",
+			password: hashedPassword,
 			region_id: 2,
 			class_code: "NW5",
 		},

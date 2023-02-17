@@ -1,11 +1,22 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import {
+	Routes,
+	Route,
+} from "react-router-dom";
 import "./Home.css";
-import logo from "./logo.svg";
 import Login from "./Login";
+import Header from "./Header";
 import Footer from "./Footer";
+import Student from "./Student";
+import Mentor from "./Mentor";
+
 export function Home() {
 	const [message, setMessage] = useState("Loading...");
+	const [loginResponse, setLoginResponse] = useState("");
+
+	const handleLogin = (response) => {
+		setLoginResponse(response);
+	};
 
 	useEffect(() => {
 		fetch("/api")
@@ -25,24 +36,13 @@ export function Home() {
 
 	return (
 		<main role="main">
-			<div>
-				<img
-					className="logo"
-					data-qa="logo"
-					src={logo}
-					alt="Just the React logo"
-				/>
-				<h1 className="message" data-qa="message">
-					{message}
-				</h1>
-				<Link to="/about/this/site">About</Link>
-				<br />
-				<Link to="/mentor">Mentor</Link>
-				<br />
-				<Link to="/student">student</Link>
-			</div>
-			<hr />
-			<Login />
+			<Header />
+			<h1>{loginResponse}</h1>
+			<Routes>
+			{(loginResponse !== "Trainee" && loginResponse !== "Mentor")?		<Route path="/" element={<Login handleLogin={handleLogin} />} />:null};
+			{loginResponse === "Trainee"	?		<Route path="/" element={<Student /> } />: null};
+			{loginResponse === "Mentor"	?		<Route path="/" element={<Mentor /> } />: null};
+			</Routes>
 			<Footer />
 		</main>
 	);

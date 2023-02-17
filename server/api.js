@@ -53,10 +53,8 @@ router.post("/login", async (req, res) => {
 			return res.status(401).json({ error: "Invalid username or password" });
 		}
 		const match = await bcrypt.compare(password, user.password);
-		logger.debug(match);
 		if (match) {
-
-			res.send("Login successful");
+			res.send(user.role);
 			return ;
 		} else {
 			return res.status(401).json({ error: "Invalid username or password" });
