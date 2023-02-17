@@ -9,31 +9,31 @@
 .message:hover {
 	background-color: yellow;
 }
+
 .table_container {
 	width: 50%;
 	margin: auto;
 }
+
 h2 {
 	font-size: 1.5em;
 	font-weight: bold;
 	margin: 1em;
 }
 
-
-
-.btn {
+/* .btn {
 	width: 120px;
 	height: 40px;
 	background-color: #f8f9fa;
 	color: #212529;
 	border: none;
-  }
-
+}
+}
 
 .btn:hover {
 	background-color: #dc3545;
 	color: #fff;
-}
+} */
 
 .login-icon {
 	margin-right: 0.5rem;

@@ -3,34 +3,6 @@ import logger from "./utils/logger";
 import db from "./db";
 import bcrypt from "bcryptjs-react";
 
-//Thid data created by Irina for test
-const data = [
-	{
-		id: 1,
-		name: "John",
-		score: 5,
-	},
-	{
-		id: 2,
-		name: "Mark",
-		score: 1,
-	},
-	{
-		id: 3,
-		name: "Lisa",
-		score: 2,
-	},
-	{
-		id: 4,
-		name: "Chris",
-		score: 3,
-	},
-	{
-		id: 5,
-		name: "Anthony",
-		score: 4,
-	},
-];
 const router = Router();
 
 router.get("/", (_, res) => {
@@ -38,8 +10,13 @@ router.get("/", (_, res) => {
 	res.json({ message: "Hello, world!" });
 });
 router.get("/students", (_, res) => {
-	let students = data;
-	res.send(students);
+	db.query(
+		"SELECT new_users.name, user_learning_obj.score FROM new_users INNER JOIN user_learning_obj ON new_users.id = user_learning_obj.user_id"
+	)
+		.then((result) => res.json(result.rows))
+		.catch((err) => {
+			res.status(500).json(err);
+		});
 });
 
 // router.post("/login", (req, res) => {
