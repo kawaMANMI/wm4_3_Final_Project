@@ -37,8 +37,8 @@ function Mentor() {
 						<tr key={id}>
 							<td>{id}</td>
 							<td>{name}</td>
-							<td>{score}</td>
 							<td>{class_code}</td>
+							<td>{score}</td>
 						</tr>
 					))}
 				</tbody>
