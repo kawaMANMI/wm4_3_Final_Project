@@ -76,9 +76,11 @@ router.post("/login", async (req, res) => {
 			return res.status(401).json({ error: "Invalid username or password" });
 		}
 		const match = await bcrypt.compare(password, user.password);
-		logger.debug(user.password);
+		logger.debug(match);
 		if (match) {
-			return res.json({ message: "Login successful" });
+
+			res.send("Login successful");
+			return ;
 		} else {
 			return res.status(401).json({ error: "Invalid username or password" });
 		}
@@ -88,8 +90,6 @@ router.post("/login", async (req, res) => {
 	}
 });
 
-<<<<<<< HEAD
-=======
 //Get the all skills and learning objectives
 router.get("/checklist", (req, res) => {
 	db.query(
@@ -103,5 +103,4 @@ router.get("/checklist", (req, res) => {
 		.then((result) => res.json(result.rows))
 		.catch((error) => res.status(500).json({ error: error.message }));
 });
->>>>>>> dev
 export default router;

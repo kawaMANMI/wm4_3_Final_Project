@@ -28,22 +28,25 @@ export function Login() {
 	};
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-
+		let responseData = "";
 		// send the username and password to the server
 		try {
 			// const hashPassword = bcrypt.hashSync(password, 10);
-			const response = await axios.post("/api/login", {
-				username,
-				password,
-			});
-         alert (response.data);
-
-
+			await axios
+				.post("/api/login", {
+					username,
+					password,
+				})
+				.then((response) => {
+					responseData = response.data;
+				});
 			// handle the response from the server
 		} catch (error) {
 			console.error(error);
 		}
+		alert(responseData);
 	};
+
 	return (
 		<form onSubmit={handleSubmit}>
 			<div className="form-group">
