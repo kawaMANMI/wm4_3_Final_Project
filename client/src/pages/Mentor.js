@@ -28,14 +28,16 @@ function Mentor() {
 					<tr>
 						<th>#</th>
 						<th>NAME</th>
+						<th>CLASS-CODE</th>
 						<th>SCORES</th>
 					</tr>
 				</thead>
 				<tbody>
-					{studentData.map(({ id, name, score }) => (
+					{studentData.map(({ id, name, score, class_code }) => (
 						<tr key={id}>
 							<td>{id}</td>
 							<td>{name}</td>
+							<td>{class_code}</td>
 							<td>{score}</td>
 						</tr>
 					))}

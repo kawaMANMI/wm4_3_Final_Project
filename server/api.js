@@ -8,9 +8,10 @@ router.get("/", (_, res) => {
 	logger.debug("Welcoming everyone...");
 	res.json({ message: "Hello, world!" });
 });
+//get students list
 router.get("/students", (_, res) => {
 	db.query(
-		"SELECT new_users.name, user_learning_obj.score FROM new_users INNER JOIN user_learning_obj ON new_users.id = user_learning_obj.user_id"
+		"SELECT  new_users.id,new_users.name,new_users.class_code, user_learning_obj.score FROM new_users INNER JOIN user_learning_obj ON new_users.id = user_learning_obj.user_id"
 	)
 		.then((result) => res.json(result.rows))
 		.catch((err) => {
