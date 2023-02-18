@@ -29,13 +29,11 @@ h2 {
 	border: none;
 }
 
-
 .btn:hover {
 	background-color: #dc3545;
 	color: #fff;
-} */
-
-.login-icon {
+}
+*/ .login-icon {
 	margin-right: 0.5rem;
 	padding-right: 0.5rem;
 	font-size: 1.3rem;
