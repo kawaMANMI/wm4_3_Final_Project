@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 // import Form from "react-bootstrap/Form";
 import axios from "axios";
@@ -8,7 +9,18 @@ import { FaUserPlus } from "react-icons/fa";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "./Home.css";
 
-export function Login({ handleLogin }) {
+export function Login() {
+	const navigate = useNavigate();
+	function handleLogin(userInfo) {
+		sessionStorage.setItem("userId", userInfo.id);
+		sessionStorage.setItem("name", userInfo.name);
+		sessionStorage.setItem("userRole", userInfo.role);
+		if (userInfo.role === "Mentor") {
+			navigate("/mentor");
+		} else {
+			navigate("/student");
+		}
+	}
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [showSignupForm, setShowSignupForm] = useState(false);
@@ -38,12 +50,12 @@ export function Login({ handleLogin }) {
 				})
 				.then((response) => {
 					responseData = response.data;
+					handleLogin(responseData);
 				});
 			// handle the response from the server
 		} catch (error) {
 			console.error(error);
 		}
-		handleLogin(responseData);
 	};
 
 	return (

@@ -20,26 +20,6 @@ router.get("/students", (_, res) => {
 		});
 });
 
-// router.post("/login", (req, res) => {
-// 	const { username, password } = req.body;
-// 	logger.debug(username);
-// 	logger.debug(hashPassword);
-// 	db.query(
-// 		"SELECT * FROM new_users WHERE name = $1 AND password = $2",
-// 		[username, hashPassword],
-// 		(error, results) => {
-// 			if (error) {
-// 				throw error;
-// 			}
-// 			if (results.rows.length > 0) {
-// 				res.send("Login successful");
-// 			} else {
-// 				res.send("Invalid login credentials");
-// 			}
-// 		}
-// 	);
-// });
-
 // login endpoint
 router.post("/login", async (req, res) => {
 	const { username, password } = req.body;
@@ -54,7 +34,7 @@ router.post("/login", async (req, res) => {
 		}
 		const match = await bcrypt.compare(password, user.password);
 		if (match) {
-			res.send(user.role);
+			res.json({ id: user.id, name: user.name, role: user.role });
 			return;
 		} else {
 			return res.status(401).json({ error: "Invalid username or password" });
