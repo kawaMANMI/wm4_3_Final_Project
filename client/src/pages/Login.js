@@ -2,14 +2,13 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 // import Form from "react-bootstrap/Form";
 import axios from "axios";
-import bcrypt from "bcryptjs-react";
 import SignupForm from "./SignupForm";
 import { FaUser } from "react-icons/fa";
 import { FaUserPlus } from "react-icons/fa";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "./Home.css";
 
-export function Login() {
+export function Login({ handleLogin }) {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [showSignupForm, setShowSignupForm] = useState(false);
@@ -28,21 +27,25 @@ export function Login() {
 	};
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-
+		let responseData = "";
 		// send the username and password to the server
 		try {
-			const hashPassword = bcrypt.hashSync(password, 10);
-			const response = await axios.post("/api/login", {
-				username,
-				hashPassword,
-			});
-			alert(response);
-
+			// const hashPassword = bcrypt.hashSync(password, 10);
+			await axios
+				.post("/api/login", {
+					username,
+					password,
+				})
+				.then((response) => {
+					responseData = response.data;
+				});
 			// handle the response from the server
 		} catch (error) {
 			console.error(error);
 		}
+		handleLogin(responseData);
 	};
+
 	return (
 		<form onSubmit={handleSubmit}>
 			<div className="form-group">
@@ -87,7 +90,6 @@ export function Login() {
 				<FaUserPlus className="signup-icon" />
 				<span className="signup-text">Sign Up</span>
 			</Button>
-
 			{/* <a href="#" className="link-primary">Forgot password?</a> */}
 			{showSignupForm ? (
 				<SignupForm onDismiss={handleSignupFormDismiss} />

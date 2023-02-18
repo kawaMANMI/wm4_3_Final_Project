@@ -1,48 +1,44 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
 import "./Home.css";
-import logo from "./logo.svg";
 import Login from "./Login";
+import Header from "./Header";
 import Footer from "./Footer";
-export function Home() {
-	const [message, setMessage] = useState("Loading...");
+import Student from "./Student";
+import Mentor from "./Mentor";
 
-	useEffect(() => {
-		fetch("/api")
-			.then((res) => {
-				if (!res.ok) {
-					throw new Error(res.statusText);
-				}
-				return res.json();
-			})
-			.then((body) => {
-				setMessage(body.message);
-			})
-			.catch((err) => {
-				console.error(err);
-			});
-	}, []);
+export function Home() {
+	// const [message, setMessage] = useState("Loading...");
+	const [loginResponse, setLoginResponse] = useState("");
+
+	const handleLogin = (response) => {
+		setLoginResponse(response);
+	};
+
+	// useEffect(() => {
+	// 	fetch("/api")
+	// 		.then((res) => {
+	// 			if (!res.ok) {
+	// 				throw new Error(res.statusText);
+	// 			}
+	// 			return res.json();
+	// 		})
+	// 		.then((body) => {
+	// 			setMessage(body.message);
+	// 		})
+	// 		.catch((err) => {
+	// 			console.error(err);
+	// 		});
+	// }, []);
 
 	return (
 		<main role="main">
-			<div>
-				<img
-					className="logo"
-					data-qa="logo"
-					src={logo}
-					alt="Just the React logo"
-				/>
-				<h1 className="message" data-qa="message">
-					{message}
-				</h1>
-				<Link to="/about/this/site">About</Link>
-				<br />
-				<Link to="/mentor">Mentor</Link>
-				<br />
-				<Link to="/student">student</Link>
-			</div>
-			<hr />
-			<Login />
+			<Header />
+			<h1>{loginResponse}</h1>
+			{loginResponse !== "Trainee" && loginResponse !== "Mentor" ? (
+				<Login handleLogin={handleLogin} />
+			) : null}
+			{loginResponse === "Trainee" ? <Student /> : null}
+			{loginResponse === "Mentor" ? <Mentor /> : null}
 			<Footer />
 		</main>
 	);

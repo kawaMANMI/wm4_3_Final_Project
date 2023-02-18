@@ -1,46 +1,14 @@
-.header {
-	height: 300px;
-	position: relative;
-	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+.header-container {
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
-.header-navbar {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+.header-line {
+	border: none;
+	height: 6px;
+	background-color: #000000;
 }
 
-.header-triangle-container {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left: 0;
-	z-index: -1;
-}
-
-.header-triangle {
-	position: absolute;
-	width: 0;
-	height: 0;
-	border-style: solid;
-	border-width: 0 0 100vh 100vw;
-	border-color: transparent transparent #e30613 transparent;
-	opacity: 0.5;
-	transition: opacity 0.2s ease-in-out;
-}
-
-.header-triangle:nth-of-type(2) {
-	transform: translate(-30%, 50%);
-	border-color: transparent transparent #000000 transparent;
-}
-
-.header-triangle:nth-of-type(3) {
-	transform: translate(30%, -50%);
-	border-color: transparent transparent #e30613 transparent;
-}
-
-.header-triangle:hover {
-	opacity: 1;
+.logo-img {
+	width: 20%;
+	padding-left: 2%;
 }

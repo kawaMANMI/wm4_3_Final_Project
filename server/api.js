@@ -1,6 +1,7 @@
 import { Router } from "express";
 import logger from "./utils/logger";
 import db from "./db";
+import bcrypt from "bcryptjs-react";
 
 const router = Router();
 
@@ -19,24 +20,49 @@ router.get("/students", (_, res) => {
 		});
 });
 
-router.post("/login", (req, res) => {
-	const { username, hashPassword } = req.body;
-	logger.debug(username);
-	logger.debug(hashPassword);
-	db.query(
-		"SELECT * FROM users WHERE name = $1 AND password = $2",
-		[username, hashPassword],
-		(error, results) => {
-			if (error) {
-				throw error;
-			}
-			if (results.rows.length > 0) {
-				res.send("Login successful");
-			} else {
-				res.send("Invalid login credentials");
-			}
+// router.post("/login", (req, res) => {
+// 	const { username, password } = req.body;
+// 	logger.debug(username);
+// 	logger.debug(hashPassword);
+// 	db.query(
+// 		"SELECT * FROM new_users WHERE name = $1 AND password = $2",
+// 		[username, hashPassword],
+// 		(error, results) => {
+// 			if (error) {
+// 				throw error;
+// 			}
+// 			if (results.rows.length > 0) {
+// 				res.send("Login successful");
+// 			} else {
+// 				res.send("Invalid login credentials");
+// 			}
+// 		}
+// 	);
+// });
+
+// login endpoint
+router.post("/login", async (req, res) => {
+	const { username, password } = req.body;
+	try {
+		const result = await db.query("SELECT * FROM new_users WHERE name=$1", [
+			username,
+		]);
+		const user = result.rows[0];
+
+		if (!user) {
+			return res.status(401).json({ error: "Invalid username or password" });
 		}
-	);
+		const match = await bcrypt.compare(password, user.password);
+		if (match) {
+			res.send(user.role);
+			return;
+		} else {
+			return res.status(401).json({ error: "Invalid username or password" });
+		}
+	} catch (err) {
+		logger.error(err);
+		res.status(500).json({ error: "Server error" });
+	}
 });
 
 //Get the all skills and learning objectives
