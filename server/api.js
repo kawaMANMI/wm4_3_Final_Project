@@ -58,4 +58,12 @@ router.get("/checklist", (req, res) => {
 		.then((result) => res.json(result.rows))
 		.catch((error) => res.status(500).json({ error: error.message }));
 });
+
+// Endpoint for user profile
+router.get("/user-profile/:user", (req, res) => {
+	db.query(
+		"SELECT new_users.name, new_users.class_code, region.name FROM new_users INNER JOIN region ON new_users.region_id = region.id;")
+	.then((result) => res.json(result.rows))
+	.catch((error) => res.status(500).json({ "Error": error.message }));
+});
 export default router;
