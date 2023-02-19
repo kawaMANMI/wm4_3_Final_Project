@@ -1,4 +1,5 @@
 import express from "express";
+import cookieSession from "cookie-session";
 
 import apiRouter from "./api";
 import config from "./utils/config";
@@ -17,6 +18,16 @@ const app = express();
 app.use(express.json());
 app.use(configuredHelmet());
 app.use(configuredMorgan());
+
+app.use(
+	cookieSession({
+		name: "session",
+		keys: ["changeMe"],
+
+		// Cookie Options
+		maxAge: 24 * 60 * 60 * 1000, // 24 hours
+	})
+);
 
 if (config.production) {
 	app.enable("trust proxy");
