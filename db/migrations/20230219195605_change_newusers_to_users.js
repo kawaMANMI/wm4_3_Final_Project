@@ -2,9 +2,9 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-exports.up = async function(knex) {
-    await knex.schema.dropTableIfExists("users");
-    await knex.schema.renameTable("new_users", "users");
+exports.up = async function (knex) {
+	await knex.schema.dropTableIfExists("users");
+	await knex.schema.renameTable("new_users", "users");
 	await knex.schema.alterTable("users", (table) => {
 		table.string("username", 25);
 	});
@@ -14,7 +14,7 @@ exports.up = async function(knex) {
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
-exports.down = async function(knex) {
+exports.down = async function (knex) {
 	await knex.schema.alterTable("users", (table) => {
 		table.dropColumn("username");
 	});
