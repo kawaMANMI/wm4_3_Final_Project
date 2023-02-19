@@ -4,6 +4,8 @@
  */
 exports.seed = async function (knex) {
 	// Deletes ALL existing entries
+	await knex("user_learning_obj").del();
+	await knex("users").del();
 	await knex("region").del();
 	await knex("region").insert([
 		{ id: 1, name: "West Midlands" },
