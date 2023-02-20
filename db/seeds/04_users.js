@@ -6,10 +6,10 @@ const bcrypt = require("bcrypt");
 exports.seed = async function (knex) {
 	// Deletes ALL existing entries
 	await knex("user_learning_obj").del();
-	await knex("new_users").del();
+	await knex("users").del();
 	const password = "123";
 	const hashedPassword = await bcrypt.hash(password, 10);
-	await knex("new_users").insert([
+	await knex("users").insert([
 		{
 			id: 1,
 			name: "Doe",
@@ -18,6 +18,7 @@ exports.seed = async function (knex) {
 			password: hashedPassword,
 			region_id: 3,
 			class_code: "LDN5",
+			username: "doe3",
 			//paswword 123
 		},
 		{
@@ -28,6 +29,7 @@ exports.seed = async function (knex) {
 			password: hashedPassword,
 			region_id: 2,
 			class_code: "NW5",
+			username: "ali2",
 		},
 		{
 			id: 3,
@@ -37,6 +39,7 @@ exports.seed = async function (knex) {
 			password: "ashah",
 			region_id: 3,
 			class_code: "WM5",
+			username: "bob3",
 		},
 		{
 			id: 4,
@@ -46,6 +49,7 @@ exports.seed = async function (knex) {
 			password: "ashah",
 			region_id: 3,
 			class_code: "WM5",
+			username: "mark3",
 		},
 		{
 			id: 5,
@@ -55,6 +59,7 @@ exports.seed = async function (knex) {
 			password: "ashah",
 			region_id: 4,
 			class_code: "ND3",
+			username: "jon4",
 		},
 		{
 			id: 6,
@@ -64,6 +69,7 @@ exports.seed = async function (knex) {
 			password: "alaba",
 			region_id: 4,
 			class_code: "ND3",
+			username: "justin4",
 		},
 		{
 			id: 7,
@@ -73,6 +79,7 @@ exports.seed = async function (knex) {
 			password: "milk",
 			region_id: 4,
 			class_code: "ND3",
+			username: "elizabeth4",
 		},
 		{
 			id: 8,
@@ -82,6 +89,7 @@ exports.seed = async function (knex) {
 			password: "wolf",
 			region_id: 4,
 			class_code: "ND3",
+			username: "mariam4",
 		},
 		{
 			id: 9,
@@ -91,6 +99,7 @@ exports.seed = async function (knex) {
 			password: "cat",
 			region_id: 4,
 			class_code: "ND3",
+			username: "chris4",
 		},
 		{
 			id: 10,
@@ -100,6 +109,7 @@ exports.seed = async function (knex) {
 			password: "kitty",
 			region_id: 4,
 			class_code: "ND3",
+			username: "joana4",
 		},
 	]);
 };
