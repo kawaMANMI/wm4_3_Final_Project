@@ -64,6 +64,21 @@ router.put("/learning_objectives/:id", (req, res) => {
 			res.status(500).json({ error: err });
 		});
 });
+//delete a specific learning_obj
+router.delete("/learning_objectives/:id", (req, res) => {
+	const skill_id = req.params.id;
+	db.query(`DELETE FROM learning_objectives WHERE id = ${skill_id} CASCADE`)
+		.then((result) => {
+			if (result.affectedRows > 0) {
+				res
+					.status(200)
+					.json({ message: "Learning objective deleted successfully" });
+			} else {
+				res.status(404).json({ message: "Learning objective not found" });
+			}
+		})
+		.catch((error) => res.status(500).json({ error: error.message }));
+});
 
 
 // login endpoint
