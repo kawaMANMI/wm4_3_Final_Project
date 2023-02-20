@@ -13,7 +13,10 @@ const App = () => (
 			<Route path="/" element={<Home />} />
 			<Route path="/about/this/site" element={<About />} />
 			<Route path="/mentor" element={<Mentor />} />
-			<Route path="/student" element={<Student userId={sessionStorage.getItem("userId")} />} />
+			<Route
+				path="/student"
+				element={<Student userId={sessionStorage.getItem("userId")} />}
+			/>
 		</Routes>
 		<Footer />
 	</div>

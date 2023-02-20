@@ -77,11 +77,13 @@ router.get("/checklist", (req, res) => {
 router.post("/scores", async (req, res) => {
 	const { userID, selectedScores } = req.body;
 
-	const learningObjScores = Object.entries(selectedScores).map(([objectiveId, score]) => ({
-		user_id: userID,
-		lo_id: Number(objectiveId),
-		score: score,
-	}));
+	const learningObjScores = Object.entries(selectedScores).map(
+		([objectiveId, score]) => ({
+			user_id: userID,
+			lo_id: Number(objectiveId),
+			score: score,
+		})
+	);
 	try {
 		learningObjScores.map((obj) =>
 			db.query(
@@ -96,5 +98,5 @@ router.post("/scores", async (req, res) => {
 	} catch (error) {
 		res.status(500).json({ error: "Failed to save scores" });
 	}
-	});
+});
 export default router;
