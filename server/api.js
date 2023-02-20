@@ -19,6 +19,18 @@ router.get("/students", (_, res) => {
 			res.status(500).json(err);
 		});
 });
+router.get("/skills", (req, res) => {
+	db.query(
+		`SELECT s.id AS skill_id, s.skill_name, array_agg(json_build_object('objective_id', lo.id,'objective', lo.objective)) AS objectives
+		 FROM skills AS s
+		 INNER JOIN learning_objectives AS lo
+		 ON s.id = lo.skill_id
+		 GROUP BY s.id, s.skill_name
+		 ORDER BY s.id`
+	)
+		.then((result) => res.json(result.rows))
+		.catch((error) => res.status(500).json({ error: error.message }));
+});
 
 // login endpoint
 router.post("/login", async (req, res) => {
@@ -55,7 +67,7 @@ router.get("/checklist", (req, res) => {
 		 GROUP BY s.id, s.skill_name
 		 ORDER BY s.id;`
 	)
-		.then((result) => res.json(result.rows))
+		.then((result) => res.json(result))
 		.catch((error) => res.status(500).json({ error: error.message }));
 });
 export default router;
