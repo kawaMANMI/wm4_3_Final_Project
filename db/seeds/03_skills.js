@@ -4,6 +4,7 @@
  */
 exports.seed = async function (knex) {
 	// Deletes ALL existing entries
+	await knex("learning_objectives").del();
 	await knex("skills").del();
 	await knex("skills").insert([
 		{ id: 1, skill_name: "HTML/CSS" },

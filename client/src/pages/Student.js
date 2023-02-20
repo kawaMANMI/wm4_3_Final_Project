@@ -30,7 +30,7 @@ function Student() {
 	}, []);
 
 	return (
-		<Container style={{ marginTop: "50px", marginBottom: "50px" }}>
+		<Container style={{ marginTop: "50px", marginBottom: "200px" }}>
 			<Row style={{ color: "#DC143C" }}>
 				<Row as="h1" style={{ justifyContent: "center" }}>
 					CodeYourFuture

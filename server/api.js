@@ -12,7 +12,7 @@ router.get("/", (_, res) => {
 //get students list
 router.get("/students", (_, res) => {
 	db.query(
-		"SELECT  new_users.id,new_users.name,new_users.class_code, user_learning_obj.score FROM new_users INNER JOIN user_learning_obj ON new_users.id = user_learning_obj.user_id"
+		"SELECT  users.id, users.name, users.class_code, user_learning_obj.score FROM users INNER JOIN user_learning_obj ON users.id = user_learning_obj.user_id"
 	)
 		.then((result) => res.json(result.rows))
 		.catch((err) => {
@@ -80,11 +80,23 @@ router.delete("/learning_objectives/:id", (req, res) => {
 		.catch((error) => res.status(500).json({ error: error.message }));
 });
 
+// Cookie
+// router.get("/testCookie", async (req, res) => {
+// 	const userId = req.session.userId;
+// 	const role = req.session.role;
+// 	if(role !== "Mentor"){
+// 		res.status(403).json({ "msg": "Forbidden!" });
+// 		return;
+// 	}
+// 	res.json({ "userId": userId, "role": role, "msg": "Hello Cookie" });
+// 	return;
+// });
+
 // login endpoint
 router.post("/login", async (req, res) => {
 	const { username, password } = req.body;
 	try {
-		const result = await db.query("SELECT * FROM new_users WHERE name=$1", [
+		const result = await db.query("SELECT * FROM users WHERE name=$1", [
 			username,
 		]);
 		const user = result.rows[0];
@@ -94,6 +106,8 @@ router.post("/login", async (req, res) => {
 		}
 		const match = await bcrypt.compare(password, user.password);
 		if (match) {
+			req.session.userId = user.id;
+			req.session.role = user.role;
 			res.json({ id: user.id, name: user.name, role: user.role });
 			return;
 		} else {
