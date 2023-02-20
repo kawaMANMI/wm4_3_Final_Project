@@ -31,6 +31,27 @@ router.get("/skills", (req, res) => {
 		.then((result) => res.json(result.rows))
 		.catch((error) => res.status(500).json({ error: error.message }));
 });
+router.get("/skills", (req, res) => {
+	db.query(
+		`SELECT s.id AS skill_id, s.skill_name, array_agg(json_build_object('objective_id', lo.id,'objective', lo.objective)) AS objectives
+		 FROM skills AS s
+		 INNER JOIN learning_objectives AS lo
+		 ON s.id = lo.skill_id
+		 GROUP BY s.id, s.skill_name
+		 ORDER BY s.id`
+	)
+		.then((result) => res.json(result.rows))
+		.catch((error) => res.status(500).json({ error: error.message }));
+});
+
+//get a specific learning_obj
+router.get("/learning_objectives/:id", (req, res) => {
+	const skill_id = req.params.id;
+	db.query(`SELECT objective FROM learning_objectives WHERE id = ${skill_id}`)
+		.then((result) => res.json(result))
+		.catch((error) => res.status(500).json({ error: error.message }));
+});
+
 
 // login endpoint
 router.post("/login", async (req, res) => {
