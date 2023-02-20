@@ -5,6 +5,7 @@ import About from "./pages/About";
 import Home from "./pages/Home";
 import Mentor from "./pages/Mentor";
 import Student from "./pages/Student";
+import LearningObjective from "./pages/LearningObjective";
 
 const App = () => (
 	<div>
@@ -14,6 +15,7 @@ const App = () => (
 			<Route path="/about/this/site" element={<About />} />
 			<Route path="/mentor" element={<Mentor />} />
 			<Route path="/student" element={<Student />} />
+			<Route path="skills" element={<LearningObjective />} />
 		</Routes>
 		<Footer />
 	</div>
