@@ -51,6 +51,19 @@ router.get("/learning_objectives/:id", (req, res) => {
 		.then((result) => res.json(result))
 		.catch((error) => res.status(500).json({ error: error.message }));
 });
+//update a learning_objective
+router.put("/learning_objectives/:id", (req, res) => {
+	const skill_id = req.params.id;
+	const { objective } = req.body;
+	db.query(
+		`UPDATE learning_objectives SET objective = $1 WHERE id = ${skill_id}`,
+		[objective]
+	)
+		.then(() => res.send(`Objective ${skill_id} updated!`))
+		.catch((err) => {
+			res.status(500).json({ error: err });
+		});
+});
 
 
 // login endpoint
