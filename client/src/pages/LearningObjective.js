@@ -32,12 +32,7 @@ function LearningObjective() {
 
 	return (
 		<Container fluid>
-			<Table
-				bordered
-				hover
-				size="sm"
-				responsive="md"
-			>
+			<Table bordered hover size="sm" responsive="md">
 				<thead style={{ color: "#DC143C" }}>
 					<tr>
 						<th>#</th>

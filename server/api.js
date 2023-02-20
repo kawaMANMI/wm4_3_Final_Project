@@ -46,40 +46,39 @@ router.get("/skills", (req, res) => {
 
 //get a specific learning_obj
 router.get("/learning_objectives/:id", (req, res) => {
-	const skill_id = req.params.id;
-	db.query(`SELECT objective FROM learning_objectives WHERE id = ${skill_id}`)
+	const id = parseInt(req.params.id);
+	if (isNaN(id)) {
+		return res.status(400).json({ error: "Invalid id" });
+	}
+	db.query(`SELECT objective FROM learning_objectives WHERE id = ${id}`)
 		.then((result) => res.json(result))
 		.catch((error) => res.status(500).json({ error: error.message }));
 });
 //update a learning_objective
 router.put("/learning_objectives/:id", (req, res) => {
-	const skill_id = req.params.id;
+	const id = parseInt(req.params.id);
+	if (isNaN(id)) {
+		return res.status(400).json({ error: "Invalid id" });
+	}
 	const { objective } = req.body;
-	db.query(
-		`UPDATE learning_objectives SET objective = $1 WHERE id = ${skill_id}`,
-		[objective]
-	)
-		.then(() => res.send(`Objective ${skill_id} updated!`))
+	db.query(`UPDATE learning_objectives SET objective = $1 WHERE id = ${id}`, [
+		objective,
+	])
+		.then(() => res.send(`Objective ${id} updated!`))
 		.catch((err) => {
 			res.status(500).json({ error: err });
 		});
 });
 //delete a specific learning_obj
 router.delete("/learning_objectives/:id", (req, res) => {
-	const skill_id = req.params.id;
-	db.query(`DELETE FROM learning_objectives WHERE id = ${skill_id} CASCADE`)
-		.then((result) => {
-			if (result.affectedRows > 0) {
-				res
-					.status(200)
-					.json({ message: "Learning objective deleted successfully" });
-			} else {
-				res.status(404).json({ message: "Learning objective not found" });
-			}
-		})
+	const id = parseInt(req.params.id);
+	if (isNaN(id)) {
+		return res.status(400).json({ error: "Invalid id" });
+	}
+	db.query(`DELETE FROM learning_objectives WHERE id = ${id}`)
+		.then(() => res.json("Objective was deleted successfully"))
 		.catch((error) => res.status(500).json({ error: error.message }));
 });
-
 
 // login endpoint
 router.post("/login", async (req, res) => {
