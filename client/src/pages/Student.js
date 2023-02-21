@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Button } from "react-bootstrap";
 import Skills from "./Skills";
 import axios from "axios";
+import UserScores from "./UserScores";
 
 function Student({ userId }) {
 	const [skills, setSkills] = useState([]);
@@ -81,13 +82,14 @@ function Student({ userId }) {
 			<div className="d-flex justify-content-center">
 				<Button
 					variant="danger"
-					style={{ marginTop: "50px", marginBottom: "200px" }}
+					style={{ marginTop: "50px" }}
 					className="mx-auto"
 					onClick={saveSelectedScores}
 				>
 					Save & Submit
 				</Button>
 			</div>
+			<UserScores userId={userId} />
 		</Container>
 	);
 }
