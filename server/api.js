@@ -1,7 +1,7 @@
 import { Router } from "express";
 import logger from "./utils/logger";
 import db from "./db";
-import bcrypt from "bcryptjs-react";
+const bcrypt = require("bcrypt");
 
 const router = Router();
 
@@ -126,6 +126,63 @@ router.post("/login", async (req, res) => {
 	}
 });
 
+const classes = [
+	{ 1: ["WM1", "WM2", "WM3"] },
+	{ 2: ["NW1", "NW2", "NW3"] },
+	{ 3: ["LON1", "LON2", "LON3"] },
+	{ 4: ["CT1", "CT2", "CT3"] },
+];
+
+router.get("/regions-and-classes", async (req, res) => {
+	try {
+		const result = await db.query("SELECT name FROM region");
+		const regions = result.rows.map((row) => row.name);
+		res.json({ regions, classes });
+	} catch (error) {
+		logger.error("Error getting region names:", error);
+		res.status(500).send("Error getting region names");
+	}
+});
+
+router.post("/signup", async (req, res) => {
+	const { name, email, roleValue, password, regionId, classValue, username } =
+		req.body;
+	const hashedPassword = await bcrypt.hash(password, 10);
+
+	try {
+		// Check if the email or username is already registered
+		const existingUser = await db.query(
+			"SELECT * FROM users WHERE email = $1 OR username = $2",
+			[email, username]
+		);
+
+		if (existingUser.rowCount > 0) {
+			return res.status(200).send("Email or username is already exist");
+		}
+		const resultid = await db.query("SELECT MAX(id) FROM users");
+		const maxId = resultid.rows[0].max;
+		const result = await db.query(
+			"INSERT INTO users (id, name, email, role, password, region_id, class_code, username) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id",
+			[
+				maxId + 1,
+				name,
+				email,
+				roleValue,
+				hashedPassword,
+				regionId,
+				classValue,
+				username,
+			]
+		);
+
+		res.status(200).send(`User ${result.rows[0].id} created successfully`);
+		return;
+	} catch (err) {
+		logger.error(err);
+		res.status(500).send("Something went wrong");
+	}
+});
+
 //Get the all skills and learning objectives
 router.get("/checklist", (req, res) => {
 	db.query(
@@ -135,6 +192,57 @@ router.get("/checklist", (req, res) => {
 		 ON s.id = lo.skill_id
 		 GROUP BY s.id, s.skill_name
 		 ORDER BY s.id;`
+	)
+		.then((result) => res.json(result.rows))
+		.catch((error) => res.status(500).json({ error: error.message }));
+});
+
+// Save the user selected score for each objective
+router.post("/scores", async (req, res) => {
+	const { userID, selectedScores } = req.body;
+
+	const learningObjScores = Object.entries(selectedScores).map(
+		([objectiveId, score]) => ({
+			user_id: userID,
+			lo_id: Number(objectiveId),
+			score: score,
+		})
+	);
+	try {
+		learningObjScores.map((obj) =>
+			db.query(
+				"INSERT INTO user_learning_obj (user_id, lo_id, score) VALUES ($1, $2, $3)",
+				[obj.user_id, obj.lo_id, obj.score]
+			)
+		);
+
+		res.status(200).json({
+			message: "Scores saved successfully.",
+		});
+	} catch (error) {
+		res.status(500).json({ error: "Failed to save scores" });
+	}
+});
+
+//Get recent scores for user id
+router.get("/recent-scores/:id", (req, res) => {
+	let userID = parseInt(req.params.id);
+	db.query(
+		`SELECT s.skill_name, ROUND(AVG(ulo.score)) AS average_score
+		FROM (
+  			SELECT lo.skill_id, ulo.*
+  			FROM user_learning_obj as ulo
+  			JOIN (
+    			SELECT lo_id, MAX(submitted_at) AS recent_submitted_at
+    			FROM user_learning_obj
+    			WHERE user_id = ${userID}
+    			GROUP BY lo_id
+  			) as recent_ulo ON ulo.lo_id = recent_ulo.lo_id AND ulo.submitted_at = recent_ulo.recent_submitted_at
+  			JOIN learning_objectives as lo ON ulo.lo_id = lo.id
+		) as ulo
+		JOIN skills as s ON ulo.skill_id = s.id
+		GROUP BY s.skill_name
+		ORDER BY s.skill_name;`
 	)
 		.then((result) => res.json(result.rows))
 		.catch((error) => res.status(500).json({ error: error.message }));
