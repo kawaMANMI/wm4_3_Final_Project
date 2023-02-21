@@ -13,6 +13,7 @@ function SignupForm(props) {
 	const [classes, setClasses] = useState([]);
 	const [allClasses, setAllClasses] = useState([]);
 	const [classValue, setClassValue] = useState("");
+	const [regionId, setRegionId] = useState(0);
 
 
 	useEffect(() => {
@@ -48,7 +49,7 @@ function SignupForm(props) {
 	const handleRegionChange = ({ value, index }) => {
 		setRegionValue(value);
 		setClasses(allClasses[index-1][index]);
-
+		setRegionId(index);
 	};
 
 	const handleClassChange = (event) => {
@@ -65,12 +66,13 @@ function SignupForm(props) {
 		try {
 			await axios
 				.post("/api/signup", {
-					username,
 					name,
 					email,
 					roleValue,
-					regionValue,
 					password,
+					regionId,
+					classValue,
+					username,
 				})
 				.then((response) => {
 					responseData = response.data;

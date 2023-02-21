@@ -1,7 +1,7 @@
 import { Router } from "express";
 import logger from "./utils/logger";
 import db from "./db";
-import bcrypt from "bcryptjs-react";
+const bcrypt = require("bcrypt");
 
 const router = Router();
 
@@ -59,8 +59,12 @@ router.post("/login", async (req, res) => {
 	}
 });
 
-const classes=[{ "1": ["WM1", "WM2", "WM3"] },
-{ "2":  ["NW1", "NW2", "NW3"]  }, { "3": ["LON1", "LON2", "LON3"] }, { "4": ["CT1", "CT2", "CT3"] }];
+const classes = [
+	{ 1: ["WM1", "WM2", "WM3"] },
+	{ 2: ["NW1", "NW2", "NW3"] },
+	{ 3: ["LON1", "LON2", "LON3"] },
+	{ 4: ["CT1", "CT2", "CT3"] },
+];
 
 router.get("/regions-and-classes", async (req, res) => {
 	try {
@@ -70,6 +74,36 @@ router.get("/regions-and-classes", async (req, res) => {
 	} catch (error) {
 		logger.error("Error getting region names:", error);
 		res.status(500).send("Error getting region names");
+	}
+});
+
+router.post("/signup", async (req, res) => {
+	const { name, email, roleValue, password, regionId, classValue, username } =
+		req.body;
+	const hashedPassword = await bcrypt.hash(password, 10);
+	logger.debug(typeof regionId);
+
+	try {
+		const resultid = await db.query("SELECT MAX(id) FROM users");
+		const maxId = resultid.rows[0].max;
+		const result = await db.query(
+			"INSERT INTO users (id, name, email, role, password, region_id, class_code, username) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id",
+			[
+				maxId + 1,
+				name,
+				email,
+				roleValue,
+				hashedPassword,
+				regionId,
+				classValue,
+				username,
+			]
+		);
+
+		res.status(200).send(`User ${result.rows[0].id} created successfully`);
+	} catch (err) {
+		logger.error(err);
+		res.status(500).send("Something went wrong");
 	}
 });
 
