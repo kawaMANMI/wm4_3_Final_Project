@@ -28,7 +28,6 @@ function Student() {
 				console.error({ error: error.message });
 			});
 	}, []);
-
 	return (
 		<Container style={{ marginTop: "50px", marginBottom: "200px" }}>
 			<Row style={{ color: "#DC143C" }}>

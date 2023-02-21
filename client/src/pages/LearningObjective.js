@@ -23,6 +23,16 @@ function LearningObjective() {
 			});
 	}, []);
 
+	const deleteObjective = (id) => {
+		fetch(`api/learning_objectives/${id}`, {
+			method: "DELETE",
+			headers: {
+				"Content-Type": "application/json",
+			},
+		}).then((data) => {
+			setLearningObjective(data);
+		});
+	};
 	const buttonStyle = {
 		display: "flex",
 		alignItems: "center",
@@ -38,7 +48,6 @@ function LearningObjective() {
 						<th>#</th>
 						<th>SKILLS</th>
 						<th>LEARNING OBJECTIVES</th>
-						{/* <th style={{ width: "15%" }}>ACTIONS</th> */}
 					</tr>
 				</thead>
 				<tbody>
@@ -48,14 +57,24 @@ function LearningObjective() {
 							<td>{skill.skill_name}</td>
 							<td>
 								{skill.objectives.map((obj) => (
-									<div key={obj.objective_id}>
+									<div
+										key={obj.objective_id}
+										style={{
+											display: "flex",
+											justifyContent: "space-between",
+											margin: "1em",
+										}}
+									>
 										{obj.objective}
 										<div style={buttonStyle}>
-											<button style={{ color: "blue" }}>
-												<FaEdit />
+											<button>
+												<FaEdit
+													style={{ color: "blue" }}
+													onClick={() => console.log("hey")}
+												/>
 											</button>
-											<button style={{ color: "red" }}>
-												<FaTrash />
+											<button onClick={() => deleteObjective(obj.objective_id)}>
+												<FaTrash style={{ color: "red" }} />
 											</button>
 										</div>
 									</div>

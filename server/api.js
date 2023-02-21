@@ -38,36 +38,55 @@ router.get("/learning_objectives/:id", (req, res) => {
 	if (isNaN(id)) {
 		return res.status(400).json({ error: "Invalid id" });
 	}
-	db.query(`SELECT objective FROM learning_objectives WHERE id = ${id}`)
+	db.query("SELECT objective FROM learning_objectives WHERE id = $1", [id])
 		.then((result) => res.json(result))
 		.catch((error) => res.status(500).json({ error: error.message }));
 });
 //update a learning_objective
-router.put("/learning_objectives/:id", (req, res) => {
+router.put("/learning_objectives/:id", async (req, res) => {
 	const id = parseInt(req.params.id);
-	if (isNaN(id)) {
-		return res.status(400).json({ error: "Invalid id" });
-	}
 	const { objective } = req.body;
-	db.query(`UPDATE learning_objectives SET objective = $1 WHERE id = ${id}`, [
-		objective,
-	])
-		.then(() => res.send(`Objective ${id} updated!`))
-		.catch((err) => {
-			res.status(500).json({ error: err });
-		});
-});
-//delete a specific learning_obj
-router.delete("/learning_objectives/:id", (req, res) => {
-	const id = parseInt(req.params.id);
 	if (isNaN(id)) {
 		return res.status(400).json({ error: "Invalid id" });
 	}
-	db.query(`DELETE FROM learning_objectives WHERE id = ${id}`)
+	try {
+		await db
+			.query(`UPDATE learning_objectives SET objective = $1 WHERE id = ${id}`, [
+				objective,
+			])
+			.then(() => res.send(`Objective ${id} updated!`));
+	} catch (error) {
+		res.status(500).json({ error: error });
+	}
+});
+
+router.delete("/learning_objectives/:id", (req, res) => {
+	const id = req.params.id;
+	if (isNaN(id)) {
+		return res.status(400).json({ error: "Invalid id" });
+	}
+	db.query(
+		`DELETE FROM user_learning_obj WHERE lo_id = ${id}; DELETE FROM learning_objectives WHERE id = ${id};`
+	)
 		.then(() => res.json("Objective was deleted successfully"))
 		.catch((error) => res.status(500).json({ error: error.message }));
 });
 
+//post a specific learning_obj
+router.post("/learning_objectives", async (req, res) => {
+	const { objective } = req.body;
+	if (!objective) {
+		return res.status(400).json({ error: "Objective is required" });
+	}
+	try {
+		await db.query("INSERT INTO learning_objectives(objective) VALUES($1)", [
+			objective,
+		]);
+		res.json("Objective was added successfully");
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+});
 // Cookie
 // router.get("/testCookie", async (req, res) => {
 // 	const userId = req.session.userId;
@@ -117,7 +136,7 @@ router.get("/checklist", (req, res) => {
 		 GROUP BY s.id, s.skill_name
 		 ORDER BY s.id;`
 	)
-		.then((result) => res.json(result))
+		.then((result) => res.json(result.rows))
 		.catch((error) => res.status(500).json({ error: error.message }));
 });
 export default router;
