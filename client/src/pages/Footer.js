@@ -27,7 +27,7 @@ function Footer() {
 			<div className="footer-bottom">
 				<Container>
 					<p>
-						&copy; 2023 &lt; <span className="code">CODE</span>&gt; YOUR FUTURE.
+						&copy; 2023 &lt;<span className="code">CODE</span>&gt; YOUR FUTURE.
 						All Rights Reserved.
 					</p>
 				</Container>

@@ -59,6 +59,20 @@ router.post("/login", async (req, res) => {
 	}
 });
 
+const classes=[{ "1": ["WM1", "WM2", "WM3"] },
+{ "2":  ["NW1", "NW2", "NW3"]  }, { "3": ["LON1", "LON2", "LON3"] }, { "4": ["CT1", "CT2", "CT3"] }];
+
+router.get("/regions-and-classes", async (req, res) => {
+	try {
+		const result = await db.query("SELECT name FROM region");
+		const regions = result.rows.map((row) => row.name);
+		res.json({ regions, classes });
+	} catch (error) {
+		logger.error("Error getting region names:", error);
+		res.status(500).send("Error getting region names");
+	}
+});
+
 //Get the all skills and learning objectives
 router.get("/checklist", (req, res) => {
 	db.query(
