@@ -81,9 +81,17 @@ router.post("/signup", async (req, res) => {
 	const { name, email, roleValue, password, regionId, classValue, username } =
 		req.body;
 	const hashedPassword = await bcrypt.hash(password, 10);
-	logger.debug(typeof regionId);
 
 	try {
+		// Check if the email or username is already registered
+		const existingUser = await db.query(
+			"SELECT * FROM users WHERE email = $1 OR username = $2",
+			[email, username]
+		);
+
+		if (existingUser.rowCount > 0) {
+			return res.status(200).send("Email or username is already exist");
+		}
 		const resultid = await db.query("SELECT MAX(id) FROM users");
 		const maxId = resultid.rows[0].max;
 		const result = await db.query(
@@ -101,6 +109,7 @@ router.post("/signup", async (req, res) => {
 		);
 
 		res.status(200).send(`User ${result.rows[0].id} created successfully`);
+		return;
 	} catch (err) {
 		logger.error(err);
 		res.status(500).send("Something went wrong");
