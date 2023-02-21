@@ -74,10 +74,39 @@ router.get("/checklist", (req, res) => {
 });
 
 // Endpoint for user profile
-router.get("/user-profile/:user", (req, res) => {
+router.get("/user-profile", (req, res) => {
+	// const [userIdent, setUserIdent] = use
+	const user_Id = req.session.userId;
+	// const user_Id = req.params.id;
 	db.query(
-		"SELECT new_users.name, new_users.class_code, region.name FROM new_users INNER JOIN region ON new_users.region_id = region.id;")
-	.then((result) => res.json(result.rows))
-	.catch((error) => res.status(500).json({ "Error": error.message }));
+			"SELECT users.name, users.class_code, region.name AS region FROM users INNER JOIN region ON users.region_id = region.id AND users.id=$1",
+			[user_Id]
+		)
+		.then((result) => res.json(result.rows))
+		.catch((error) => res.status(500).json({ Error: error.message }));
 });
 export default router;
+// router.get("/user-profile", async (req, res) => {
+// 	// const [userIdent, setUserIdent] = use
+// 	const result = await db
+// 		.query(
+// 			"SELECT users.name, users.class_code, region.name AS region FROM users INNER JOIN region ON users.region_id = region.id AND users.name=$1",
+// 			["Ali"]
+// 		)
+// 		.then((result) => res.json(result.rows))
+// 		.catch((error) => res.status(500).json({ Error: error.message }));
+// });
+
+
+// router.get("/checklist", (req, res) => {
+// 	db.query(
+// 		`SELECT s.id AS skill_id, s.skill_name, array_agg(json_build_object('objective_id', lo.id,'objective', lo.objective)) AS objectives
+// 		 FROM skills AS s
+// 		 INNER JOIN learning_objectives AS lo
+// 		 ON s.id = lo.skill_id
+// 		 GROUP BY s.id, s.skill_name
+// 		 ORDER BY s.id;`
+// 	)
+// 		.then((result) => res.json(result.rows))
+// 		.catch((error) => res.status(500).json({ error: error.message }));
+// });
