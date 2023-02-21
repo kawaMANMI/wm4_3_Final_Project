@@ -14,8 +14,15 @@ const App = () => (
 			<Route path="/" element={<Home />} />
 			<Route path="/about/this/site" element={<About />} />
 			<Route path="/mentor" element={<Mentor />} />
+<<<<<<< HEAD
 			<Route path="/student" element={<Student />} />
 			<Route path="/user-profile" element={<UserProfile />} />
+=======
+			<Route
+				path="/student"
+				element={<Student userId={sessionStorage.getItem("userId")} />}
+			/>
+>>>>>>> dev
 		</Routes>
 		<Footer />
 	</div>

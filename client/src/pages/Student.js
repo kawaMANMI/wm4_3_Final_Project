@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row } from "react-bootstrap";
+import { Container, Row, Button } from "react-bootstrap";
 import Skills from "./Skills";
 import axios from "axios";
+import UserScores from "./UserScores";
 
-function Student() {
+function Student({ userId }) {
 	const [skills, setSkills] = useState([]);
 	const [selectedScore, setSelectedScore] = useState({});
 
@@ -29,6 +30,28 @@ function Student() {
 				console.error({ error: error.message });
 			});
 	}, []);
+	//Save the selected scores for user id
+	const saveSelectedScores = async () => {
+		try {
+			await axios
+				.post("/api/scores", {
+					userID: userId,
+					selectedScores: selectedScore,
+				})
+				.then((res) => {
+					if (res.status === 200) {
+						return res.data;
+					}
+					throw new Error("Failed to save the score");
+				})
+				.then((data) => {
+					alert(data.message);
+					setSelectedScore({});
+				});
+		} catch (error) {
+			console.error(error);
+		}
+	};
 
 	return (
 		<Container style={{ marginTop: "50px", marginBottom: "200px" }}>
@@ -57,6 +80,17 @@ function Student() {
 					</Row>
 				))}
 			</Row>
+			<div className="d-flex justify-content-center">
+				<Button
+					variant="danger"
+					style={{ marginTop: "50px" }}
+					className="mx-auto"
+					onClick={saveSelectedScores}
+				>
+					Save & Submit
+				</Button>
+			</div>
+			<UserScores userId={userId} />
 		</Container>
 	);
 }
