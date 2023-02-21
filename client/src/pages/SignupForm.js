@@ -15,7 +15,6 @@ function SignupForm(props) {
 	const [classValue, setClassValue] = useState("");
 	const [regionId, setRegionId] = useState(0);
 
-
 	useEffect(() => {
 		async function fetchRegionsAndClasses() {
 			try {
@@ -48,7 +47,7 @@ function SignupForm(props) {
 
 	const handleRegionChange = ({ value, index }) => {
 		setRegionValue(value);
-		setClasses(allClasses[index-1][index]);
+		setClasses(allClasses[index - 1][index]);
 		setRegionId(index);
 	};
 
@@ -156,7 +155,6 @@ function SignupForm(props) {
 							))}
 						</Form.Select>
 					</Form.Group>
-
 
 					<Form.Group className="mb-3" controlId="formBasicClasses">
 						<Form.Label>Class</Form.Label>
