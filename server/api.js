@@ -99,4 +99,28 @@ router.post("/scores", async (req, res) => {
 		res.status(500).json({ error: "Failed to save scores" });
 	}
 });
+
+//Get recent scores for user id
+router.get("/recent-scores/:id", (req, res) => {
+	let userID = parseInt(req.params.id);
+	db.query(
+		`SELECT s.skill_name, ROUND(AVG(ulo.score)) AS average_score
+		FROM (
+  			SELECT lo.skill_id, ulo.*
+  			FROM user_learning_obj as ulo
+  			JOIN (
+    			SELECT lo_id, MAX(submitted_at) AS recent_submitted_at
+    			FROM user_learning_obj
+    			WHERE user_id = ${userID}
+    			GROUP BY lo_id
+  			) as recent_ulo ON ulo.lo_id = recent_ulo.lo_id AND ulo.submitted_at = recent_ulo.recent_submitted_at
+  			JOIN learning_objectives as lo ON ulo.lo_id = lo.id
+		) as ulo
+		JOIN skills as s ON ulo.skill_id = s.id
+		GROUP BY s.skill_name
+		ORDER BY s.skill_name;`
+	)
+		.then((result) => res.json(result.rows))
+		.catch((error) => res.status(500).json({ error: error.message }));
+});
 export default router;
