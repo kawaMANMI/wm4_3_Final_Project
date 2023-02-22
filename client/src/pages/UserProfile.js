@@ -28,7 +28,7 @@ function UserProfile() {
 				console.log(userData);
 			})
 			.catch((e) => console.log({ error: e.message }));
-	});
+	}, []);
 	return (
 		<div className="profile">
 			<div id="pix-profile">
