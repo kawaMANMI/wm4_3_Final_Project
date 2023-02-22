@@ -79,7 +79,7 @@ router.get("/user-profile", (req, res) => {
 	const user_Id = req.session.userId;
 	// const user_Id = req.params.id;
 	db.query(
-			"SELECT users.name, users.class_code, region.name AS region FROM users INNER JOIN region ON users.region_id = region.id AND users.id=$1",
+			"SELECT users.name, users.username, users.class_code, region.name AS region FROM users INNER JOIN region ON users.region_id = region.id AND users.id=$1",
 			[user_Id]
 		)
 		.then((result) => res.json(result.rows))

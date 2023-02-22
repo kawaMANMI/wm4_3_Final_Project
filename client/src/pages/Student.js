@@ -24,7 +24,6 @@ function Student({ userId }) {
 			})
 			.then((data) => {
 				setSkills(data);
-				console.log(skills);
 			})
 			.catch((error) => {
 				console.error({ error: error.message });

@@ -1,10 +1,17 @@
 // import Table from "react-bootstrap/Table";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./UserProfile.css";
+import { useNavigate } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+import "./UsersProfile.css";
+import UserProfilePix from "./UserProfilePix";
 
 
 function UserProfile() {
+	const navigate = useNavigate();
+	function handleChecklist(){
+		navigate("/student");
+	}
     const [userData, setUserData] = useState([]);
 	// const url = "http://localhost:3100/api/profile/";
     useEffect(() => {
@@ -26,7 +33,17 @@ function UserProfile() {
 		}, []);
 	return (
 		<div className="profile">
-			<div id="pix-profile"></div>
+			<div id="pix-profile">
+				<UserProfilePix id={`${userData["name"]}${userData["class_code"]}`} />
+				<h3>{userData["name"]}</h3>
+				<p>{userData["username"]}</p>
+				<p>Current Score:</p>
+				<p>Previous Score:</p>
+				<Button className="btn btn-light" onClick={handleChecklist}>
+					My Skill Checklist
+				</Button>
+				{/* <Button type="button" onClick={handleChecklist}>My Checklist</input> */}
+			</div>
 			<div id="profile-info">
 				<h2>User Profile</h2>
 				<p>
@@ -34,7 +51,8 @@ function UserProfile() {
 					{userData["name"]}
 				</p>
 				<p>
-					<b>Username: </b>Adeyemo
+					<b>Username: </b>
+					{userData["username"]}
 				</p>
 				<p>
 					<b>Class: </b>

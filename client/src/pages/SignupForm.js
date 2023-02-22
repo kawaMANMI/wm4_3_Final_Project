@@ -97,7 +97,7 @@ function SignupForm(props) {
 						<Form.Label>Username</Form.Label>
 						<Form.Control
 							type="text"
-							placeholder="---Enter Name---"
+							placeholder="Enter Name"
 							value={username}
 							onChange={handleUserNameChange}
 							required
