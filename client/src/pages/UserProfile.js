@@ -25,7 +25,6 @@ function UserProfile() {
 			})
 			.then((data) => {
 				setUserData(data[0]);
-				console.log(userData);
 			})
 			.catch((e) => console.log({ error: e.message }));
 	}, []);
