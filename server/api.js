@@ -1,7 +1,8 @@
 import { Router } from "express";
 import logger from "./utils/logger";
 import db from "./db";
-import bcrypt from "bcryptjs-react";
+const bcrypt = require("bcrypt");
+const nodemailer = require("nodemailer");
 
 const router = Router();
 
@@ -12,7 +13,9 @@ router.get("/", (_, res) => {
 //get students list
 router.get("/students", (_, res) => {
 	db.query(
-		"SELECT  users.id, users.name, users.class_code, user_learning_obj.score FROM users INNER JOIN user_learning_obj ON users.id = user_learning_obj.user_id"
+		"SELECT  users.id, users.name, users.class_code FROM users INNER JOIN user_learning_obj ON users.id = user_learning_obj.user_id"
+
+		// "SELECT  users.id, users.name, users.class_code, user_learning_obj.score FROM users INNER JOIN user_learning_obj ON users.id = user_learning_obj.user_id"
 	)
 		.then((result) => res.json(result.rows))
 		.catch((err) => {
@@ -124,6 +127,92 @@ router.post("/login", async (req, res) => {
 		logger.error(err);
 		res.status(500).json({ error: "Server error" });
 	}
+});
+
+const classes = [
+	{ 1: ["WM4"] },
+	{ 2: ["NW3"] },
+	{ 3: ["LON9"] },
+	{ 4: ["CT2"] },
+];
+
+router.get("/regions-and-classes", async (req, res) => {
+	try {
+		const result = await db.query("SELECT name FROM region");
+		const regions = result.rows.map((row) => row.name);
+		res.json({ regions, classes });
+	} catch (error) {
+		logger.error("Error getting region names:", error);
+		res.status(500).send("Error getting region names");
+	}
+});
+
+router.post("/signup", async (req, res) => {
+	const { name, email, roleValue, password, regionId, classValue, username } =
+		req.body;
+	const hashedPassword = await bcrypt.hash(password, 10);
+
+	try {
+		// Check if the email or username is already registered
+		const existingUser = await db.query(
+			"SELECT * FROM users WHERE email = $1 OR username = $2",
+			[email, username]
+		);
+
+		if (existingUser.rowCount > 0) {
+			return res.status(200).send("Email or username is already exist");
+		}
+		const resultid = await db.query("SELECT MAX(id) FROM users");
+		const maxId = resultid.rows[0].max;
+		const result = await db.query(
+			"INSERT INTO users (id, name, email, role, password, region_id, class_code, username) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id",
+			[
+				maxId + 1,
+				name,
+				email,
+				roleValue,
+				hashedPassword,
+				regionId,
+				classValue,
+				username,
+			]
+		);
+
+		res.status(200).send(`User ${result.rows[0].id} created successfully`);
+		return;
+	} catch (err) {
+		logger.error(err);
+		res.status(500).send("Something went wrong");
+	}
+});
+
+router.post("/forgot-password", async (req, res) => {
+	const { email } = req.body;
+	// Send a password reset email to the user's email address
+	const transporter = nodemailer.createTransport({
+		service: "gmail",
+		auth: {
+			user: "your-email@gmail.com",
+			pass: "your-email-password",
+		},
+	});
+
+	const mailOptions = {
+		from: "your-email@gmail.com",
+		to: email,
+		subject: "Password Reset Request",
+		text: "You have requested to reset your password. Please use this token to reset your password: resetToken",
+	};
+
+	transporter.sendMail(mailOptions, (error, info) => {
+		if (error) {
+			logger.debug(error);
+			res.status(500).send("Error sending email");
+		} else {
+			logger.debug("Email sent: " + info.response);
+			res.status(200).send("Password reset email sent");
+		}
+	});
 });
 
 //Get the all skills and learning objectives
