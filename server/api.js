@@ -11,9 +11,11 @@ router.get("/", (_, res) => {
 //get students list
 router.get("/students", (_, res) => {
 	db.query(
-		"SELECT  users.id, users.name, users.class_code FROM users INNER JOIN user_learning_obj ON users.id = user_learning_obj.user_id"
-
-		// "SELECT  users.id, users.name, users.class_code, user_learning_obj.score FROM users INNER JOIN user_learning_obj ON users.id = user_learning_obj.user_id"
+		`SELECT users.id, users.name, users.class_code, SUM(user_learning_obj.score) AS total_score
+FROM users
+INNER JOIN user_learning_obj ON users.id = user_learning_obj.user_id
+GROUP BY users.id, users.name, users.class_code
+`
 	)
 		.then((result) => res.json(result.rows))
 		.catch((err) => {
@@ -43,7 +45,7 @@ router.get("/learning_objectives/:id", (req, res) => {
 		.then((result) => res.json(result))
 		.catch((error) => res.status(500).json({ error: error.message }));
 });
-//update a learning_objective
+//add a learning_objective
 router.put("/learning_objectives/:id", async (req, res) => {
 	const id = parseInt(req.params.id);
 	const { objective } = req.body;
@@ -60,7 +62,22 @@ router.put("/learning_objectives/:id", async (req, res) => {
 		res.status(500).json({ error: error });
 	}
 });
-
+//update learning-obj
+router.patch("/learning_objectives/:id", async (req, res) => {
+	const { id } = req.params;
+	const { objective } = req.body;
+	if (!objective || !id) {
+		return res.status(400).json({ error: "Objective  is required" });
+	}
+	try {
+		await db.query(
+			"UPDATE learning_objectives SET objective = $1 WHERE id = $2",
+			[objective, id]
+		);
+	} catch (error) {
+		res.status(500).json({ error: error.message });
+	}
+});
 router.delete("/learning_objectives/:id", (req, res) => {
 	const id = req.params.id;
 	if (isNaN(id)) {
