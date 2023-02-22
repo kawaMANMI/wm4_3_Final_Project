@@ -2,9 +2,8 @@ import { Router } from "express";
 import logger from "./utils/logger";
 import db from "./db";
 const bcrypt = require("bcrypt");
-
+const nodemailer = require("nodemailer");
 const router = Router();
-
 router.get("/", (_, res) => {
 	logger.debug("Welcoming everyone...");
 	res.json({ message: "Hello, world!" });
@@ -12,7 +11,9 @@ router.get("/", (_, res) => {
 //get students list
 router.get("/students", (_, res) => {
 	db.query(
-		"SELECT  users.id, users.name, users.class_code, user_learning_obj.score FROM users INNER JOIN user_learning_obj ON users.id = user_learning_obj.user_id"
+		"SELECT  users.id, users.name, users.class_code FROM users INNER JOIN user_learning_obj ON users.id = user_learning_obj.user_id"
+
+		// "SELECT  users.id, users.name, users.class_code, user_learning_obj.score FROM users INNER JOIN user_learning_obj ON users.id = user_learning_obj.user_id"
 	)
 		.then((result) => res.json(result.rows))
 		.catch((err) => {
@@ -127,10 +128,10 @@ router.post("/login", async (req, res) => {
 });
 
 const classes = [
-	{ 1: ["WM1", "WM2", "WM3"] },
-	{ 2: ["NW1", "NW2", "NW3"] },
-	{ 3: ["LON1", "LON2", "LON3"] },
-	{ 4: ["CT1", "CT2", "CT3"] },
+	{ 1: ["WM4"] },
+	{ 2: ["NW3"] },
+	{ 3: ["LON9"] },
+	{ 4: ["CT2"] },
 ];
 
 router.get("/regions-and-classes", async (req, res) => {
@@ -181,6 +182,35 @@ router.post("/signup", async (req, res) => {
 		logger.error(err);
 		res.status(500).send("Something went wrong");
 	}
+});
+
+router.post("/forgot-password", async (req, res) => {
+	const { email } = req.body;
+	// Send a password reset email to the user's email address
+	const transporter = nodemailer.createTransport({
+		service: "gmail",
+		auth: {
+			user: "your-email@gmail.com",
+			pass: "your-email-password",
+		},
+	});
+
+	const mailOptions = {
+		from: "your-email@gmail.com",
+		to: email,
+		subject: "Password Reset Request",
+		text: "You have requested to reset your password. Please use this token to reset your password: resetToken",
+	};
+
+	transporter.sendMail(mailOptions, (error, info) => {
+		if (error) {
+			logger.debug(error);
+			res.status(500).send("Error sending email");
+		} else {
+			logger.debug("Email sent: " + info.response);
+			res.status(200).send("Password reset email sent");
+		}
+	});
 });
 
 //Get the all skills and learning objectives
