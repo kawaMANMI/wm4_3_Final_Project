@@ -48,19 +48,27 @@ function UserProfile() {
 			<div id="profile-info">
 				<h2>User Profile</h2>
 				<p>
-					<span><b>Name: </b></span>
-						{userData["name"]}
+					<span>
+						<b>Name: </b>
+					</span>
+					{userData["name"]}
 				</p>
 				<p>
-					<span><b>Username: </b></span>
+					<span>
+						<b>Username: </b>
+					</span>
 					{userData["username"]}
 				</p>
 				<p>
-					<span><b>Class: </b></span>
-						{userData["class_code"]}
+					<span>
+						<b>Class: </b>
+					</span>
+					{userData["class_code"]}
 				</p>
 				<p>
-					<span><b>Region: </b></span>
+					<span>
+						<b>Region: </b>
+					</span>
 					{userData["region"]}
 				</p>
 			</div>
