@@ -2,7 +2,9 @@ import React from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import "./Header.css"; // Import the Header.css file with the additional styles
 import logo from "./logo_cyf.png";
+
 function Header() {
+	const name = sessionStorage.getItem("name");
 	return (
 		<div className="header-container">
 			{" "}
@@ -19,7 +21,7 @@ function Header() {
 					<Nav className="ml-auto">
 						<Nav.Link href="/">Home</Nav.Link>
 						<Nav.Link href="/about">About</Nav.Link>
-						<Nav.Link href="/services">Services</Nav.Link>
+						<Nav.Link href="/services">{name}</Nav.Link>
 						<Nav.Link href="/contact">Contact</Nav.Link>
 					</Nav>
 				</Navbar.Collapse>

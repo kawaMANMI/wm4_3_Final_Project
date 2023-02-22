@@ -277,4 +277,17 @@ router.get("/recent-scores/:id", (req, res) => {
 		.then((result) => res.json(result.rows))
 		.catch((error) => res.status(500).json({ error: error.message }));
 });
+
+// Endpoint for user profile
+router.get("/user-profile", (req, res) => {
+	// const [userIdent, setUserIdent] = use
+	const user_Id = req.session.userId;
+	// const user_Id = req.params.id;
+	db.query(
+		"SELECT users.name, users.username, users.class_code, region.name AS region FROM users INNER JOIN region ON users.region_id = region.id AND users.id=$1",
+		[user_Id]
+	)
+		.then((result) => res.json(result.rows))
+		.catch((error) => res.status(500).json({ Error: error.message }));
+});
 export default router;
