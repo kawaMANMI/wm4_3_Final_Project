@@ -6,60 +6,61 @@ import Button from "react-bootstrap/Button";
 import "./UsersProfile.css";
 import UserProfilePix from "./UserProfilePix";
 
-
 function UserProfile() {
 	const navigate = useNavigate();
-	function handleChecklist(){
+	function handleChecklist() {
 		navigate("/student");
 	}
-    const [userData, setUserData] = useState([]);
+	const [userData, setUserData] = useState([]);
 	// const url = "http://localhost:3100/api/profile/";
-    useEffect(() => {
-			axios
-				.get("/api/user-profile")
-				.then((response) => {
-					if(response.status === 200){
-						return response.data;
-					} else {
-						throw new Error("Something is wrong");
-					}
-				})
-				.then((data) => {
-					setUserData(data[0]);
-					console.log(userData);
-					console.log("I am here");
-				})
-				.catch((e) => console.log({ error: e.message }));
-		}, []);
+	useEffect(() => {
+		axios
+			.get("/api/user-profile")
+			.then((response) => {
+				if (response.status === 200) {
+					return response.data;
+				} else {
+					throw new Error("Something is wrong");
+				}
+			})
+			.then((data) => {
+				setUserData(data[0]);
+				console.log(userData);
+			})
+			.catch((e) => console.log({ error: e.message }));
+	});
 	return (
 		<div className="profile">
 			<div id="pix-profile">
 				<UserProfilePix id={`${userData["name"]}${userData["class_code"]}`} />
 				<h3>{userData["name"]}</h3>
-				<p>{userData["username"]}</p>
+				<p style={{ color: "grey" }}>{userData["username"]}</p>
 				<p>Current Score:</p>
 				<p>Previous Score:</p>
 				<Button className="btn btn-light" onClick={handleChecklist}>
 					My Skill Checklist
 				</Button>
-				{/* <Button type="button" onClick={handleChecklist}>My Checklist</input> */}
+				<br></br>
+				<br></br>
+				<Button className="btn btn-light">Edit Profile</Button>
+				<h4>Progress Chart</h4>
 			</div>
 			<div id="profile-info">
 				<h2>User Profile</h2>
 				<p>
-					<b>Name: </b>
-					{userData["name"]}
+					<span><b>Name: </b></span>
+						{userData["name"]}
 				</p>
 				<p>
-					<b>Username: </b>
+					<span><b>Username: </b></span>
 					{userData["username"]}
 				</p>
 				<p>
-					<b>Class: </b>
-					{userData["class_code"]}
+					<span><b>Class: </b></span>
+						{userData["class_code"]}
 				</p>
 				<p>
-					<b>Region: </b>
+					<span><b>Region: </b></span>
 					{userData["region"]}
 				</p>
 			</div>
