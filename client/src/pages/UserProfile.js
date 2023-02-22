@@ -43,7 +43,7 @@ function UserProfile() {
 				<br></br>
 				<br></br>
 				<Button className="btn btn-light">Edit Profile</Button>
-				<h4>Progress Chart</h4>
+				<h4 className="chart">Progress Chart</h4>
 			</div>
 			<div id="profile-info">
 				<h2>User Profile</h2>
