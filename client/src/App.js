@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Mentor from "./pages/Mentor";
 import Student from "./pages/Student";
 import UserProfile from "./pages/UserProfile";
+import LearningObjective from "./pages/LearningObjective";
 
 const App = () => (
 	<div>
@@ -20,6 +21,7 @@ const App = () => (
 				path="/student"
 				element={<Student userId={sessionStorage.getItem("userId")} />}
 			/>
+			<Route path="skills" element={<LearningObjective />} />
 		</Routes>
 		<Footer />
 	</div>
