@@ -20,31 +20,7 @@ h2 {
 	font-weight: bold;
 	margin: 1em;
 }
-.login-icon {
-	margin-right: 0.5rem;
-	padding-right: 0.5rem;
-	font-size: 1.3rem;
-}
 
-.signup-icon {
-	margin-right: 0.5rem;
-	padding-right: 0.5rem;
-	font-size: 1.5rem;
-}
-
-.password-toggle-icon {
-	cursor: pointer;
-}
-
-.input-group-text:focus {
-	outline: none;
-	box-shadow: none;
-}
-
-.form-control:focus {
-	border-color: #ced4da;
-	box-shadow: none;
-}
 
 .footer {
 	color: black;

@@ -4,10 +4,12 @@ import Button from "react-bootstrap/Button";
 // import Form from "react-bootstrap/Form";
 import axios from "axios";
 import SignupForm from "./SignupForm";
+import ForgetPasswordFrom from "./ForgetPassword";
 import { FaUser } from "react-icons/fa";
 import { FaUserPlus } from "react-icons/fa";
+import { BiKey } from "react-icons/bi";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import "./Home.css";
+import "./loginSignUp.css";
 
 export function Login() {
 	const navigate = useNavigate();
@@ -24,6 +26,7 @@ export function Login() {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [showSignupForm, setShowSignupForm] = useState(false);
+	const [showForgetPasswordFrom, setForgetPasswordFrom] = useState(false);
 	const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
 	const togglePasswordVisibility = () => {
@@ -34,8 +37,15 @@ export function Login() {
 		setShowSignupForm(!showSignupForm);
 	};
 
+	const toggleForgetPasswordFrom = () => {
+		setForgetPasswordFrom(!showForgetPasswordFrom);
+	};
 	const handleSignupFormDismiss = () => {
 		setShowSignupForm(false);
+	};
+
+	const handleForgetPasswordFormDismiss = () => {
+		setForgetPasswordFrom(false);
 	};
 	const handleSubmit = async (event) => {
 		event.preventDefault();
@@ -102,9 +112,16 @@ export function Login() {
 				<FaUserPlus className="signup-icon" />
 				<span className="signup-text">Sign Up</span>
 			</Button>
-			{/* <a href="#" className="link-primary">Forgot password?</a> */}
+			<Button onClick={toggleForgetPasswordFrom} className="btn btn-light d-block">
+				<BiKey className="Forget-icon" />
+				<span className="forget-text">Forget Password</span>
+			</Button>
 			{showSignupForm ? (
 				<SignupForm onDismiss={handleSignupFormDismiss} />
+			) : null}
+
+			{showForgetPasswordFrom ? (
+				<ForgetPasswordFrom onDismiss={handleForgetPasswordFormDismiss} />
 			) : null}
 		</form>
 	);

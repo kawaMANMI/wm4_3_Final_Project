@@ -77,6 +77,7 @@
 		"bcryptjs": "^2.4.3",
 		"bcryptjs-react": "^2.4.6",
 		"bootstrap": "^5.2.3",
+		"color": "^4.2.3",
 		"cookie-session": "^2.0.0",
 		"crypto": "^1.0.1",
 		"dotenv": "^16.0.3",
