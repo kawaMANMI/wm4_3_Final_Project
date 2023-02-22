@@ -112,7 +112,10 @@ export function Login() {
 				<FaUserPlus className="signup-icon" />
 				<span className="signup-text">Sign Up</span>
 			</Button>
-			<Button onClick={toggleForgetPasswordFrom} className="btn btn-light d-block">
+			<Button
+				onClick={toggleForgetPasswordFrom}
+				className="btn btn-light d-block"
+			>
 				<BiKey className="Forget-icon" />
 				<span className="forget-text">Forget Password</span>
 			</Button>

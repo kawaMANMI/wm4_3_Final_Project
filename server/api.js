@@ -130,7 +130,7 @@ router.post("/login", async (req, res) => {
 
 const classes = [
 	{ 1: ["WM4"] },
-	{ 2: [ "NW3"] },
+	{ 2: ["NW3"] },
 	{ 3: ["LON9"] },
 	{ 4: ["CT2"] },
 ];
