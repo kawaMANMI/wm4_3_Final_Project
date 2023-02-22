@@ -3,9 +3,7 @@ import logger from "./utils/logger";
 import db from "./db";
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
-
 const router = Router();
-
 router.get("/", (_, res) => {
 	logger.debug("Welcoming everyone...");
 	res.json({ message: "Hello, world!" });
@@ -229,39 +227,54 @@ router.get("/checklist", (req, res) => {
 		.catch((error) => res.status(500).json({ error: error.message }));
 });
 
-// Endpoint for user profile
-router.get("/user-profile", (req, res) => {
-	// const [userIdent, setUserIdent] = use
-	const user_Id = req.session.userId;
-	// const user_Id = req.params.id;
+// Save the user selected score for each objective
+router.post("/scores", async (req, res) => {
+	const { userID, selectedScores } = req.body;
+
+	const learningObjScores = Object.entries(selectedScores).map(
+		([objectiveId, score]) => ({
+			user_id: userID,
+			lo_id: Number(objectiveId),
+			score: score,
+		})
+	);
+	try {
+		learningObjScores.map((obj) =>
+			db.query(
+				"INSERT INTO user_learning_obj (user_id, lo_id, score) VALUES ($1, $2, $3)",
+				[obj.user_id, obj.lo_id, obj.score]
+			)
+		);
+
+		res.status(200).json({
+			message: "Scores saved successfully.",
+		});
+	} catch (error) {
+		res.status(500).json({ error: "Failed to save scores" });
+	}
+});
+
+//Get recent scores for user id
+router.get("/recent-scores/:id", (req, res) => {
+	let userID = parseInt(req.params.id);
 	db.query(
-		"SELECT users.name, users.username, users.class_code, region.name AS region FROM users INNER JOIN region ON users.region_id = region.id AND users.id=$1",
-		[user_Id]
+		`SELECT s.skill_name, ROUND(AVG(ulo.score)) AS average_score
+		FROM (
+  			SELECT lo.skill_id, ulo.*
+  			FROM user_learning_obj as ulo
+  			JOIN (
+    			SELECT lo_id, MAX(submitted_at) AS recent_submitted_at
+    			FROM user_learning_obj
+    			WHERE user_id = ${userID}
+    			GROUP BY lo_id
+  			) as recent_ulo ON ulo.lo_id = recent_ulo.lo_id AND ulo.submitted_at = recent_ulo.recent_submitted_at
+  			JOIN learning_objectives as lo ON ulo.lo_id = lo.id
+		) as ulo
+		JOIN skills as s ON ulo.skill_id = s.id
+		GROUP BY s.skill_name
+		ORDER BY s.skill_name;`
 	)
 		.then((result) => res.json(result.rows))
-		.catch((error) => res.status(500).json({ Error: error.message }));
+		.catch((error) => res.status(500).json({ error: error.message }));
 });
 export default router;
-// router.get("/user-profile", async (req, res) => {
-// 	// const [userIdent, setUserIdent] = use
-// 	const result = await db
-// 		.query(
-// 			"SELECT users.name, users.class_code, region.name AS region FROM users INNER JOIN region ON users.region_id = region.id AND users.name=$1",
-// 			["Ali"]
-// 		)
-// 		.then((result) => res.json(result.rows))
-// 		.catch((error) => res.status(500).json({ Error: error.message }));
-// });
-
-// router.get("/checklist", (req, res) => {
-// 	db.query(
-// 		`SELECT s.id AS skill_id, s.skill_name, array_agg(json_build_object('objective_id', lo.id,'objective', lo.objective)) AS objectives
-// 		 FROM skills AS s
-// 		 INNER JOIN learning_objectives AS lo
-// 		 ON s.id = lo.skill_id
-// 		 GROUP BY s.id, s.skill_name
-// 		 ORDER BY s.id;`
-// 	)
-// 		.then((result) => res.json(result.rows))
-// 		.catch((error) => res.status(500).json({ error: error.message }));
-// });
