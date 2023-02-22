@@ -2,6 +2,7 @@ import { Router } from "express";
 import logger from "./utils/logger";
 import db from "./db";
 const bcrypt = require("bcrypt");
+const nodemailer = require("nodemailer");
 
 const router = Router();
 
@@ -185,6 +186,37 @@ router.post("/signup", async (req, res) => {
 	}
 });
 
+
+
+router.post("/forgot-password", async (req, res) => {
+	const { email } = req.body;
+// Send a password reset email to the user's email address
+const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "your-email@gmail.com",
+      pass: "your-email-password",
+    },
+  });
+
+  const mailOptions = {
+    from: "your-email@gmail.com",
+    to: email,
+    subject: "Password Reset Request",
+    text: `You have requested to reset your password. Please use this token to reset your password: ${resetToken}`,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      logger.debug(error);
+      res.status(500).send("Error sending email");
+    } else {
+      console.log("Email sent: " + info.response);
+      res.status(200).send("Password reset email sent");
+    }
+  });
+
+});
 //Get the all skills and learning objectives
 router.get("/checklist", (req, res) => {
 	db.query(
