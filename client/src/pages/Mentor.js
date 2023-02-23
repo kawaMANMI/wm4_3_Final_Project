@@ -1,8 +1,15 @@
 import Table from "react-bootstrap/Table";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+import "./Mentor.css";
 
 function Mentor() {
+	const navigate = useNavigate();
+	function handleSkill() {
+		navigate("/skills");
+	}
 	const [studentData, setStudentData] = useState([]);
 	useEffect(() => {
 		axios
@@ -22,11 +29,17 @@ function Mentor() {
 
 	return (
 		<div className="table_container">
-			<h2 style={{ textAlign: "center" }}>STUDENTS LIST</h2>
+			<h2>STUDENTS LIST</h2>
+			<div className="button_container">
+				<Button> To be implemented</Button>
+				<Button variant="info" className="button_enabled" onClick={handleSkill}>
+					View Learning Objectives
+				</Button>
+			</div>
 			<Table bordered hover size="sm" responsive="md" striped="columns">
 				<thead>
 					<tr>
-						<th>#</th>
+						<th>ID</th>
 						<th>NAME</th>
 						<th>CLASS-CODE</th>
 						<th> TOTAL SCORES</th>

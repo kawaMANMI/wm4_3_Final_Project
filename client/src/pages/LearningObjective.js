@@ -3,11 +3,13 @@ import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import axios from "axios";
 import ObjectiveRow from "./ObjectiveRow";
-// import AddNewObjective from "./AddNewObjective";
+import AddNewObjective from "./AddNewObjective";
 
 function LearningObjective() {
 	const [learningObjective, setLearningObjective] = useState([]);
-
+	function handleSubmitObj(newObjective) {
+		setLearningObjective((prevState) => [...prevState, newObjective]);
+	}
 	useEffect(() => {
 		axios
 			.get("/api/skills")
@@ -37,11 +39,11 @@ function LearningObjective() {
 
 	return (
 		<Container fluid>
-			{/* <AddNewObjective /> */}
+			<AddNewObjective addNewObjective={handleSubmitObj} />
 			<Table bordered hover size="sm" responsive="md">
 				<thead style={{ color: "#DC143C", textAlign: "center" }}>
 					<tr>
-						<th>#</th>
+						<th>SKILL ID</th>
 						<th>SKILLS</th>
 						<th>LEARNING OBJECTIVES</th>
 					</tr>

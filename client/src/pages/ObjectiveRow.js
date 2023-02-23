@@ -4,7 +4,7 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 function ObjectiveRow({ objective, deleteObjective }) {
 	const [isEditing, setIsEditing] = useState(false);
 	const [editedObjective, setEditedObjective] = useState(objective.objective);
-
+	console.log("test", objective);
 	const handleEdit = () => {
 		setIsEditing(true);
 	};
@@ -13,11 +13,40 @@ function ObjectiveRow({ objective, deleteObjective }) {
 		setIsEditing(false);
 		setEditedObjective(objective.objective);
 	};
-
-	const handleSave = () => {
-		// Make a PUT request to save the edited objective to the server
-		setIsEditing(false);
+	// Make a PUT request to save the edited objective to the server
+	const updateObjective = (id) => {
+		fetch(`/api/learning_objectives/${id}`, {
+			method: "PATCH",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ objective: editedObjective }),
+		})
+			.then((response) => {
+				if (response.ok) {
+					return response.json();
+				} else {
+					throw new Error("Failed to update learning objective");
+				}
+			})
+			.then((data) => {
+				setEditedObjective(data);
+				setIsEditing(false);
+			})
+			.catch((error) => {
+				console.error(error);
+			});
 	};
+	// stop editing after cohort starts
+	function editTime() {
+		let currentDate = new Date();
+		let editDate = new Date("2023-04-01");
+
+		if (currentDate.getTime() > editDate.getTime()) {
+			setIsEditing(false);
+		}
+	}
+	editTime();
 
 	return (
 		<div
@@ -45,19 +74,23 @@ function ObjectiveRow({ objective, deleteObjective }) {
 				}}
 			>
 				{isEditing ? (
-					<>
-						<button onClick={handleSave}>Save</button>
+					<div>
+						<button
+							onClick={updateObjective(objective.objective_id, editedObjective)}
+						>
+							Save
+						</button>
 						<button onClick={handleCancel}>Cancel</button>
-					</>
+					</div>
 				) : (
-					<>
+					<div>
 						<button>
 							<FaEdit style={{ color: "blue" }} onClick={handleEdit} />
 						</button>
 						<button onClick={() => deleteObjective(objective.objective_id)}>
 							<FaTrash style={{ color: "red" }} />
 						</button>
-					</>
+					</div>
 				)}
 			</div>
 		</div>

@@ -46,25 +46,30 @@ router.get("/learning_objectives/:id", (req, res) => {
 		.catch((error) => res.status(500).json({ error: error.message }));
 });
 //add a learning_objective
-router.put("/learning_objectives/:id", async (req, res) => {
-	const id = parseInt(req.params.id);
-	const { objective } = req.body;
-	if (isNaN(id)) {
-		return res.status(400).json({ error: "Invalid id" });
+router.post("/learning_objectives/", async (req, res) => {
+	const { skill_id, objective } = req.body;
+
+	if (!objective || !skill_id) {
+		return res
+			.status(400)
+			.json({ error: "Objective  and skill_id is required" });
 	}
+
 	try {
 		await db
-			.query(`UPDATE learning_objectives SET objective = $1 WHERE id = ${id}`, [
-				objective,
-			])
-			.then(() => res.send(`Objective ${id} updated!`));
+			.query(
+				"INSERT INTO learning_objectives (objective, skill_id) VALUES ($1,$2)",
+				[objective, skill_id]
+			)
+			.then(() => res.json({ message: "Objective created!" }));
 	} catch (error) {
 		res.status(500).json({ error: error });
 	}
 });
+
 //update learning-obj
 router.patch("/learning_objectives/:id", async (req, res) => {
-	const { id } = req.params;
+	const id = req.params.id;
 	const { objective } = req.body;
 	if (!objective || !id) {
 		return res.status(400).json({ error: "Objective  is required" });
@@ -91,20 +96,20 @@ router.delete("/learning_objectives/:id", (req, res) => {
 });
 
 //post a specific learning_obj
-router.post("/learning_objectives", async (req, res) => {
-	const { objective } = req.body;
-	if (!objective) {
-		return res.status(400).json({ error: "Objective is required" });
-	}
-	try {
-		await db.query("INSERT INTO learning_objectives(objective) VALUES($1)", [
-			objective,
-		]);
-		res.json("Objective was added successfully");
-	} catch (error) {
-		res.status(500).json({ error: error.message });
-	}
-});
+// router.post("/learning_objectives", async (req, res) => {
+// 	const { objective } = req.body;
+// 	if (!objective) {
+// 		return res.status(400).json({ error: "Objective is required" });
+// 	}
+// 	try {
+// 		await db.query("INSERT INTO learning_objectives(objective) VALUES($1)", [
+// 			objective,
+// 		]);
+// 		res.json("Objective was added successfully");
+// 	} catch (error) {
+// 		res.status(500).json({ error: error.message });
+// 	}
+// });
 // Cookie
 // router.get("/testCookie", async (req, res) => {
 // 	const userId = req.session.userId;
