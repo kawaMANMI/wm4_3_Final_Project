@@ -3,6 +3,7 @@ import { Container, Row, Button } from "react-bootstrap";
 import Skills from "./Skills";
 import axios from "axios";
 import UserScores from "./UserScores";
+import Accordion from "react-bootstrap/Accordion";
 
 function Student({ userId }) {
 	const [skills, setSkills] = useState([]);
@@ -54,20 +55,24 @@ function Student({ userId }) {
 
 	return (
 		<Container style={{ marginTop: "50px", marginBottom: "200px" }}>
-			<Row style={{ color: "#DC143C" }}>
-				<Row as="h1" style={{ justifyContent: "center" }}>
-					CodeYourFuture
-				</Row>
-				<Row as="h2">Course Topics Checklist</Row>
-				<Row as="h5">How to use this checklist</Row>
+			<Row as="h1" style={{ justifyContent: "center", color: "#DC143C" }}>
+				Course Topics Checklist
 			</Row>
-			<Row as="p">
-				Select your level of confidence with the score buttons next to each
-				statement. Choosing the lowest score of 1 indicates you do not
-				understand the topic well, and the highest score of 5 means you are
-				confident about the topic. Similarly, the scores between 2-4 indicate a
-				different level of confidence that may need additional work.
-			</Row>
+			<Accordion defaultActiveKey="0">
+				<Accordion.Item eventKey="1">
+					<Accordion.Header>
+						<h5 style={{ color: "#DC143C" }}>How to use this checklist</h5>
+					</Accordion.Header>
+					<Accordion.Body>
+						Select your level of confidence with the score buttons next to each
+						statement. Choosing the lowest score of 1 indicates you do not
+						understand the topic well, and the highest score of 5 means you are
+						confident about the topic. Similarly, the scores between 2-4
+						indicate a different level of confidence that may need additional
+						work.
+					</Accordion.Body>
+				</Accordion.Item>
+			</Accordion>
 			<Row>
 				{skills.map((skill) => (
 					<Row key={skill.skill_name}>
