@@ -18,7 +18,7 @@ function UserScores({ userId }) {
 					className="mx-auto"
 					onClick={handleShowToS}
 				>
-					Recent Scores
+					Check your Scores
 				</Button>
 			</div>
 			{showToS && <TableOfScores userId={userId} />}

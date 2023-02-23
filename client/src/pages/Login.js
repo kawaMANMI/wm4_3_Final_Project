@@ -9,7 +9,7 @@ import { FaUser } from "react-icons/fa";
 import { FaUserPlus } from "react-icons/fa";
 import { BiKey } from "react-icons/bi";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import "./loginSignUp.css";
+// import "./loginSignUp.css";
 
 export function Login() {
 	const navigate = useNavigate();

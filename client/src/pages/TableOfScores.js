@@ -25,9 +25,14 @@ function TableOfScores({ userId }) {
 
 	return (
 		<div style={{ marginLeft: "auto", marginRight: "auto" }}>
+			<h3
+				style={{ color: "#DC143C", textAlign: "center", marginBottom: "20px" }}
+			>
+				Your recent scores for each skill
+			</h3>
 			<Table striped bordered hover>
 				<thead>
-					<tr>
+					<tr style={{ color: "#DC143C" }}>
 						<th>#</th>
 						<th>Skills</th>
 						<th>Average Scores</th>
