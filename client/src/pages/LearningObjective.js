@@ -7,8 +7,7 @@ import AddNewObjective from "./AddNewObjective";
 
 function LearningObjective() {
 	const [learningObjective, setLearningObjective] = useState([]);
-	
-	
+
 	function handleSubmitObj(newObjective) {
 		setLearningObjective((prevState) => [...prevState, newObjective]);
 	}

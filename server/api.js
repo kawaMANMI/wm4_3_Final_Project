@@ -11,10 +11,14 @@ router.get("/", (_, res) => {
 //get students list
 router.get("/students", (_, res) => {
 	db.query(
-		`SELECT users.id, users.name, users.class_code, SUM(user_learning_obj.score) AS total_score
-FROM users
-INNER JOIN user_learning_obj ON users.id = user_learning_obj.user_id
-GROUP BY users.id, users.name, users.class_code
+		`SELECT u.id, u.name, u.class_code, r.name AS region_name, SUM(ulo.score) AS total_score
+FROM users u
+INNER JOIN user_learning_obj ulo ON u.id = ulo.user_id
+INNER JOIN region r ON u.region_id = r.id
+GROUP BY u.id, u.name, u.class_code, r.name
+ORDER BY total_score DESC;
+
+
 `
 	)
 		.then((result) => res.json(result.rows))

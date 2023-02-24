@@ -41,7 +41,7 @@ function AddNewObjective({ handleSubmitObj }) {
 			<Form style={{ width: "18em" }} onSubmit={handleSubmitPost}>
 				<h5 style={{ color: "red" }}>Add New Learning Objective</h5>
 				<Form.Group className="mb-3">
-					<Form.Label>SKILL ID</Form.Label>
+					<Form.Label>Skill Id</Form.Label>
 					<Form.Control
 						required
 						type="text"
@@ -50,7 +50,7 @@ function AddNewObjective({ handleSubmitObj }) {
 					/>
 				</Form.Group>
 				<Form.Group className="mb-3">
-					<Form.Label>Objective</Form.Label>
+					<Form.Label> Learning Objective</Form.Label>
 					<Form.Control
 						required
 						type="text"

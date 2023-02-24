@@ -46,26 +46,30 @@ function Mentor() {
 							<th>ID</th>
 							<th>NAME</th>
 							<th>CLASS-CODE</th>
+							<th>REGION</th>
 							<th> TOTAL SCORES</th>
 							<th>Student Profile</th>
 						</tr>
 					</thead>
 					<tbody>
-						{studentData.map(({ id, name, total_score, class_code }) => (
-							<tr key={id}>
-								<td>{id}</td>
-								<td>{name}</td>
-								<td>{class_code}</td>
-								<td>{total_score}</td>
-								<td>
-									<button
-									// onClick={handleUser}
-									>
-										View
-									</button>
-								</td>
-							</tr>
-						))}
+						{studentData.map(
+							({ id, name, total_score, class_code, region_name }) => (
+								<tr key={id}>
+									<td>{id}</td>
+									<td>{name}</td>
+									<td>{class_code}</td>
+									<td>{region_name}</td>
+									<td>{total_score}</td>
+									<td style={{ margin: "auto", textAlign: "center" }}>
+										<button
+										// onClick={handleUser}
+										>
+											View
+										</button>
+									</td>
+								</tr>
+							)
+						)}
 					</tbody>
 				</Table>
 			</div>
