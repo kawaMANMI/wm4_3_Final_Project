@@ -19,7 +19,7 @@ function Profile() {
 		navigate("/student");
 	}
 	const [userData, setUserData] = useState([]);
-
+	const id = sessionStorage.getItem("userId");
 	useEffect(() => {
 		axios
 			.get("/api/user-profile")
@@ -35,7 +35,8 @@ function Profile() {
 			})
 			.catch((e) => console.log({ error: e.message }));
 	}, []);
-	const picLink = `https://robohash.org/${userData["name"]}${userData["class_code"]}.png`;
+	const picLink = `https://robohash.org/${id}.png`;
+	console.log(id);
 	return (
 		<Container
 			style={{
