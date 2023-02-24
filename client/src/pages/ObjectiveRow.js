@@ -4,7 +4,6 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 function ObjectiveRow({ objective, deleteObjective }) {
 	const [isEditing, setIsEditing] = useState(false);
 	const [editedObjective, setEditedObjective] = useState(objective.objective);
-	console.log("test", objective);
 	const handleEdit = () => {
 		setIsEditing(true);
 	};
@@ -84,8 +83,8 @@ function ObjectiveRow({ objective, deleteObjective }) {
 					</div>
 				) : (
 					<div>
-						<button>
-							<FaEdit style={{ color: "blue" }} onClick={handleEdit} />
+						<button style={{ marginRight: "10px" }}>
+							<FaEdit style={{ color: "007BFF" }} onClick={handleEdit} />
 						</button>
 						<button onClick={() => deleteObjective(objective.objective_id)}>
 							<FaTrash style={{ color: "red" }} />
