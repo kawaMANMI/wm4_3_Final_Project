@@ -18,9 +18,18 @@ function getClassName(score, selectedScore) {
 }
 function Skills({ skill, selectedScore, handleSelectScore }) {
 	return (
-		<Card style={{ width: "100rem", marginTop: "15px" }}>
+		<Card
+			style={{
+				width: "100rem",
+				marginTop: "15px",
+				boxShadow: "1px 3px 3px #888888",
+			}}
+		>
 			<Card.Body>
-				<Card.Header as="h4" style={{ color: "#DC143C" }}>
+				<Card.Header
+					as="h4"
+					style={{ color: "#DC143C", textShadow: "1px 1px 1px grey" }}
+				>
 					{skill.skill_name}
 				</Card.Header>
 				<ListGroup variant="flush">
