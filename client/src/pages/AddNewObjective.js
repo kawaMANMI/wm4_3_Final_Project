@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-function AddNewObjective({ AddNewObjective }) {
+function AddNewObjective({ handleSubmitObj }) {
 	const [skill, setSkill] = useState("");
 	const [obj, setObj] = useState("");
 
@@ -14,6 +14,7 @@ function AddNewObjective({ AddNewObjective }) {
 	}
 	console.log("skill", skill);
 	console.log("yuhuuhhhobjective", obj);
+
 	const handleSubmitPost = async (e) => {
 		e.preventDefault();
 		try {
@@ -26,7 +27,7 @@ function AddNewObjective({ AddNewObjective }) {
 					skill_id: skill,
 					objectives: obj,
 				};
-				AddNewObjective(newObjective);
+				handleSubmitObj(newObjective);
 				alert(res.data.message);
 			} else {
 				throw new Error("Failed to save the objective");

@@ -7,6 +7,8 @@ import AddNewObjective from "./AddNewObjective";
 
 function LearningObjective() {
 	const [learningObjective, setLearningObjective] = useState([]);
+	
+	
 	function handleSubmitObj(newObjective) {
 		setLearningObjective((prevState) => [...prevState, newObjective]);
 	}
@@ -25,26 +27,6 @@ function LearningObjective() {
 				console.log({ error: error.message });
 			});
 	}, []);
-	// const AddNewObjective = async (newObjective) => {
-	// 	try {
-	// 		const res = await fetch("/api/learning_objectives", {
-	// 			method: "POST",
-	// 			headers: {
-	// 				"Content-Type": "application/json",
-	// 			},
-	// 			body: JSON.stringify(newObjective),
-	// 		});
-	// 		const data = await res.json();
-	// 		if (res.status === 200) {
-	// 			setLearningObjective((prevState) => [...prevState, data]);
-	// 			alert("Learning objective added successfully!");
-	// 		} else {
-	// 			throw new Error("Failed to add learning objective");
-	// 		}
-	// 	} catch (error) {
-	// 		console.error(error);
-	// 	}
-	// };
 
 	const deleteObjective = (id) => {
 		fetch(`api/learning_objectives/${id}`, {
