@@ -55,13 +55,22 @@ function Student({ userId }) {
 
 	return (
 		<Container style={{ marginTop: "50px", marginBottom: "200px" }}>
-			<Row as="h1" style={{ justifyContent: "center", color: "#DC143C" }}>
+			<Row
+				as="h1"
+				style={{
+					justifyContent: "center",
+					color: "#DC143C",
+					textShadow: "1px 1px 1px grey",
+				}}
+			>
 				Course Topics Checklist
 			</Row>
 			<Accordion defaultActiveKey="0">
 				<Accordion.Item eventKey="1">
 					<Accordion.Header>
-						<h5 style={{ color: "#DC143C" }}>How to use this checklist</h5>
+						<h5 style={{ color: "#DC143C", textShadow: "1px 1px 1px grey" }}>
+							How to use this checklist
+						</h5>
 					</Accordion.Header>
 					<Accordion.Body>
 						Select your level of confidence with the score buttons next to each
