@@ -13,7 +13,7 @@ function AddNewObjective({ handleSubmitObj }) {
 		setObj(e.target.value);
 	}
 
-	const handleSubmitPost = async (e,skill_id, objective) => {
+	const handleSubmitPost = async (e, skill_id, objective) => {
 		e.preventDefault();
 		try {
 			const res = await axios.post("/api/learning_objectives", {
