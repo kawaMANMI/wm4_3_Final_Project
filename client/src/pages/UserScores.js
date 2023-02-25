@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import TableOfScores from "./TableOfScores";
 
-function UserScores({ userId }) {
+function UserScores() {
 	const [showToS, setShowToS] = useState(false);
 
 	const handleShowToS = () => {
@@ -21,7 +21,7 @@ function UserScores({ userId }) {
 					Check your Scores
 				</Button>
 			</div>
-			{showToS && <TableOfScores userId={userId} />}
+			{showToS && <TableOfScores />}
 		</div>
 	);
 }
