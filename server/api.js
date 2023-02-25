@@ -289,7 +289,8 @@ router.get("/checklist", (req, res) => {
 
 // Save the user selected score for each objective
 router.post("/scores", async (req, res) => {
-	const { userID, selectedScores } = req.body;
+	const userID = req.session.userId;
+	const { selectedScores } = req.body;
 
 	const learningObjScores = Object.entries(selectedScores).map(
 		([objectiveId, score]) => ({
@@ -315,8 +316,8 @@ router.post("/scores", async (req, res) => {
 });
 
 //Get recent scores for user id
-router.get("/recent-scores/:id", (req, res) => {
-	let userID = parseInt(req.params.id);
+router.get("/recent-scores", (req, res) => {
+	const userID = req.session.userId;
 	db.query(
 		`SELECT s.skill_name, ROUND(AVG(ulo.score)) AS average_score
 		FROM (

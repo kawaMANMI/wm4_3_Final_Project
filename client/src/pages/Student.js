@@ -5,7 +5,7 @@ import axios from "axios";
 import UserScores from "./UserScores";
 import Accordion from "react-bootstrap/Accordion";
 
-function Student({ userId }) {
+function Student() {
 	const [skills, setSkills] = useState([]);
 	const [selectedScore, setSelectedScore] = useState({});
 
@@ -35,7 +35,6 @@ function Student({ userId }) {
 		try {
 			await axios
 				.post("/api/scores", {
-					userID: userId,
 					selectedScores: selectedScore,
 				})
 				.then((res) => {
@@ -103,7 +102,7 @@ function Student({ userId }) {
 					Save & Submit
 				</Button>
 			</div>
-			<UserScores userId={userId} />
+			<UserScores />
 		</Container>
 	);
 }

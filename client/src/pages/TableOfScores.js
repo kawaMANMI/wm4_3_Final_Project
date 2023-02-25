@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Table from "react-bootstrap/Table";
 
-function TableOfScores({ userId }) {
+function TableOfScores() {
 	const [recentScores, setRecentScores] = useState([]);
 
 	useEffect(() => {
 		axios
-			.get(`/api/recent-scores/${userId}`)
+			.get("/api/recent-scores")
 			.then((res) => {
 				if (res.status === 200) {
 					return res.data;
@@ -21,7 +21,7 @@ function TableOfScores({ userId }) {
 			.catch((error) => {
 				console.error({ error: error.message });
 			});
-	}, [userId]);
+	}, []);
 
 	return (
 		<div style={{ marginLeft: "auto", marginRight: "auto" }}>
