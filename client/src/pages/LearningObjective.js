@@ -2,12 +2,16 @@ import Table from "react-bootstrap/Table";
 import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import axios from "axios";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import ObjectiveRow from "./ObjectiveRow";
+import AddNewObjective from "./AddNewObjective";
 
 function LearningObjective() {
 	const [learningObjective, setLearningObjective] = useState([]);
 
-	useEffect(() => {
+	function handleSubmitObj(newObjective) {
+		setLearningObjective((prevState) => [...prevState, newObjective]);
+	}
+	function getLearningObj() {
 		axios
 			.get("/api/skills")
 			.then((res) => {
@@ -21,6 +25,9 @@ function LearningObjective() {
 			.catch((error) => {
 				console.log({ error: error.message });
 			});
+	}
+	useEffect(() => {
+		getLearningObj();
 	}, []);
 
 	const deleteObjective = (id) => {
@@ -29,59 +36,43 @@ function LearningObjective() {
 			headers: {
 				"Content-Type": "application/json",
 			},
-		}).then((data) => {
-			setLearningObjective(data);
+		}).then(() => {
+			getLearningObj();
 		});
-	};
-	const buttonStyle = {
-		display: "flex",
-		alignItems: "center",
-		justifyContent: "flex-end",
-		gap: "10px",
 	};
 
 	return (
-		<Container fluid>
-			<Table bordered hover size="sm" responsive="md">
-				<thead style={{ color: "#DC143C" }}>
+		<Container
+			fluid
+			style={{ display: "flex", justifyContent: "space-between" }}
+		>
+			<AddNewObjective handleAddObjective={handleSubmitObj} />
+			<Table bordered hover size="sm" responsive="md" style={{ width: "65em" }}>
+				<thead style={{ color: "red", textAlign: "center" }}>
 					<tr>
-						<th>#</th>
+						<th>SKILL ID</th>
 						<th>SKILLS</th>
 						<th>LEARNING OBJECTIVES</th>
 					</tr>
 				</thead>
 				<tbody>
-					{learningObjective.map((skill) => (
-						<tr key={skill.skill_id}>
-							<td>{skill.skill_id}</td>
-							<td>{skill.skill_name}</td>
-							<td>
-								{skill.objectives.map((obj) => (
-									<div
-										key={obj.objective_id}
-										style={{
-											display: "flex",
-											justifyContent: "space-between",
-											margin: "1em",
-										}}
-									>
-										{obj.objective}
-										<div style={buttonStyle}>
-											<button>
-												<FaEdit
-													style={{ color: "blue" }}
-													onClick={() => console.log("hey")}
-												/>
-											</button>
-											<button onClick={() => deleteObjective(obj.objective_id)}>
-												<FaTrash style={{ color: "red" }} />
-											</button>
-										</div>
-									</div>
-								))}
-							</td>
-						</tr>
-					))}
+					{learningObjective.map((skill) =>
+						skill.objectives.map((objective) => (
+							<tr key={objective.objective_id}>
+								<td>{skill.skill_id}</td>
+								<td style={{ textAlign: "center", fontWeight: "bold" }}>
+									{skill.skill_name}
+								</td>
+								<td>
+									<ObjectiveRow
+										onChange={getLearningObj}
+										objective={objective}
+										onDelete={() => deleteObjective(objective.objective_id)}
+									/>
+								</td>
+							</tr>
+						))
+					)}
 				</tbody>
 			</Table>
 		</Container>

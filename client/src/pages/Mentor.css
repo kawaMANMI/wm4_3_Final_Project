@@ -1,0 +1,19 @@
+.button_container {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 1em;
+	margin-right: 1em;
+}
+
+.button_enabled {
+	background-color: #007bff;
+	border-color: #007bff;
+}
+
+.button_enabled:hover {
+	background-color: #0069d9;
+	border-color: #0062cc;
+}
+h2 {
+	text-align: center;
+}
