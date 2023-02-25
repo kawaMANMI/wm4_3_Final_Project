@@ -9,6 +9,9 @@ function SignupForm(props) {
 	const [roleValue, setRoleValue] = useState("");
 	const [regionValue, setRegionValue] = useState("");
 	const [password, setPassword] = useState("");
+	const [confirmPassword, setConfirmPassword] = useState("");
+	const [confirmPasswordError, setConfirmPasswordError] = useState("");
+
 	const [regions, setRegions] = useState([]);
 	const [classes, setClasses] = useState([]);
 	const [allClasses, setAllClasses] = useState([]);
@@ -57,6 +60,18 @@ function SignupForm(props) {
 	const handlePasswordChange = (event) => {
 		setPassword(event.target.value);
 	};
+
+	const handleConfirmPassword = (event) => {
+		const value = event.target.value;
+		setConfirmPassword(value);
+
+		if (value !== password) {
+			setConfirmPasswordError("Passwords do not match");
+		} else {
+			setConfirmPasswordError("");
+		}
+	};
+
 	let responseData;
 	const handleSubmit = async (event) => {
 		event.preventDefault();
@@ -76,6 +91,7 @@ function SignupForm(props) {
 				.then((response) => {
 					responseData = response.data;
 					alert(responseData);
+					// handleDismiss()
 				});
 			// handle the response from the server
 		} catch (error) {
@@ -181,7 +197,26 @@ function SignupForm(props) {
 						/>
 					</Form.Group>
 
-					<Button variant="primary" type="submit">
+					<Form.Group className="mb-3" controlId="formBasicPassword">
+						<Form.Label>Confirm Password</Form.Label>
+						<Form.Control
+							type="password"
+							placeholder="Password"
+							value={confirmPassword}
+							onChange={handleConfirmPassword}
+						/>
+						{confirmPasswordError && (
+							<Form.Text className="text-danger">
+								{confirmPasswordError}
+							</Form.Text>
+						)}
+					</Form.Group>
+
+					<Button
+						variant="primary"
+						type="submit"
+						disabled={confirmPassword !== password}
+					>
 						Sign Up
 					</Button>
 					<Button variant="primary" onClick={handleDismiss} className="ms-2">

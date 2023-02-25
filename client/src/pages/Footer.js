@@ -9,16 +9,16 @@ function Footer() {
 			<Container>
 				<div className="d-flex justify-content-center align-items-center">
 					<div className="social-icons">
-						<a href="https://www.linkedin.com/in/kawa-manmi-5244ab53/">
+						<a href="https://www.facebook.com/codeyourfuture.io/?locale=en_GB">
 							<FaFacebook />
 						</a>
-						<a href="https://www.linkedin.com/in/kawa-manmi-5244ab53/">
+						<a href="https://twitter.com/CodeYourFuture">
 							<FaTwitter />
 						</a>
-						<a href="https://www.linkedin.com/in/kawa-manmi-5244ab53/">
+						<a href="https://twitter.com/CodeYourFuture">
 							<FaInstagram />
 						</a>
-						<a href="https://www.linkedin.com/in/kawa-manmi-5244ab53/">
+						<a href="https://www.linkedin.com/company/codeyourfuture/">
 							<FaLinkedin />
 						</a>
 					</div>

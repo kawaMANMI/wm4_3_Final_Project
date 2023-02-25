@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Button from "react-bootstrap/Button";
+import { Button, Form } from "react-bootstrap";
 // import Form from "react-bootstrap/Form";
 import axios from "axios";
 import SignupForm from "./SignupForm";
@@ -9,7 +9,7 @@ import { FaUser } from "react-icons/fa";
 import { FaUserPlus } from "react-icons/fa";
 import { BiKey } from "react-icons/bi";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-// import "./loginSignUp.css";
+import "./loginSignUp.css";
 
 export function Login() {
 	const navigate = useNavigate();
@@ -70,41 +70,45 @@ export function Login() {
 	};
 
 	return (
+		<div className="bodyLoginComponent">
 		<form onSubmit={handleSubmit}>
-			<div className="form-group">
-				<label htmlFor="username">Username:</label>
-				<input
+			<Form.Group className="custom-input">
+				<Form.Label htmlFor="username">Username</Form.Label>
+				<Form.Control
 					type="text"
+					placeholder="Enter Username"
+					value={username}
 					id="username"
 					onChange={(event) => setUsername(event.target.value)}
+					required
 				/>
-			</div>
-			<div className="form-group">
+			</Form.Group>
+
+			<Form.Group className="custom-input">
+				<Form.Label htmlFor="password">Password</Form.Label>
 				<div className="input-group">
-					<label htmlFor="password">Password:</label>
-					<input
+					<Form.Control
 						type={isPasswordVisible ? "text" : "password"}
 						id="password"
 						value={password}
 						onChange={(event) => setPassword(event.target.value)}
 					/>
-					<div className="input-group-append">
-						<div
-							className="input-group-text password-toggle-icon"
-							onClick={togglePasswordVisibility}
-							onKeyDown={(event) => {
-								if (event.key === "Enter") {
-									togglePasswordVisibility();
-								}
-							}}
-							role="button"
-							tabIndex={0}
-						>
-							{isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
-						</div>
+					<div
+						className="input-group-text password-toggle-icon"
+						onClick={togglePasswordVisibility}
+						onKeyDown={(event) => {
+							if (event.key === "Enter") {
+								togglePasswordVisibility();
+							}
+						}}
+						role="button"
+						tabIndex={0}
+					>
+						{isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
 					</div>
 				</div>
-			</div>
+			</Form.Group>
+
 			<Button className="btn btn-light" type="submit">
 				<FaUser className="login-icon" />
 				<span className="login-text">Login</span>
@@ -128,6 +132,7 @@ export function Login() {
 				<ForgetPasswordFrom onDismiss={handleForgetPasswordFormDismiss} />
 			) : null}
 		</form>
+		</div>
 	);
 }
 
