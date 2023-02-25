@@ -71,67 +71,67 @@ export function Login() {
 
 	return (
 		<div className="bodyLoginComponent">
-		<form onSubmit={handleSubmit}>
-			<Form.Group className="custom-input">
-				<Form.Label htmlFor="username">Username</Form.Label>
-				<Form.Control
-					type="text"
-					placeholder="Enter Username"
-					value={username}
-					id="username"
-					onChange={(event) => setUsername(event.target.value)}
-					required
-				/>
-			</Form.Group>
-
-			<Form.Group className="custom-input">
-				<Form.Label htmlFor="password">Password</Form.Label>
-				<div className="input-group">
+			<form onSubmit={handleSubmit}>
+				<Form.Group className="custom-input">
+					<Form.Label htmlFor="username">Username</Form.Label>
 					<Form.Control
-						type={isPasswordVisible ? "text" : "password"}
-						id="password"
-						value={password}
-						onChange={(event) => setPassword(event.target.value)}
+						type="text"
+						placeholder="Enter Username"
+						value={username}
+						id="username"
+						onChange={(event) => setUsername(event.target.value)}
+						required
 					/>
-					<div
-						className="input-group-text password-toggle-icon"
-						onClick={togglePasswordVisibility}
-						onKeyDown={(event) => {
-							if (event.key === "Enter") {
-								togglePasswordVisibility();
-							}
-						}}
-						role="button"
-						tabIndex={0}
-					>
-						{isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+				</Form.Group>
+
+				<Form.Group className="custom-input">
+					<Form.Label htmlFor="password">Password</Form.Label>
+					<div className="input-group">
+						<Form.Control
+							type={isPasswordVisible ? "text" : "password"}
+							id="password"
+							value={password}
+							onChange={(event) => setPassword(event.target.value)}
+						/>
+						<div
+							className="input-group-text password-toggle-icon"
+							onClick={togglePasswordVisibility}
+							onKeyDown={(event) => {
+								if (event.key === "Enter") {
+									togglePasswordVisibility();
+								}
+							}}
+							role="button"
+							tabIndex={0}
+						>
+							{isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+						</div>
 					</div>
-				</div>
-			</Form.Group>
+				</Form.Group>
 
-			<Button className="btn btn-light" type="submit">
-				<FaUser className="login-icon" />
-				<span className="login-text">Login</span>
-			</Button>
-			<Button onClick={toggleSignupForm} className="btn btn-light">
-				<FaUserPlus className="signup-icon" />
-				<span className="signup-text">Sign Up</span>
-			</Button>
-			<Button
-				onClick={toggleForgetPasswordFrom}
-				className="btn btn-light d-block"
-			>
-				<BiKey className="Forget-icon" />
-				<span className="forget-text">Forget Password</span>
-			</Button>
-			{showSignupForm ? (
-				<SignupForm onDismiss={handleSignupFormDismiss} />
-			) : null}
+				<Button className="btn btn-light" type="submit">
+					<FaUser className="login-icon" />
+					<span className="login-text">Login</span>
+				</Button>
+				<Button onClick={toggleSignupForm} className="btn btn-light">
+					<FaUserPlus className="signup-icon" />
+					<span className="signup-text">Sign Up</span>
+				</Button>
+				<Button
+					onClick={toggleForgetPasswordFrom}
+					className="btn btn-light d-block"
+				>
+					<BiKey className="Forget-icon" />
+					<span className="forget-text">Forget Password</span>
+				</Button>
+				{showSignupForm ? (
+					<SignupForm onDismiss={handleSignupFormDismiss} />
+				) : null}
 
-			{showForgetPasswordFrom ? (
-				<ForgetPasswordFrom onDismiss={handleForgetPasswordFormDismiss} />
-			) : null}
-		</form>
+				{showForgetPasswordFrom ? (
+					<ForgetPasswordFrom onDismiss={handleForgetPasswordFormDismiss} />
+				) : null}
+			</form>
 		</div>
 	);
 }

@@ -1,4 +1,4 @@
-.bodyLoginComponent{
+.bodyLoginComponent {
 	padding-left: 2rem;
 }
 .login-icon {
@@ -27,8 +27,6 @@
 	box-shadow: none;
 }
 
-
 .custom-input {
 	width: 20%;
-  }
-
+}
