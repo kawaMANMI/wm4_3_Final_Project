@@ -5,6 +5,10 @@ import logo from "./logo_cyf.png";
 
 function Header() {
 	const name = sessionStorage.getItem("name");
+	const handleLogout = () => {
+		// clear any session-related data or cookies
+		history.push("/");
+	};
 	return (
 		<div className="header-container">
 			{" "}
@@ -21,8 +25,13 @@ function Header() {
 					<Nav className="ml-auto">
 						<Nav.Link href="/">Home</Nav.Link>
 						<Nav.Link href="/about">About</Nav.Link>
-						<Nav.Link href="/services">{name}</Nav.Link>
+						<Nav.Link href="/Name">{name}</Nav.Link>
 						<Nav.Link href="/contact">Contact</Nav.Link>
+						{name !== "" || name !== null ? (
+							<Nav.Link href="/" onClick={handleLogout}>
+								Logout
+							</Nav.Link>
+						) : null}
 					</Nav>
 				</Navbar.Collapse>
 			</Navbar>
