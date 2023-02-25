@@ -72,7 +72,7 @@ router.post("/learning_objectives/", async (req, res) => {
 });
 
 //update learning-obj
-router.patch("/learning_objectives/:id", async (req, res) => {
+router.put("/learning_objectives/:id", async (req, res) => {
 	const id = req.params.id;
 	const { objective } = req.body;
 	if (!objective || !id) {

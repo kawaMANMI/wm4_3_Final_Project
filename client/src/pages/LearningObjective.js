@@ -11,7 +11,7 @@ function LearningObjective() {
 	function handleSubmitObj(newObjective) {
 		setLearningObjective((prevState) => [...prevState, newObjective]);
 	}
-	useEffect(() => {
+	function getLearningObj() {
 		axios
 			.get("/api/skills")
 			.then((res) => {
@@ -25,6 +25,9 @@ function LearningObjective() {
 			.catch((error) => {
 				console.log({ error: error.message });
 			});
+	}
+	useEffect(() => {
+		getLearningObj();
 	}, []);
 
 	const deleteObjective = (id) => {
@@ -33,8 +36,8 @@ function LearningObjective() {
 			headers: {
 				"Content-Type": "application/json",
 			},
-		}).then((data) => {
-			setLearningObjective(data);
+		}).then(() => {
+			getLearningObj();
 		});
 	};
 
@@ -62,8 +65,9 @@ function LearningObjective() {
 								</td>
 								<td>
 									<ObjectiveRow
+										onChange={getLearningObj}
 										objective={objective}
-										deleteObjective={deleteObjective}
+										onDelete={() => deleteObjective(objective.objective_id)}
 									/>
 								</td>
 							</tr>

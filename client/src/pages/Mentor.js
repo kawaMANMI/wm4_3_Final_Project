@@ -4,15 +4,16 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import "./Mentor.css";
+import Dropdown from "react-bootstrap/Dropdown";
 
 function Mentor() {
 	const navigate = useNavigate();
 	function handleSkill() {
 		navigate("/skills");
 	}
-	// function handleUser() {
-	// 	navigate("/user-profile");
-	// }
+	function handleUser() {
+		navigate("/user-profile");
+	}
 	const [studentData, setStudentData] = useState([]);
 	useEffect(() => {
 		axios
@@ -33,7 +34,20 @@ function Mentor() {
 	return (
 		<div className="table_container">
 			<div className="button_container">
-				<Button> To be implemented</Button>
+				<div>
+					<Dropdown>
+						<Dropdown.Toggle variant="primary" id="dropdown-basic">
+							Class-Code
+						</Dropdown.Toggle>
+
+						<Dropdown.Menu>
+							<Dropdown.Item href="#/action-1">LDN5</Dropdown.Item>
+							<Dropdown.Item href="#/action-2">NW3</Dropdown.Item>
+							<Dropdown.Item href="#/action-3">WM5</Dropdown.Item>
+							<Dropdown.Item href="#/action-4">ND3</Dropdown.Item>
+						</Dropdown.Menu>
+					</Dropdown>
+				</div>
 				<Button variant="info" className="button_enabled" onClick={handleSkill}>
 					View Learning Objectives
 				</Button>
@@ -45,7 +59,7 @@ function Mentor() {
 						<tr>
 							<th>ID</th>
 							<th>NAME</th>
-							<th>CLASS-CODE</th>
+							{/* <th>CLASS-CODE</th> */}
 							<th>REGION</th>
 							<th> TOTAL SCORES</th>
 							<th>Student Profile</th>
@@ -53,19 +67,15 @@ function Mentor() {
 					</thead>
 					<tbody>
 						{studentData.map(
-							({ id, name, total_score, class_code, region_name }) => (
+							({ id, name, total_score, region_name }) => (
 								<tr key={id}>
 									<td>{id}</td>
 									<td>{name}</td>
-									<td>{class_code}</td>
+									{/* <td>{class_code}</td> */}
 									<td>{region_name}</td>
 									<td>{total_score}</td>
 									<td style={{ margin: "auto", textAlign: "center" }}>
-										<button
-										// onClick={handleUser}
-										>
-											View
-										</button>
+										<button onClick={handleUser}>View</button>
 									</td>
 								</tr>
 							)

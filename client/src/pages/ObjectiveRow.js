@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 
-function ObjectiveRow({ objective, deleteObjective }) {
+function ObjectiveRow({ objective, onDelete, onChange }) {
 	const [isEditing, setIsEditing] = useState(false);
 	const [editedObjective, setEditedObjective] = useState(objective.objective);
 	const handleEdit = () => {
@@ -15,7 +15,7 @@ function ObjectiveRow({ objective, deleteObjective }) {
 	// Make a PUT request to save the edited objective to the server
 	const updateObjective = (id) => {
 		fetch(`/api/learning_objectives/${id}`, {
-			method: "PATCH",
+			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
 			},
@@ -28,24 +28,23 @@ function ObjectiveRow({ objective, deleteObjective }) {
 					throw new Error("Failed to update learning objective");
 				}
 			})
-			.then((data) => {
-				setEditedObjective(data);
+			.then(() => {
 				setIsEditing(false);
+				onChange();
 			})
 			.catch((error) => {
 				console.error(error);
 			});
 	};
 	// stop editing after cohort starts
-	function editTime() {
-		let currentDate = new Date();
-		let editDate = new Date("2023-04-01");
-
-		if (currentDate.getTime() > editDate.getTime()) {
-			setIsEditing(false);
-		}
-	}
-	editTime();
+	// function editTime() {
+	// 	let currentDate = new Date();
+	// 	let editDate = new Date("2023-04-01");
+	// 	if (currentDate.getTime() > editDate.getTime()) {
+	// 		setIsEditing(false);
+	// 	}
+	// 	editTime(currentDate);
+	// }
 
 	return (
 		<div
@@ -86,7 +85,7 @@ function ObjectiveRow({ objective, deleteObjective }) {
 						<button style={{ marginRight: "10px" }}>
 							<FaEdit style={{ color: "007BFF" }} onClick={handleEdit} />
 						</button>
-						<button onClick={() => deleteObjective(objective.objective_id)}>
+						<button onClick={() => onDelete()}>
 							<FaTrash style={{ color: "red" }} />
 						</button>
 					</div>
