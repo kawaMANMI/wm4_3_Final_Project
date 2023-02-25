@@ -1,4 +1,11 @@
-h2 {
+strong {
+	color: #dc143c;
+}
+.card-header {
+	color: #dc143c;
+	text-shadow: 1px 1px 1px grey;
+}
+/* h2 {
 	text-align: center;
 }
 .profile {
@@ -32,4 +39,4 @@ span {
 
 .chart {
 	padding-bottom: 200px;
-}
+} */

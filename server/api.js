@@ -2,6 +2,7 @@ import { Router } from "express";
 import logger from "./utils/logger";
 import db from "./db";
 const bcrypt = require("bcrypt");
+const crypto = require("crypto");
 const nodemailer = require("nodemailer");
 const router = Router();
 router.get("/", (_, res) => {
@@ -130,7 +131,7 @@ router.delete("/learning_objectives/:id", (req, res) => {
 router.post("/login", async (req, res) => {
 	const { username, password } = req.body;
 	try {
-		const result = await db.query("SELECT * FROM users WHERE name=$1", [
+		const result = await db.query("SELECT * FROM users WHERE username=$1", [
 			username,
 		]);
 		const user = result.rows[0];
@@ -154,9 +155,9 @@ router.post("/login", async (req, res) => {
 });
 
 const classes = [
-	{ 1: ["WM4"] },
-	{ 2: ["NW3"] },
-	{ 3: ["LON9"] },
+	{ 1: ["WM1", "WM2", "WM3", "WM4"] },
+	{ 2: ["NW1", "NW1", "NW2", "NW2"] },
+	{ 3: ["LON1", "LON2", "LON3", "LON4"] },
 	{ 4: ["CT2"] },
 ];
 
@@ -186,6 +187,7 @@ router.post("/signup", async (req, res) => {
 		if (existingUser.rowCount > 0) {
 			return res.status(200).send("Email or username is already exist");
 		}
+
 		const resultid = await db.query("SELECT MAX(id) FROM users");
 		const maxId = resultid.rows[0].max;
 		const result = await db.query(
@@ -213,30 +215,62 @@ router.post("/signup", async (req, res) => {
 router.post("/forgot-password", async (req, res) => {
 	const { email } = req.body;
 	// Send a password reset email to the user's email address
-	const transporter = nodemailer.createTransport({
-		service: "gmail",
-		auth: {
-			user: "your-email@gmail.com",
-			pass: "your-email-password",
-		},
-	});
+	try {
+		// Check if the email is already registered
+		const existingUser = await db.query(
+			"SELECT * FROM users WHERE email = $1",
+			[email]
+		);
 
-	const mailOptions = {
-		from: "your-email@gmail.com",
-		to: email,
-		subject: "Password Reset Request",
-		text: "You have requested to reset your password. Please use this token to reset your password: resetToken",
-	};
-
-	transporter.sendMail(mailOptions, (error, info) => {
-		if (error) {
-			logger.debug(error);
-			res.status(500).send("Error sending email");
+		if (existingUser.rowCount < 1) {
+			return res.status(200).send("Email  is not exist");
 		} else {
-			logger.debug("Email sent: " + info.response);
-			res.status(200).send("Password reset email sent");
+			logger.debug("Email  is  exist");
 		}
-	});
+
+		// Create a random token
+		const token = crypto.randomBytes(20).toString("hex");
+
+		const transporter = nodemailer.createTransport({
+			pool: true,
+			host: "smtp.gmail.com",
+			port: 465,
+			secure: true,
+			auth: {
+				user: "devdreamers2023@gmail.com",
+				pass: "123qwe_A",
+			},
+			tls: {
+				rejectUnauthorized: false,
+			},
+		});
+
+		// Set up email message
+		const message = {
+			from: "devdreamers2023@gmail.com",
+			to: { email },
+			subject: "Password Reset",
+			text: `Please use the following token to reset your password: ${token}`,
+		};
+
+		// Send email
+		try {
+			const info = await transporter.sendMail(message);
+			await logger.debug(`Message sent: ${info.messageId}`);
+			await db.query("UPDATE users SET password = $1 WHERE email = $2", [
+				token,
+				email,
+			]);
+			return res.status(200).send("Email sent32!");
+		} catch (error) {
+			return logger.error(error);
+		}
+
+		// Return success response
+	} catch (error) {
+		logger.error(error);
+		res.status(500).send("Internal server error");
+	}
 });
 
 //Get the all skills and learning objectives
@@ -304,7 +338,6 @@ router.get("/recent-scores/:id", (req, res) => {
 		.catch((error) => res.status(500).json({ error: error.message }));
 });
 
-// Endpoint for user profile
 router.get("/user-profile", (req, res) => {
 	// const [userIdent, setUserIdent] = use
 	const user_Id = req.session.userId;

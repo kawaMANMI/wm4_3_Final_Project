@@ -5,7 +5,7 @@ import About from "./pages/About";
 import Home from "./pages/Home";
 import Mentor from "./pages/Mentor";
 import Student from "./pages/Student";
-import UserProfile from "./pages/UserProfile";
+import Profile from "./pages/Profile";
 import LearningObjective from "./pages/LearningObjective";
 
 const App = () => (
@@ -15,8 +15,7 @@ const App = () => (
 			<Route path="/" element={<Home />} />
 			<Route path="/about/this/site" element={<About />} />
 			<Route path="/mentor" element={<Mentor />} />
-			{/* <Route path="/student" element={<Student />} /> */}
-			<Route path="/user-profile" element={<UserProfile />} />
+			<Route path="/user-profile" element={<Profile />} />
 			<Route
 				path="/student"
 				element={<Student userId={sessionStorage.getItem("userId")} />}
