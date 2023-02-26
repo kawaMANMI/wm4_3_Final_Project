@@ -12,6 +12,7 @@ import {
 	ListGroup,
 	Button,
 } from "react-bootstrap";
+import Chart from "./Chart";
 
 function Profile() {
 	const navigate = useNavigate();
@@ -99,6 +100,7 @@ function Profile() {
 				>
 					Progress Chart
 				</Card.Header>
+				<Chart />
 			</Card>
 		</Container>
 	);

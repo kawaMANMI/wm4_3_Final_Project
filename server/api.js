@@ -350,4 +350,26 @@ router.get("/user-profile", (req, res) => {
 		.then((result) => res.json(result.rows))
 		.catch((error) => res.status(500).json({ Error: error.message }));
 });
+
+//Get all the scores for user id
+router.get("/all-scores", async (req, res) => {
+	const userID = req.session.userId;
+	db.query(
+		`SELECT TO_CHAR(user_learning_obj.submitted_at,'Mon-DD') AS date,
+		ROUND(AVG(CASE WHEN skills.skill_name = 'HTML/CSS' THEN user_learning_obj.score ELSE NULL END)) AS HTML_CSS,
+  		ROUND(AVG(CASE WHEN skills.skill_name = 'Git' THEN user_learning_obj.score ELSE NULL END)) AS Git,
+  		ROUND(AVG(CASE WHEN skills.skill_name = 'JavaScript' THEN user_learning_obj.score ELSE NULL END)) AS JavaScript,
+  		ROUND(AVG(CASE WHEN skills.skill_name = 'React' THEN user_learning_obj.score ELSE NULL END)) AS React,
+  		ROUND(AVG(CASE WHEN skills.skill_name = 'Node' THEN user_learning_obj.score ELSE NULL END)) AS Node,
+  		ROUND(AVG(CASE WHEN skills.skill_name = 'Database-Postgres' THEN user_learning_obj.score ELSE NULL END)) AS Database_Postgres
+		FROM user_learning_obj
+		JOIN learning_objectives ON user_learning_obj.lo_id = learning_objectives.id
+		JOIN skills ON learning_objectives.skill_id = skills.id
+		WHERE user_learning_obj.user_id = ${userID}
+		GROUP BY TO_CHAR(user_learning_obj.submitted_at,'Mon-DD')
+		ORDER BY TO_CHAR(user_learning_obj.submitted_at,'Mon-DD')`
+	)
+		.then((result) => res.json(result.rows))
+		.catch((error) => res.status(500).json({ error: error.message }));
+});
 export default router;
