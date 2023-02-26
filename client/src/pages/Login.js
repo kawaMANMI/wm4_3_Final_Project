@@ -9,11 +9,15 @@ import { FaUser } from "react-icons/fa";
 import { FaUserPlus } from "react-icons/fa";
 import { BiKey } from "react-icons/bi";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import "./loginSignUp.css";
 
 export function Login() {
 	const navigate = useNavigate();
 	function handleLogin(userInfo) {
+		if (userInfo.data) {
+			return alert(userInfo.data)
+		}
 		sessionStorage.setItem("userId", userInfo.id);
 		sessionStorage.setItem("name", userInfo.name);
 		sessionStorage.setItem("userRole", userInfo.role);
@@ -62,12 +66,20 @@ export function Login() {
 				.then((response) => {
 					responseData = response.data;
 					handleLogin(responseData);
+				}).catch(error => {
+					return alert(error.response.data.error);
 				});
 			// handle the response from the server
 		} catch (error) {
 			console.error(error);
 		}
 	};
+
+	const tooltip = (
+		<Tooltip id="tooltip">
+			Password reset is not activated yet.
+		</Tooltip>
+	);
 
 	return (
 		<div className="bodyLoginComponent">
@@ -117,13 +129,15 @@ export function Login() {
 					<FaUserPlus className="signup-icon" />
 					<span className="signup-text">Sign Up</span>
 				</Button>
-				<Button
-					onClick={toggleForgetPasswordFrom}
-					className="btn btn-light d-block"
-				>
-					<BiKey className="Forget-icon" />
-					<span className="forget-text">Forget Password</span>
-				</Button>
+				<OverlayTrigger placement="top" overlay={tooltip}>
+					<Button
+						// onClick={toggleForgetPasswordFrom}
+						className="btn btn-light d-block"
+					>
+						<BiKey className="Forget-icon" />
+						<span className="forget-text">Forget Password</span>
+					</Button>
+				</OverlayTrigger>
 				{showSignupForm ? (
 					<SignupForm onDismiss={handleSignupFormDismiss} />
 				) : null}
