@@ -1,7 +1,7 @@
 import "./Home.css";
 import Login from "./Login";
 
-export function Home({ isDarkMode}) {
+export function Home({ isDarkMode }) {
 	const homeStyle = isDarkMode
 		? {
 			backgroundColor: "#333",

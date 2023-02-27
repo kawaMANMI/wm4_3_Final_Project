@@ -3,7 +3,7 @@ import { Container, Form, Button } from "react-bootstrap";
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 import "./Footer.css";
 
-function Footer({ isDarkMode, onDarkModeToggle }) {
+function Footer({ isDarkMode }) {
 	const footerStyle = isDarkMode
 		? {
 			backgroundColor: "#333",
