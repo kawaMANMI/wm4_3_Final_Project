@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import React from "react";
 import { Container, Form, Button } from "react-bootstrap";
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
@@ -45,7 +46,7 @@ function Footer({ isDarkMode }) {
 						</a>
 						<a
 							style={socialIconsStyle}
-							href="https://twitter.com/CodeYourFuture"
+							href="https://www.instagram.com/codeyourfuture_/"
 						>
 							<FaInstagram />
 						</a>

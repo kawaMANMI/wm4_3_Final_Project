@@ -9,7 +9,6 @@ import Mentor from "./pages/Mentor";
 import Student from "./pages/Student";
 import Profile from "./pages/Profile";
 import LearningObjective from "./pages/LearningObjective";
-
 const App = () => {
 	const [isDarkMode, setIsDarkMode] = useState(false);
 	const handleDarkModeToggle = () => {
@@ -19,10 +18,12 @@ const App = () => {
 		? {
 				backgroundColor: "#333",
 				color: "#fff",
+				// eslint-disable-next-line no-mixed-spaces-and-tabs
 		  }
 		: {
 				backgroundColor: "#fff",
 				color: "#333",
+				// eslint-disable-next-line no-mixed-spaces-and-tabs
 		  };
 	return (
 		<div style={loginColors}>
