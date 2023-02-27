@@ -18,8 +18,6 @@ INNER JOIN user_learning_obj ulo ON u.id = ulo.user_id
 INNER JOIN region r ON u.region_id = r.id
 GROUP BY u.id, u.name, u.class_code, r.name
 ORDER BY total_score DESC;
-
-
 `
 	)
 		.then((result) => res.json(result.rows))
@@ -27,17 +25,52 @@ ORDER BY total_score DESC;
 			res.status(500).json(err);
 		});
 });
-router.get("/skills", (req, res) => {
-	db.query(
-		`SELECT s.id AS skill_id, s.skill_name, array_agg(json_build_object('objective_id', lo.id,'objective', lo.objective)) AS objectives
-		 FROM skills AS s
-		 INNER JOIN learning_objectives AS lo
-		 ON s.id = lo.skill_id
-		 GROUP BY s.id, s.skill_name
-		 ORDER BY s.id`
-	)
-		.then((result) => res.json(result.rows))
-		.catch((error) => res.status(500).json({ error: error.message }));
+//get skills and scores for all students and region
+// router.get("/skills-scores", (req, res) => {
+// 	db.query(
+// 		`SELECT u.id AS student_id, u.name AS student_name, r.name AS region_name, s.skill_name, SUM(ulo.score) AS total_score
+// FROM user_learning_obj ulo
+// JOIN users u ON ulo.user_id = u.id
+// JOIN skills s ON ulo.lo_id = s.id
+// JOIN region r ON u.region_id = r.id
+// WHERE r.name IN ('North West', 'London', 'West Midlands', 'Cape Town')
+// GROUP BY u.id, u.name, r.name, s.skill_name
+// ORDER BY u.name, s.skill_name ASC;
+// 	`
+// 	)
+// 		.then((result) => {
+// 			res.json(result.rows);
+// 		})
+// 		.catch((err) => {
+// 			res.status(500).json(err);
+// 		});
+// });
+
+// get skill by region filter
+router.get("/skills-by-region", (req, res) => {
+	const region = req.query.region;
+	const query = `
+SELECT u.id AS student_id, u.name AS student_name, r.name AS region_name, s.skill_name, SUM(ulo.score) AS total_score
+FROM user_learning_obj ulo
+JOIN users u ON ulo.user_id = u.id
+JOIN skills s ON ulo.lo_id = s.id
+JOIN region r ON u.region_id = r.id
+WHERE ($1::text IS NULL OR r.name = $1::text)
+GROUP BY u.id, u.name, r.name, s.skill_name
+ORDER BY u.name ASC
+
+
+
+  `;
+	const params = [region || null];
+
+	db.query(query, params, (error, result) => {
+		if (error) {
+			res.status(500).json({ error: "Error executing query" });
+		} else {
+			res.json(result.rows);
+		}
+	});
 });
 
 //get a specific learning_obj

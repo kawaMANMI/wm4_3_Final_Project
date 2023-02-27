@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import "./Mentor.css";
 import Dropdown from "react-bootstrap/Dropdown";
+import Container from "react-bootstrap/Container";
 
 function Mentor() {
 	const navigate = useNavigate();
@@ -14,10 +15,12 @@ function Mentor() {
 	function handleUser() {
 		navigate("/user-profile");
 	}
-	const [studentData, setStudentData] = useState([]);
+	const [scores, setScores] = useState([]);
+	const [selectedRegion, setSelectedRegion] = useState("");
+
 	useEffect(() => {
 		axios
-			.get("/api/students")
+			.get(`api/skills-by-region?region=${selectedRegion}`)
 			.then((res) => {
 				if (res.status === 200) {
 					return res.data;
@@ -25,54 +28,84 @@ function Mentor() {
 					throw new Error("Something went wrong");
 				}
 			})
-			.then((data) => setStudentData(data))
+			.then((data) => setScores(data))
 			.catch((error) => {
 				console.log({ error: error.message });
 			});
-	}, []);
+	}, [selectedRegion]);
+	console.log(scores);
 
+	const uniqueSkills = scores
+		.map((score) => score.skill_name)
+		.filter((value, index, array) => array.indexOf(value) === index);
+	//create an object to store the scores for each student
+	const studentScores = {};
+	scores.forEach(({ student_id, student_name, skill_name, total_score }) => {
+		//if the student has already been added to the object,update their scores,
+		if (student_id in studentScores) {
+			studentScores[student_id].totalScore += total_score;
+			studentScores[student_id].skills[skill_name] = total_score;
+		} else {
+			//if the student hasn't been added to the object,add them to the object with their initial score
+			studentScores[student_id] = {
+				name: student_name,
+				totalScore: total_score,
+				skills: { [skill_name]: total_score },
+			};
+		}
+	});
 	return (
-		<div className="table_container">
+		<Container fluid responsive="sm" className="table_container">
 			<div className="button_container">
 				<div>
 					<Dropdown>
 						<Dropdown.Toggle variant="primary" id="dropdown-basic">
-							Class-Code
+							REGIONS
 						</Dropdown.Toggle>
 
 						<Dropdown.Menu>
-							<Dropdown.Item href="#/action-1">LDN5</Dropdown.Item>
-							<Dropdown.Item href="#/action-2">NW3</Dropdown.Item>
-							<Dropdown.Item href="#/action-3">WM5</Dropdown.Item>
-							<Dropdown.Item href="#/action-4">ND3</Dropdown.Item>
+							<Dropdown.Item onClick={() => setSelectedRegion("London")}>
+								London
+							</Dropdown.Item>
+							<Dropdown.Item onClick={() => setSelectedRegion("North West")}>
+								North West
+							</Dropdown.Item>
+							<Dropdown.Item onClick={() => setSelectedRegion("West Midlands")}>
+								West Midlands
+							</Dropdown.Item>
+							<Dropdown.Item onClick={() => setSelectedRegion("Cape Town")}>
+								Cape Town
+							</Dropdown.Item>
 						</Dropdown.Menu>
 					</Dropdown>
 				</div>
-				<Button variant="info" className="button_enabled" onClick={handleSkill}>
-					View Learning Objectives
+				<Button
+					variant="primary"
+					className="button_enabled"
+					onClick={handleSkill}
+				>
+					Learning Objectives
 				</Button>
 			</div>
-			<div className="contain">
+			<div className="table-wrapper">
 				<h2>STUDENTS LIST</h2>
-				<Table bordered hover size="sm" responsive="md" striped="columns">
+				<Table size="sm" hover responsive="sm">
 					<thead>
 						<tr>
-							<th>ID</th>
-							<th>NAME</th>
-							{/* <th>CLASS-CODE</th> */}
-							<th>REGION</th>
-							<th> TOTAL SCORES</th>
+							<th className="text-center">Name</th>
+							{uniqueSkills.map((skill) => (
+								<th key={skill}>{skill}</th>
+							))}
 							<th>Student Profile</th>
 						</tr>
 					</thead>
 					<tbody>
-						{studentData.map(({ id, name, total_score, region_name }) => (
-							<tr key={id}>
-								<td>{id}</td>
-								<td>{name}</td>
-								{/* <td>{class_code}</td> */}
-								<td>{region_name}</td>
-								<td>{total_score}</td>
+						{Object.values(studentScores).map(({ name, skills }, i) => (
+							<tr key={i}>
+								<td className="text-center">{name}</td>
+								{uniqueSkills.map((skill) => (
+									<td key={skill}>{skills[skill] || "0"}</td>
+								))}
 								<td style={{ margin: "auto", textAlign: "center" }}>
 									<button onClick={handleUser}>View</button>
 								</td>
@@ -81,7 +114,7 @@ function Mentor() {
 					</tbody>
 				</Table>
 			</div>
-		</div>
+		</Container>
 	);
 }
 export default Mentor;
