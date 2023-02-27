@@ -23,10 +23,6 @@
 	text-shadow: 0px 0px 10px rgba(237, 67, 67, 0.5);
 }
 
-
-
-
-
 .subscription-form {
 	display: flex;
 	flex-wrap: wrap;
@@ -92,7 +88,6 @@
 	color: #ed4343;
 	font-weight: bold;
 }
-
 
 .Container {
 	display: flex;

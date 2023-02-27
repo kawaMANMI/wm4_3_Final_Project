@@ -1,18 +1,18 @@
 .header-container.light-mode {
-    --header-bg-color: #f8f9fa;
-    --header-text-color: #343a40;
+	--header-bg-color: #f8f9fa;
+	--header-text-color: #343a40;
 }
 
 .header-container.dark-mode {
-    --header-bg-color: #343a40;
-    --header-text-color: #f8f9fa;
+	--header-bg-color: #343a40;
+	--header-text-color: #f8f9fa;
 }
 
 .header-nav {
-    background-color: var(--header-bg-color);
-    color: var(--header-text-color);
+	background-color: var(--header-bg-color);
+	color: var(--header-text-color);
 }
 
 .nav-link {
-    color: var(--header-text-color);
+	color: var(--header-text-color);
 }

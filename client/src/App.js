@@ -17,18 +17,18 @@ const App = () => {
 	};
 	const loginColors = isDarkMode
 		? {
-			backgroundColor: "#333",
-			color: "#fff",
-		}
+				backgroundColor: "#333",
+				color: "#fff",
+		  }
 		: {
-			backgroundColor: "#fff",
-			color: "#333",
-		};
+				backgroundColor: "#fff",
+				color: "#333",
+		  };
 	return (
 		<div style={loginColors}>
 			<Header isDarkMode={isDarkMode} onDarkModeToggle={handleDarkModeToggle} />
 			<Routes>
-				<Route path="/" element={<Home isDarkMode={isDarkMode}  />} />
+				<Route path="/" element={<Home isDarkMode={isDarkMode} />} />
 				<Route path="/about" element={<About />} />
 				<Route path="/contact" element={<Contact />} />
 				<Route path="/mentor" element={<Mentor />} />
@@ -36,7 +36,7 @@ const App = () => {
 				<Route path="/student" element={<Student />} />
 				<Route path="skills" element={<LearningObjective />} />
 			</Routes>
-			<Footer isDarkMode={isDarkMode}  />
+			<Footer isDarkMode={isDarkMode} />
 		</div>
 	);
 };

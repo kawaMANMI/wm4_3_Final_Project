@@ -66,7 +66,8 @@ export function Login({ isDarkMode }) {
 				.then((response) => {
 					responseData = response.data;
 					handleLogin(responseData);
-				}).catch((error) => {
+				})
+				.catch((error) => {
 					return alert(error.response.data.error);
 				});
 			// handle the response from the server
@@ -76,20 +77,18 @@ export function Login({ isDarkMode }) {
 	};
 
 	const tooltip = (
-		<Tooltip id="tooltip">
-			Password reset is not activated yet.
-		</Tooltip>
+		<Tooltip id="tooltip">Password reset is not activated yet.</Tooltip>
 	);
 
 	const loginColors = isDarkMode
 		? {
-			backgroundColor: "#333",
-			color: "#fff",
-		}
+				backgroundColor: "#333",
+				color: "#fff",
+		  }
 		: {
-			backgroundColor: "#fff",
-			color: "#333",
-		};
+				backgroundColor: "#fff",
+				color: "#333",
+		  };
 
 	return (
 		<div className="bodyLoginComponent" style={loginColors}>
