@@ -15,12 +15,20 @@ const App = () => {
 	const handleDarkModeToggle = () => {
 		setIsDarkMode(!isDarkMode);
 	};
+	const loginColors = isDarkMode
+		? {
+			backgroundColor: "#333",
+			color: "#fff",
+		}
+		: {
+			backgroundColor: "#fff",
+			color: "#333",
+		};
 	return (
-		<div>
+		<div style={loginColors}>
 			<Header isDarkMode={isDarkMode} onDarkModeToggle={handleDarkModeToggle} />
 			<Routes>
-				{/* <Route path="/" element={<LandingPage />} /> */}
-				<Route path="/" element={<Home />} />
+				<Route path="/" element={<Home isDarkMode={isDarkMode} onDarkModeToggle={handleDarkModeToggle} />} />
 				<Route path="/about" element={<About />} />
 				<Route path="/contact" element={<Contact />} />
 				<Route path="/mentor" element={<Mentor />} />

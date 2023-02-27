@@ -6,7 +6,7 @@ import "./Footer.css";
 function Footer({ isDarkMode, onDarkModeToggle }) {
 	const footerStyle = isDarkMode
 		? {
-			backgroundColor: "#222",
+			backgroundColor: "#333",
 			color: "#fff",
 			boxShadow: "0 2px 4px rgba(255, 255, 255, 0.4)",
 		}
@@ -17,11 +17,11 @@ function Footer({ isDarkMode, onDarkModeToggle }) {
 		};
 	const socialIconsStyle = isDarkMode
 		? { color: "#fff" }
-		: { color: "#222" };
+		: { color: "#333" };
 	const subscribeButtonStyle = isDarkMode
 		? {
 			backgroundColor: "#fff",
-			color: "#222",
+			color: "#333",
 		}
 		: {
 			backgroundColor: "#2f2f2f",

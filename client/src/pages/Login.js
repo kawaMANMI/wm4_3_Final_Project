@@ -12,7 +12,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import "./loginSignUp.css";
 
-export function Login() {
+export function Login({ isDarkMode, onDarkModeToggle }) {
 	const navigate = useNavigate();
 	function handleLogin(userInfo) {
 		if (userInfo.data) {
@@ -81,8 +81,18 @@ export function Login() {
 		</Tooltip>
 	);
 
+	const loginColors = isDarkMode
+		? {
+			backgroundColor: "#333",
+			color: "#fff",
+		}
+		: {
+			backgroundColor: "#fff",
+			color: "#333",
+		};
+
 	return (
-		<div className="bodyLoginComponent">
+		<div className="bodyLoginComponent" style={loginColors}>
 			<form onSubmit={handleSubmit}>
 				<Form.Group className="custom-input">
 					<Form.Label htmlFor="username">Username</Form.Label>
