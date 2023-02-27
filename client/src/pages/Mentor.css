@@ -1,49 +1,49 @@
 .button_container {
-	display: flex;
-	justify-content: space-between;
-	margin-bottom: 1em;
-	margin-right: 1em;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1em;
+  margin-right: 1em;
 }
 
 .button_enabled {
-	background-color: #007bff;
-	border-color: #007bff;
+  background-color: #007bff;
+  border-color: #007bff;
 }
 
 .button_enabled:hover {
-	background-color: #0069d9;
-	border-color: #0062cc;
+  background-color: #0069d9;
+  border-color: #0062cc;
 }
 h2 {
-	text-align: center;
+  text-align: center;
 }
 .table-wrapper {
-	overflow-x: auto;
+  overflow-x: auto;
 }
 
 @media (max-width: 768px) {
-	.table_container {
-		padding: 10px;
-	}
+  .table_container {
+    padding: 10px;
+  }
 
-	.button_container {
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		margin-bottom: 10px;
-	}
+  .button_container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+  }
 
-	.button_enabled {
-		margin-top: 10px;
-		margin-left: 0;
-	}
+  .button_enabled {
+    margin-top: 10px;
+    margin-left: 0;
+  }
 
-	.table-wrapper {
-		max-width: 100%;
-	}
+  .table-wrapper {
+    max-width: 100%;
+  }
 
-	th,
-	td {
-		padding: 5px;
-	}
+  th,
+  td {
+    padding: 5px;
+  }
 }
