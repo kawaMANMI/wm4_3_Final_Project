@@ -1,11 +1,11 @@
 /**
  * @param { import("knex").Knex } knex
- * @returns { Promise<void> } 
+ * @returns { Promise<void> }
  */
-exports.seed = async function(knex) {
-  // Deletes ALL existing entries
-  await knex("resources").del();
-  await knex("resources").insert([
+exports.seed = async function (knex) {
+	// Deletes ALL existing entries
+	await knex("resources").del();
+	await knex("resources").insert([
 		{
 			id: 1,
 			title: "35+ HTML&CSS Resources for Beginners",
