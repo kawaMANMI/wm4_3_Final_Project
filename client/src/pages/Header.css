@@ -3,14 +3,16 @@
 	background-color: rgb(235, 235, 235);
 }
 
+.header-container.dark-mode {
+	background-color: #333;
+}
+
 .header_line {
 	border: none;
 	height: 5px;
 	background-color: #ed4343;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
-
-
 
 .logo-img {
 	width: 20%;
@@ -49,5 +51,6 @@
 
 .active-nav-link {
 	color: red;
+	color: #2f2f2f;
 	text-decoration: underline;
 }
