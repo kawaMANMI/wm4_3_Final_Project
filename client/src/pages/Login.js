@@ -82,13 +82,13 @@ export function Login({ isDarkMode }) {
 
 	const loginColors = isDarkMode
 		? {
-			backgroundColor: "#333",
-			color: "#fff",
-		}
+				backgroundColor: "#333",
+				color: "#fff",
+		  }
 		: {
-			backgroundColor: "#fff",
-			color: "#333",
-		};
+				backgroundColor: "#fff",
+				color: "#333",
+		  };
 
 	return (
 		<div className="bodyLoginComponent" style={loginColors}>
