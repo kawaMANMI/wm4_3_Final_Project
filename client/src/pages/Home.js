@@ -1,7 +1,7 @@
 import "./Home.css";
 import Login from "./Login";
 
-export function Home({ isDarkMode, onDarkModeToggle }) {
+export function Home({ isDarkMode}) {
 	const homeStyle = isDarkMode
 		? {
 			backgroundColor: "#333",
@@ -14,7 +14,7 @@ export function Home({ isDarkMode, onDarkModeToggle }) {
 	return (
 		<main role="main" className={`appClass ${homeStyle}`} >
 			<h1>Login</h1>
-			<Login isDarkMode={isDarkMode} onDarkModeToggle={onDarkModeToggle} />
+			<Login isDarkMode={isDarkMode} />
 		</main >
 	);
 }

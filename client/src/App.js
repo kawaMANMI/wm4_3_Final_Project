@@ -28,7 +28,7 @@ const App = () => {
 		<div style={loginColors}>
 			<Header isDarkMode={isDarkMode} onDarkModeToggle={handleDarkModeToggle} />
 			<Routes>
-				<Route path="/" element={<Home isDarkMode={isDarkMode} onDarkModeToggle={handleDarkModeToggle} />} />
+				<Route path="/" element={<Home isDarkMode={isDarkMode}  />} />
 				<Route path="/about" element={<About />} />
 				<Route path="/contact" element={<Contact />} />
 				<Route path="/mentor" element={<Mentor />} />
@@ -36,9 +36,9 @@ const App = () => {
 				<Route path="/student" element={<Student />} />
 				<Route path="skills" element={<LearningObjective />} />
 			</Routes>
-			<Footer isDarkMode={isDarkMode} onDarkModeToggle={handleDarkModeToggle} />
+			<Footer isDarkMode={isDarkMode}  />
 		</div>
 	);
-}
+};
 
 export default App;

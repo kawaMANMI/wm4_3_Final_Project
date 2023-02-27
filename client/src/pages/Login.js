@@ -12,11 +12,11 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import "./loginSignUp.css";
 
-export function Login({ isDarkMode, onDarkModeToggle }) {
+export function Login({ isDarkMode }) {
 	const navigate = useNavigate();
 	function handleLogin(userInfo) {
 		if (userInfo.data) {
-			return alert(userInfo.data)
+			return alert(userInfo.data);
 		}
 		sessionStorage.setItem("userId", userInfo.id);
 		sessionStorage.setItem("name", userInfo.name);
@@ -42,9 +42,9 @@ export function Login({ isDarkMode, onDarkModeToggle }) {
 		setShowSignupForm(!showSignupForm);
 	};
 
-	const toggleForgetPasswordFrom = () => {
-		setForgetPasswordFrom(!showForgetPasswordFrom);
-	};
+	// const toggleForgetPasswordFrom = () => {
+	// 	setForgetPasswordFrom(!showForgetPasswordFrom);
+	// };
 	const handleSignupFormDismiss = () => {
 		setShowSignupForm(false);
 	};
@@ -66,7 +66,7 @@ export function Login({ isDarkMode, onDarkModeToggle }) {
 				.then((response) => {
 					responseData = response.data;
 					handleLogin(responseData);
-				}).catch(error => {
+				}).catch((error) => {
 					return alert(error.response.data.error);
 				});
 			// handle the response from the server
