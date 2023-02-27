@@ -4,6 +4,7 @@ import Container from "react-bootstrap/Container";
 import axios from "axios";
 import ObjectiveRow from "./ObjectiveRow";
 import AddNewObjective from "./AddNewObjective";
+import "./LearningObj.css";
 
 function LearningObjective() {
 	const [learningObjective, setLearningObjective] = useState([]);
@@ -13,7 +14,7 @@ function LearningObjective() {
 	}
 	function getLearningObj() {
 		axios
-			.get("/api/skills")
+			.get("/api/checklist")
 			.then((res) => {
 				if (res.status === 200) {
 					return res.data;
@@ -42,40 +43,39 @@ function LearningObjective() {
 	};
 
 	return (
-		<Container
-			fluid
-			style={{ display: "flex", justifyContent: "space-between" }}
-		>
-			<AddNewObjective handleAddObjective={handleSubmitObj} />
-			<Table bordered hover size="sm" responsive="md" style={{ width: "65em" }}>
-				<thead style={{ color: "red", textAlign: "center" }}>
-					<tr>
-						<th>SKILL ID</th>
-						<th>SKILLS</th>
-						<th>LEARNING OBJECTIVES</th>
-					</tr>
-				</thead>
-				<tbody>
-					{learningObjective.map((skill) =>
-						skill.objectives.map((objective) => (
-							<tr key={objective.objective_id}>
-								<td>{skill.skill_id}</td>
-								<td style={{ textAlign: "center", fontWeight: "bold" }}>
-									{skill.skill_name}
-								</td>
-								<td>
-									<ObjectiveRow
-										onChange={getLearningObj}
-										objective={objective}
-										onDelete={() => deleteObjective(objective.objective_id)}
-									/>
-								</td>
+		<div className="learning-objective-wrapper">
+			<div className="learning-objective-flex-row">
+				<AddNewObjective handleAddObjective={handleSubmitObj} />
+			</div>
+			<Container fluid className="learning-objective-container">
+				<div>
+					<Table hover size="sm" responsive="sm">
+						<thead>
+							<tr>
+								<th>SKILLS</th>
+								<th>LEARNING OBJECTIVES</th>
 							</tr>
-						))
-					)}
-				</tbody>
-			</Table>
-		</Container>
+						</thead>
+						<tbody>
+							{learningObjective.map((skill) =>
+								skill.objectives.map((objective) => (
+									<tr key={objective.objective_id}>
+										<td>{skill.skill_name}</td>
+										<td>
+											<ObjectiveRow
+												onChange={getLearningObj}
+												objective={objective}
+												onDelete={() => deleteObjective(objective.objective_id)}
+											/>
+										</td>
+									</tr>
+								))
+							)}
+						</tbody>
+					</Table>
+				</div>
+			</Container>
+		</div>
 	);
 }
 
