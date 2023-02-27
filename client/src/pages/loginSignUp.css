@@ -1,32 +1,32 @@
 .bodyLoginComponent {
-  padding: 2rem;
-  margin: 1em;
+	padding: 2rem;
+	margin: 1em;
 }
 
 .login-icon {
-  margin-right: 0.5rem;
-  padding-right: 0.5rem;
-  font-size: 1.3rem;
+	margin-right: 0.5rem;
+	padding-right: 0.5rem;
+	font-size: 1.3rem;
 }
 
 .signup-icon {
-  margin-right: 0.5rem;
-  padding-right: 0.5rem;
-  font-size: 1.5rem;
+	margin-right: 0.5rem;
+	padding-right: 0.5rem;
+	font-size: 1.5rem;
 }
 
 .password-toggle-icon {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 .input-group-text:focus {
-  outline: none;
-  box-shadow: none;
+	outline: none;
+	box-shadow: none;
 }
 
 .form-control:focus {
-  border-color: #ced4da;
-  box-shadow: none;
+	border-color: #ced4da;
+	box-shadow: none;
 }
 
 /* .custom-input {
@@ -34,12 +34,12 @@
 } */
 
 .bodyLoginComponent {
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 25%;
-  /* background: linear-gradient(180deg, #f5f5f5 0%, #fff 100%); */
-  /* text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2); */
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	width: 25%;
+	/* background: linear-gradient(180deg, #f5f5f5 0%, #fff 100%); */
+	/* text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2); */
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
 /* .bodyLoginComponent:hover {

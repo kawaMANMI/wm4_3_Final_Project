@@ -1,29 +1,29 @@
 .appClass {
-  height: 100vh;
-  width: 100vw;
+	height: 100vh;
+	width: 100vw;
 }
 
 .logo {
-  width: 100px;
+	width: 100px;
 }
 
 .message {
-  color: rgb(255, 0, 0);
+	color: rgb(255, 0, 0);
 }
 
 .message:hover {
-  background-color: yellow;
+	background-color: yellow;
 }
 
 .table_container {
-  width: 50%;
-  margin: auto;
+	width: 50%;
+	margin: auto;
 }
 
 h2 {
-  font-size: 1.5em;
-  font-weight: bold;
-  margin: 1em;
+	font-size: 1.5em;
+	font-weight: bold;
+	margin: 1em;
 }
 
 /* .footer {
@@ -33,6 +33,6 @@ h2 {
 } */
 
 .table {
-  margin: 0 auto;
-  width: 80%;
+	margin: 0 auto;
+	width: 80%;
 }

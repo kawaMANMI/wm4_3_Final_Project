@@ -1,9 +1,9 @@
 strong {
-  color: #dc143c;
+	color: #dc143c;
 }
 .card-header {
-  color: #dc143c;
-  text-shadow: 1px 1px 1px grey;
+	color: #dc143c;
+	text-shadow: 1px 1px 1px grey;
 }
 /* h2 {
 	text-align: center;

@@ -1,102 +1,102 @@
 .footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-  background-color: rgb(235, 235, 235);
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+	background-color: rgb(235, 235, 235);
+	justify-content: center;
+	align-items: center;
+	text-align: center;
 }
 
 .social-icons a {
-  color: #2f2f2f;
-  font-size: 24px;
-  margin-right: 10px;
+	color: #2f2f2f;
+	font-size: 24px;
+	margin-right: 10px;
 }
 
 .social-icons a:hover {
-  color: #ed4343;
-  /* text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2); */
-  transform: scale(1.1);
-  text-shadow: 0px 0px 10px rgba(237, 67, 67, 0.5);
+	color: #ed4343;
+	/* text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2); */
+	transform: scale(1.1);
+	text-shadow: 0px 0px 10px rgba(237, 67, 67, 0.5);
 }
 
 .subscription-form {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	margin-top: 20px;
 }
 
 .subscribe-button {
-  background-color: #2f2f2f;
-  border: none;
+	background-color: #2f2f2f;
+	border: none;
 }
 
 .subscribe-button:hover {
-  background-color: #ed4343;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+	background-color: #ed4343;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .subscription-form input[type="email"] {
-  height: 40px;
-  width: 250px;
-  padding: 5px 10px;
-  border-radius: 20px;
-  border: 2px solid #ced4da;
-  margin-right: 10px;
+	height: 40px;
+	width: 250px;
+	padding: 5px 10px;
+	border-radius: 20px;
+	border: 2px solid #ced4da;
+	margin-right: 10px;
 }
 
 .subscription-form input[type="email"]:focus {
-  outline: none;
-  border-color: #ff0000;
-  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+	outline: none;
+	border-color: #ff0000;
+	box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
 .subscription-form button[type="submit"] {
-  height: 40px;
-  border-radius: 20px;
-  border: none;
-  background-color: #ff0000;
-  color: #fff;
-  font-size: 16px;
-  font-weight: bold;
-  padding: 0 20px;
-  cursor: pointer;
+	height: 40px;
+	border-radius: 20px;
+	border: none;
+	background-color: #ff0000;
+	color: #fff;
+	font-size: 16px;
+	font-weight: bold;
+	padding: 0 20px;
+	cursor: pointer;
 }
 
 .subscription-form button[type="submit"]:hover {
-  background-color: #d90000;
+	background-color: #d90000;
 }
 
 @media (max-width: 576px) {
-  .subscription-form {
-    margin-top: 10px;
-  }
+	.subscription-form {
+		margin-top: 10px;
+	}
 
-  .subscription-form input[type="email"] {
-    width: 100%;
-    margin-right: 0;
-    margin-bottom: 10px;
-  }
+	.subscription-form input[type="email"] {
+		width: 100%;
+		margin-right: 0;
+		margin-bottom: 10px;
+	}
 }
 
 *.code {
-  color: #ed4343;
-  font-weight: bold;
+	color: #ed4343;
+	font-weight: bold;
 }
 
 .Container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	height: 100%;
 }
 
 .Container p {
-  margin: 0;
+	margin: 0;
 }
