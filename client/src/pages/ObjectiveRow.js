@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import "./LearningObj.css";
 
 function ObjectiveRow({ objective, onDelete, onChange }) {
 	const [isEditing, setIsEditing] = useState(false);
@@ -72,7 +73,7 @@ function ObjectiveRow({ objective, onDelete, onChange }) {
 				}}
 			>
 				{isEditing ? (
-					<div>
+					<div className="button-container">
 						<button
 							onClick={updateObjective(objective.objective_id, editedObjective)}
 						>

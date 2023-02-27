@@ -92,6 +92,7 @@
 		"react-icons": "^4.7.1",
 		"react-router-dom": "^6.8.1",
 		"recharts": "^2.4.3",
+		"rsuite": "^5.28.0",
 		"uri-js": "^4.4.1",
 		"winston": "^3.8.2"
 	},

@@ -12,8 +12,10 @@ function Mentor() {
 	function handleSkill() {
 		navigate("/skills");
 	}
-	function handleUser() {
-		navigate("/user-profile");
+	function handleUser(student_id) {
+		navigate(`/user-profile/${student_id}`, {
+			state: { studentId: student_id },
+		});
 	}
 	const [scores, setScores] = useState([]);
 	const [selectedRegion, setSelectedRegion] = useState("");
@@ -33,7 +35,17 @@ function Mentor() {
 				console.log({ error: error.message });
 			});
 	}, [selectedRegion]);
+
 	console.log(scores);
+
+	// axios
+	// 	.get(`/user-profile/${userId}`)
+	// 	.then((response) => {
+	// 		console.log(response.data); // handle response data here
+	// 	})
+	// 	.catch((error) => {
+	// 		console.error(error);
+	// 	});
 
 	const uniqueSkills = scores
 		.map((score) => score.skill_name)
@@ -42,18 +54,25 @@ function Mentor() {
 	const studentScores = {};
 	scores.forEach(({ student_id, student_name, skill_name, total_score }) => {
 		//if the student has already been added to the object,update their scores,
+
+	
 		if (student_id in studentScores) {
-			studentScores[student_id].totalScore += total_score;
+			// studentScores[student_id].totalScore =
+			// 	Number(studentScores[student_id].totalScore) + Number(total_score);
 			studentScores[student_id].skills[skill_name] = total_score;
+			console.log(studentScores[student_id].totalScore);
 		} else {
 			//if the student hasn't been added to the object,add them to the object with their initial score
+
 			studentScores[student_id] = {
+				student_id: student_id,
 				name: student_name,
-				totalScore: total_score,
+				total_score: total_score,
 				skills: { [skill_name]: total_score },
 			};
 		}
 	});
+	console.log(Object.values(studentScores));
 	return (
 		<Container fluid responsive="sm" className="table_container">
 			<div className="button_container">
@@ -96,21 +115,29 @@ function Mentor() {
 							{uniqueSkills.map((skill) => (
 								<th key={skill}>{skill}</th>
 							))}
+							<th> Total score</th>
 							<th>Student Profile</th>
 						</tr>
 					</thead>
 					<tbody>
-						{Object.values(studentScores).map(({ name, skills }, i) => (
-							<tr key={i}>
-								<td className="text-center">{name}</td>
-								{uniqueSkills.map((skill) => (
-									<td key={skill}>{skills[skill] || "0"}</td>
-								))}
-								<td style={{ margin: "auto", textAlign: "center" }}>
-									<button onClick={handleUser}>View</button>
-								</td>
-							</tr>
-						))}
+						{Object.values(studentScores).map(
+							({ student_id, name, skills, total_score }, i) => (
+								<tr key={i}>
+									<td className="text-center col-2">{name}</td>
+									{uniqueSkills.map((skill) => (
+										<td key={skill} className="text-center col-4">
+											{skills[skill] || "0"}
+										</td>
+									))}
+									<td key={i} className="text-center col-4">
+										{total_score}
+									</td>
+									<td style={{ margin: "auto", textAlign: "center" }}>
+										<button onClick={() => handleUser(student_id)}>View</button>
+									</td>
+								</tr>
+							)
+						)}
 					</tbody>
 				</Table>
 			</div>

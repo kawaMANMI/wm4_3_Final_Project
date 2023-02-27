@@ -1,8 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import "./UsersProfile.css";
+
 import {
 	Container,
 	Row,
@@ -16,6 +17,10 @@ import Chart from "./Chart";
 
 function Profile() {
 	const navigate = useNavigate();
+	const location = useLocation();
+	// profileId taken from the navigate object
+	const profileId = location.state ? location.state.studentId : "";
+
 	function handleChecklist() {
 		navigate("/student");
 	}
@@ -23,7 +28,7 @@ function Profile() {
 	const id = sessionStorage.getItem("userId");
 	useEffect(() => {
 		axios
-			.get("/api/user-profile")
+			.get(`/api/user-profile/${profileId}`)
 			.then((response) => {
 				if (response.status === 200) {
 					return response.data;
@@ -38,6 +43,7 @@ function Profile() {
 	}, []);
 	const picLink = `https://robohash.org/${id}.png`;
 	console.log(id);
+	console.log("mes", userData);
 	return (
 		<Container
 			style={{

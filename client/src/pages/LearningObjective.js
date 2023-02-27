@@ -49,7 +49,7 @@ function LearningObjective() {
 			</div>
 			<Container fluid className="learning-objective-container">
 				<div>
-					<Table hover size="sm" responsive="sm">
+					<Table hover size="sm" responsive="sm" class="table-responsive">
 						<thead>
 							<tr>
 								<th>SKILLS</th>

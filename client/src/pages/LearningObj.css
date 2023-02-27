@@ -2,19 +2,23 @@
 	display: flex;
 	flex-direction: row;
 }
+
 th {
 	color: red;
 	text-align: center;
 }
+
 td {
 	text-align: center;
 	font-weight: bold;
 }
+
 @media (max-width: 767px) {
 	.learning-objective-wrapper {
 		display: flex;
 		flex-direction: column;
 	}
+
 }
 
 /* add style for add new objective component*/
@@ -31,14 +35,48 @@ td {
 	max-height: 10rem;
 	overflow-y: auto;
 	min-width: 100%;
+
 }
+
 .dropdown-toggle {
 	height: 38px;
 	padding: 6px 12px;
 	font-size: 14px;
 	line-height: 1.42857143;
 }
+
 #dropdown-basic-button {
 	width: 100%;
 	margin-top: 2em;
+}
+
+@media (max-width: 767px) {
+	.form-control {
+		justify-content: center;
+		width: auto;
+	}
+
+	form {
+		width: 50%;
+		margin: auto;
+		margin-bottom: 2em;
+	}
+}
+
+
+/*  style for objective row component */
+
+@media screen and (max-width: 767px) {
+	.div {
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+	button {
+		margin: 5px;
+		padding: 5px;
+		font-size: 14px;
+	}
+
 }
