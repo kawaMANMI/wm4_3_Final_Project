@@ -104,6 +104,7 @@ export function Login({ isDarkMode }) {
 						id="username"
 						onChange={(event) => setUsername(event.target.value)}
 						required
+						style={loginColors}
 					/>
 				</Form.Group>
 
@@ -115,6 +116,7 @@ export function Login({ isDarkMode }) {
 							id="password"
 							value={password}
 							onChange={(event) => setPassword(event.target.value)}
+							style={loginColors}
 						/>
 						<div
 							className="input-group-text password-toggle-icon"
@@ -126,17 +128,22 @@ export function Login({ isDarkMode }) {
 							}}
 							role="button"
 							tabIndex={0}
+							style={loginColors}
 						>
 							{isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
 						</div>
 					</div>
 				</Form.Group>
 
-				<Button className="btn btn-light" type="submit">
+				<Button className="btn btn-light" type="submit" style={loginColors}>
 					<FaUser className="login-icon" />
 					<span className="login-text">Login</span>
 				</Button>
-				<Button onClick={toggleSignupForm} className="btn btn-light">
+				<Button
+					onClick={toggleSignupForm}
+					className="btn btn-light"
+					style={loginColors}
+				>
 					<FaUserPlus className="signup-icon" />
 					<span className="signup-text">Sign Up</span>
 				</Button>
@@ -144,6 +151,7 @@ export function Login({ isDarkMode }) {
 					<Button
 						// onClick={toggleForgetPasswordFrom}
 						className="btn btn-light d-block"
+						style={loginColors}
 					>
 						<BiKey className="Forget-icon" />
 						<span className="forget-text">Forget Password</span>
