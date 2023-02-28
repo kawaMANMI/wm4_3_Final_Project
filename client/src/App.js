@@ -14,7 +14,7 @@ const App = () => {
 	const handleDarkModeToggle = () => {
 		setIsDarkMode(!isDarkMode);
 	};
-	const loginColors = isDarkMode
+	const colorForIsDarkMode = isDarkMode
 		? {
 				backgroundColor: "#333",
 				color: "#fff",
@@ -26,11 +26,11 @@ const App = () => {
 				// eslint-disable-next-line no-mixed-spaces-and-tabs
 		  };
 	return (
-		<div style={loginColors}>
+		<div style={colorForIsDarkMode}>
 			<Header isDarkMode={isDarkMode} onDarkModeToggle={handleDarkModeToggle} />
 			<Routes>
-				<Route path="/" element={<Home isDarkMode={isDarkMode} />} />
-				<Route path="/about" element={<About />} />
+				<Route path="/" element={<Home colorForIsDarkMode={colorForIsDarkMode} />} />
+				<Route path="/about" element={<About colorForIsDarkMode={colorForIsDarkMode} />} />
 				<Route path="/contact" element={<Contact />} />
 				<Route path="/mentor" element={<Mentor />} />
 				<Route path="/user-profile" element={<Profile />} />

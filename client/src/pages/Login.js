@@ -13,7 +13,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import "./loginSignUp.css";
 
-export function Login({ isDarkMode }) {
+export function Login({ colorForIsDarkMode }) {
 	const navigate = useNavigate();
 	function handleLogin(userInfo) {
 		if (userInfo.data) {
@@ -82,18 +82,8 @@ export function Login({ isDarkMode }) {
 		<Tooltip id="tooltip">Password reset is not activated yet.</Tooltip>
 	);
 
-	const loginColors = isDarkMode
-		? {
-				backgroundColor: "#333",
-				color: "#fff",
-		  }
-		: {
-				backgroundColor: "#fff",
-				color: "#333",
-		  };
-
 	return (
-		<div className="bodyLoginComponent" style={loginColors}>
+		<div className="bodyLoginComponent" style={colorForIsDarkMode}>
 			<form onSubmit={handleSubmit}>
 				<Form.Group className="custom-input">
 					<Form.Label htmlFor="username">Username</Form.Label>
@@ -104,7 +94,7 @@ export function Login({ isDarkMode }) {
 						id="username"
 						onChange={(event) => setUsername(event.target.value)}
 						required
-						style={loginColors}
+						style={colorForIsDarkMode}
 					/>
 				</Form.Group>
 
@@ -116,7 +106,7 @@ export function Login({ isDarkMode }) {
 							id="password"
 							value={password}
 							onChange={(event) => setPassword(event.target.value)}
-							style={loginColors}
+							style={colorForIsDarkMode}
 						/>
 						<div
 							className="input-group-text password-toggle-icon"
@@ -128,21 +118,25 @@ export function Login({ isDarkMode }) {
 							}}
 							role="button"
 							tabIndex={0}
-							style={loginColors}
+							style={colorForIsDarkMode}
 						>
 							{isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
 						</div>
 					</div>
 				</Form.Group>
 
-				<Button className="btn btn-light" type="submit" style={loginColors}>
+				<Button
+					className="btn btn-light"
+					type="submit"
+					style={colorForIsDarkMode}
+				>
 					<FaUser className="login-icon" />
 					<span className="login-text">Login</span>
 				</Button>
 				<Button
 					onClick={toggleSignupForm}
 					className="btn btn-light"
-					style={loginColors}
+					style={colorForIsDarkMode}
 				>
 					<FaUserPlus className="signup-icon" />
 					<span className="signup-text">Sign Up</span>
@@ -151,7 +145,7 @@ export function Login({ isDarkMode }) {
 					<Button
 						// onClick={toggleForgetPasswordFrom}
 						className="btn btn-light d-block"
-						style={loginColors}
+						style={colorForIsDarkMode}
 					>
 						<BiKey className="Forget-icon" />
 						<span className="forget-text">Forget Password</span>
