@@ -22,6 +22,7 @@ export function Login({ isDarkMode }) {
 		sessionStorage.setItem("userId", userInfo.id);
 		sessionStorage.setItem("name", userInfo.name);
 		sessionStorage.setItem("userRole", userInfo.role);
+		sessionStorage.setItem("userRegion", userInfo.region_id);
 		if (userInfo.role === "Mentor") {
 			navigate("/mentor");
 		} else {
