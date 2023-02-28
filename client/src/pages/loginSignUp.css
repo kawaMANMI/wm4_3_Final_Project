@@ -1,6 +1,8 @@
 .bodyLoginComponent {
-	padding-left: 2rem;
+	padding: 2rem;
+	margin: 1em;
 }
+
 .login-icon {
 	margin-right: 0.5rem;
 	padding-right: 0.5rem;
@@ -27,6 +29,20 @@
 	box-shadow: none;
 }
 
-.custom-input {
+/* .custom-input {
 	width: 20%;
+} */
+
+.bodyLoginComponent {
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	width: 25%;
+	/* background: linear-gradient(180deg, #f5f5f5 0%, #fff 100%); */
+	/* text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2); */
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
+
+/* .bodyLoginComponent:hover {
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+	transform: translateY(-.5px); 
+} */

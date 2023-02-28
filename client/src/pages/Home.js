@@ -1,11 +1,21 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import "./Home.css";
 import Login from "./Login";
 
-export function Home() {
+export function Home({ isDarkMode }) {
+	const homeStyle = isDarkMode
+		? {
+				backgroundColor: "#333",
+				color: "#fff",
+		  }
+		: {
+				backgroundColor: "#fff",
+				color: "#333",
+		  };
 	return (
-		<main role="main">
+		<main role="main" className={`appClass ${homeStyle}`}>
 			<h1>Login</h1>
-			<Login />
+			<Login isDarkMode={isDarkMode} />
 		</main>
 	);
 }

@@ -1,9 +1,14 @@
+.appClass {
+	height: 100vh;
+	width: 100vw;
+}
+
 .logo {
 	width: 100px;
 }
 
 .message {
-	color: blue;
+	color: rgb(255, 0, 0);
 }
 
 .message:hover {
@@ -21,11 +26,11 @@ h2 {
 	margin: 1em;
 }
 
-.footer {
+/* .footer {
 	color: black;
 	padding: 3rem 0;
 	text-align: center;
-}
+} */
 
 .table {
 	margin: 0 auto;

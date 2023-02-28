@@ -1,41 +1,101 @@
-import React from "react";
+import { React, useState } from "react";
 import { Navbar, Nav } from "react-bootstrap";
+import { NavLink, useNavigate } from "react-router-dom";
 import "./Header.css"; // Import the Header.css file with the additional styles
 import logo from "./logo_cyf.png";
+import logo2 from "./logo_cyf2.png";
 
-function Header() {
+function Header({ isDarkMode, onDarkModeToggle }) {
 	const name = sessionStorage.getItem("name");
+	const navigate = useNavigate();
+	const [loggedIn, setLoggedIn] = useState(true);
+
 	const handleLogout = () => {
-		// clear any session-related data or cookies
-		history.push("/");
+		sessionStorage.clear();
+		setLoggedIn(false);
+		navigate("/");
+		setLoggedIn(true);
 	};
+
 	return (
-		<div className="header-container">
-			{" "}
-			{/* Add a container div for the header */}
+		<div
+			className="header-container"
+			style={{
+				backgroundColor: isDarkMode ? "#333" : "#EBEBEB",
+				color: isDarkMode ? "#FFF" : "#000",
+			}}
+		>
 			<Navbar className="header-nav" expand="lg">
-				{" "}
-				{/* Add a class for the navbar */}
 				<Navbar.Brand href="/">
-					<img src={logo} alt="Your Logo" className="logo-img" />{" "}
-					{/* Set the logo image as the source */}
+					<img
+						src={isDarkMode ? logo2 : logo}
+						alt="Your Logo"
+						className="logo-img"
+					/>
 				</Navbar.Brand>
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
 				<Navbar.Collapse id="basic-navbar-nav">
 					<Nav className="ml-auto">
-						<Nav.Link href="/">Home</Nav.Link>
-						<Nav.Link href="/about">About</Nav.Link>
-						<Nav.Link href="/Name">{name}</Nav.Link>
-						<Nav.Link href="/contact">Contact</Nav.Link>
-						{name !== "" || name !== null ? (
-							<Nav.Link href="/" onClick={handleLogout}>
+						<NavLink
+							to="/"
+							className="nav-link"
+							style={{ color: isDarkMode ? "#FFF" : "#000" }}
+						>
+							Home
+						</NavLink>
+						<NavLink
+							to="/about"
+							className="nav-link"
+							style={{ color: isDarkMode ? "#FFF" : "#000" }}
+						>
+							About
+						</NavLink>
+						<NavLink
+							to="/contact"
+							className="nav-link"
+							style={{ color: isDarkMode ? "#FFF" : "#000" }}
+						>
+							Contact
+						</NavLink>
+						{loggedIn && name !== "" && name !== null ? (
+							<NavLink
+								to="/"
+								onClick={handleLogout}
+								className="nav-link"
+								style={{ color: isDarkMode ? "#FFF" : "#000" }}
+							>
 								Logout
-							</Nav.Link>
+							</NavLink>
+						) : null}
+						{loggedIn && name !== "" && name !== null ? (
+							<NavLink
+								to="/user-profile"
+								className="nav-link"
+								style={{ color: isDarkMode ? "#FFF" : "#000" }}
+							>
+								{name}
+							</NavLink>
 						) : null}
 					</Nav>
 				</Navbar.Collapse>
+				<button
+					className="mode-toggle-btn"
+					onClick={onDarkModeToggle}
+					style={{
+						backgroundColor: isDarkMode ? "#FFF" : "#ED4343",
+						color: isDarkMode ? "#000" : "#FFF",
+					}}
+				>
+					{isDarkMode ? "Light Mode" : "Dark Mode"}
+				</button>
 			</Navbar>
-			<hr className="header-line" /> {/* Add a thick horizontal line */}
+			<div
+				className="header_line"
+				// style={{
+				//   backgroundColor: isDarkMode ? "#FFF" : "#ED4343",
+				//   boxShadow: isDarkMode ? "none" : "0 2px 4px rgba(0, 0, 0, 0.4)",
+				// }}
+			></div>
 		</div>
 	);
 }
