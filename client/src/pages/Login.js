@@ -11,7 +11,7 @@ import { FaUserPlus } from "react-icons/fa";
 import { BiKey } from "react-icons/bi";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
-import "./loginSignUp.css";
+import "./login.css";
 
 export function Login({ colorForIsDarkMode }) {
 	const navigate = useNavigate();
@@ -152,7 +152,10 @@ export function Login({ colorForIsDarkMode }) {
 					</Button>
 				</OverlayTrigger>
 				{showSignupForm ? (
-					<SignupForm onDismiss={handleSignupFormDismiss} />
+					<SignupForm
+						onDismiss={handleSignupFormDismiss}
+						colorForIsDarkMode={colorForIsDarkMode}
+					/>
 				) : null}
 
 				{showForgetPasswordFrom ? (

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
 import axios from "axios";
 
-function SignupForm(props) {
+function SignupForm({ onDismiss, colorForIsDarkMode }) {
 	const [name, setName] = useState("");
 	const [username, setUsername] = useState("");
 	const [email, setEmail] = useState("");
@@ -100,18 +100,23 @@ function SignupForm(props) {
 	};
 	const handleDismiss = () => {
 		// Handle form dismissal here
-		props.onDismiss();
+		onDismiss();
 	};
 	return (
 		<Modal show={true} onHide={handleDismiss}>
-			<Modal.Header closeButton>
-				<Modal.Title>Sign Up</Modal.Title>
+			<Modal.Header style={colorForIsDarkMode} closeButton>
+				<Modal.Title style={colorForIsDarkMode}>Sign Up</Modal.Title>
 			</Modal.Header>
-			<Modal.Body>
-				<Form onSubmit={handleSubmit}>
-					<Form.Group className="mb-3" controlId="formBasicName">
-						<Form.Label>Username</Form.Label>
+			<Modal.Body style={colorForIsDarkMode}>
+				<Form onSubmit={handleSubmit} style={colorForIsDarkMode}>
+					<Form.Group
+						style={colorForIsDarkMode}
+						className="mb-3"
+						controlId="formBasicName"
+					>
+						<Form.Label style={colorForIsDarkMode}>Username</Form.Label>
 						<Form.Control
+							style={colorForIsDarkMode}
 							type="text"
 							placeholder="Enter Name"
 							value={username}
@@ -120,9 +125,14 @@ function SignupForm(props) {
 						/>
 					</Form.Group>
 
-					<Form.Group className="mb-3" controlId="formBasicName">
-						<Form.Label>Name</Form.Label>
+					<Form.Group
+						className="mb-3"
+						style={colorForIsDarkMode}
+						controlId="formBasicName"
+					>
+						<Form.Label style={colorForIsDarkMode}>Name</Form.Label>
 						<Form.Control
+							style={colorForIsDarkMode}
 							type="text"
 							placeholder="Enter name"
 							value={name}
@@ -131,29 +141,48 @@ function SignupForm(props) {
 						/>
 					</Form.Group>
 
-					<Form.Group className="mb-3" controlId="formBasicEmail">
+					<Form.Group
+						className="mb-3"
+						style={colorForIsDarkMode}
+						controlId="formBasicEmail"
+					>
 						<Form.Label>Email address</Form.Label>
 						<Form.Control
 							type="email"
 							placeholder="Enter email"
 							value={email}
 							onChange={handleEmailChange}
+							style={colorForIsDarkMode}
 							required
 						/>
 					</Form.Group>
 
-					<Form.Group className="mb-3" controlId="formBasicRole">
-						<Form.Label>Role</Form.Label>
-						<Form.Select value={roleValue} onChange={handleRoleChange} required>
+					<Form.Group
+						className="mb-3"
+						style={colorForIsDarkMode}
+						controlId="formBasicRole"
+					>
+						<Form.Label style={colorForIsDarkMode}>Role</Form.Label>
+						<Form.Select
+							style={colorForIsDarkMode}
+							value={roleValue}
+							onChange={handleRoleChange}
+							required
+						>
 							<option value="">Select role</option>
 							<option value="Mentor">Mentor</option>
 							<option value="Student">Student</option>
 						</Form.Select>
 					</Form.Group>
 
-					<Form.Group className="mb-3" controlId="formBasicRegion">
-						<Form.Label>Region</Form.Label>
+					<Form.Group
+						className="mb-3"
+						style={colorForIsDarkMode}
+						controlId="formBasicRegion"
+					>
+						<Form.Label style={colorForIsDarkMode}>Region</Form.Label>
 						<Form.Select
+							style={colorForIsDarkMode}
 							value={regionValue}
 							onChange={(event) =>
 								handleRegionChange({
@@ -172,9 +201,14 @@ function SignupForm(props) {
 						</Form.Select>
 					</Form.Group>
 
-					<Form.Group className="mb-3" controlId="formBasicClasses">
-						<Form.Label>Class</Form.Label>
+					<Form.Group
+						className="mb-3"
+						style={colorForIsDarkMode}
+						controlId="formBasicClasses"
+					>
+						<Form.Label style={colorForIsDarkMode}>Class</Form.Label>
 						<Form.Select
+							style={colorForIsDarkMode}
 							value={classValue}
 							onChange={handleClassChange}
 							required
@@ -187,9 +221,14 @@ function SignupForm(props) {
 							))}
 						</Form.Select>
 					</Form.Group>
-					<Form.Group className="mb-3" controlId="formBasicPassword">
-						<Form.Label>Password</Form.Label>
+					<Form.Group
+						className="mb-3"
+						style={colorForIsDarkMode}
+						controlId="formBasicPassword"
+					>
+						<Form.Label style={colorForIsDarkMode}>Password</Form.Label>
 						<Form.Control
+							style={colorForIsDarkMode}
 							type="password"
 							placeholder="Password"
 							value={password}
@@ -197,29 +236,39 @@ function SignupForm(props) {
 						/>
 					</Form.Group>
 
-					<Form.Group className="mb-3" controlId="formBasicPassword">
-						<Form.Label>Confirm Password</Form.Label>
+					<Form.Group
+						className="mb-3"
+						style={colorForIsDarkMode}
+						controlId="formBasicPassword"
+					>
+						<Form.Label style={colorForIsDarkMode}>Confirm Password</Form.Label>
 						<Form.Control
+							style={colorForIsDarkMode}
 							type="password"
 							placeholder="Password"
 							value={confirmPassword}
 							onChange={handleConfirmPassword}
 						/>
 						{confirmPasswordError && (
-							<Form.Text className="text-danger">
+							<Form.Text className="text-danger" style={colorForIsDarkMode}>
 								{confirmPasswordError}
 							</Form.Text>
 						)}
 					</Form.Group>
 
 					<Button
-						variant="primary"
+						style={colorForIsDarkMode}
 						type="submit"
 						disabled={confirmPassword !== password}
+						className="ms-2 btn-light"
 					>
 						Sign Up
 					</Button>
-					<Button variant="primary" onClick={handleDismiss} className="ms-2">
+					<Button
+						style={colorForIsDarkMode}
+						onClick={handleDismiss}
+						className="ms-2 btn-light"
+					>
 						Close
 					</Button>
 				</Form>

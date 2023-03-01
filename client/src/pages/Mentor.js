@@ -4,10 +4,11 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import "./Mentor.css";
+import "./Home.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import Container from "react-bootstrap/Container";
 
-function Mentor() {
+function Mentor({ colorForIsDarkMode }) {
 	const navigate = useNavigate();
 	function handleSkill() {
 		navigate("/skills");
@@ -55,15 +56,27 @@ function Mentor() {
 		}
 	});
 	return (
-		<Container fluid responsive="sm" className="table_container">
-			<div className="button_container">
+		<Container
+			fluid
+			responsive="sm"
+			className="table_container"
+			style={colorForIsDarkMode}
+		>
+			<div className="button_container" style={colorForIsDarkMode}>
 				<div>
-					<Dropdown>
-						<Dropdown.Toggle variant="primary" id="dropdown-basic">
-							REGIONS
+					<Dropdown style={colorForIsDarkMode}>
+						<Dropdown.Toggle
+							variant="primary"
+							id="dropdown-basic"
+							style={colorForIsDarkMode}
+						>
+							{!selectedRegion ? "All Regions" : selectedRegion}
 						</Dropdown.Toggle>
 
 						<Dropdown.Menu>
+							<Dropdown.Item onClick={() => setSelectedRegion("")}>
+								All Regions
+							</Dropdown.Item>
 							<Dropdown.Item onClick={() => setSelectedRegion("London")}>
 								London
 							</Dropdown.Item>
@@ -82,6 +95,7 @@ function Mentor() {
 				<Button
 					variant="primary"
 					className="button_enabled"
+					style={colorForIsDarkMode}
 					onClick={handleSkill}
 				>
 					Learning Objectives
@@ -89,7 +103,7 @@ function Mentor() {
 			</div>
 			<div className="table-wrapper">
 				<h2>STUDENTS LIST</h2>
-				<Table size="sm" hover responsive="sm">
+				<Table size="sm" hover responsive="sm" style={colorForIsDarkMode}>
 					<thead>
 						<tr>
 							<th className="text-center">Name</th>
@@ -102,7 +116,9 @@ function Mentor() {
 					<tbody>
 						{Object.values(studentScores).map(({ name, skills }, i) => (
 							<tr key={i}>
-								<td className="text-center">{name}</td>
+								<td className="text-center" style={colorForIsDarkMode}>
+									{name}
+								</td>
 								{uniqueSkills.map((skill) => (
 									<td key={skill}>{skills[skill] || "0"}</td>
 								))}

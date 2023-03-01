@@ -29,10 +29,19 @@ const App = () => {
 		<div style={colorForIsDarkMode}>
 			<Header isDarkMode={isDarkMode} onDarkModeToggle={handleDarkModeToggle} />
 			<Routes>
-				<Route path="/" element={<Home colorForIsDarkMode={colorForIsDarkMode} />} />
-				<Route path="/about" element={<About colorForIsDarkMode={colorForIsDarkMode} />} />
-				<Route path="/contact" element={<Contact />} />
-				<Route path="/mentor" element={<Mentor />} />
+				<Route
+					path="/"
+					element={<Home colorForIsDarkMode={colorForIsDarkMode} />}
+				/>
+				<Route
+					path="/about"
+					element={<About colorForIsDarkMode={colorForIsDarkMode} />}
+				/>
+				<Route
+					path="/contact"
+					element={<Contact colorForIsDarkMode={colorForIsDarkMode} />}
+				/>
+				<Route path="/mentor" element={<Mentor colorForIsDarkMode={colorForIsDarkMode}/>} />
 				<Route path="/user-profile" element={<Profile />} />
 				<Route path="/student" element={<Student />} />
 				<Route path="skills" element={<LearningObjective />} />
