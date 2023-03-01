@@ -37,15 +37,6 @@ function ObjectiveRow({ objective, onDelete, onChange }) {
 				console.error(error);
 			});
 	};
-	// stop editing after cohort starts
-	// function editTime() {
-	// 	let currentDate = new Date();
-	// 	let editDate = new Date("2023-04-01");
-	// 	if (currentDate.getTime() > editDate.getTime()) {
-	// 		setIsEditing(false);
-	// 	}
-	// 	editTime(currentDate);
-	// }
 
 	return (
 		<div

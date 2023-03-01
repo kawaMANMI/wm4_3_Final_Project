@@ -18,7 +18,6 @@ td {
 		display: flex;
 		flex-direction: column;
 	}
-
 }
 
 /* add style for add new objective component*/
@@ -35,7 +34,6 @@ td {
 	max-height: 10rem;
 	overflow-y: auto;
 	min-width: 100%;
-
 }
 
 .dropdown-toggle {
@@ -63,8 +61,16 @@ td {
 	}
 }
 
-
 /*  style for objective row component */
+
+.table-responsive-sm {
+	border: 3px solid red;
+	box-shadow: 5px 5px 5px red;
+	/* margin-top: 2em;
+			margin-left: 2em;
+			margin-right: 2em; */
+	margin: 3em;
+}
 
 @media screen and (max-width: 767px) {
 	.div {
@@ -78,5 +84,4 @@ td {
 		padding: 5px;
 		font-size: 14px;
 	}
-
 }

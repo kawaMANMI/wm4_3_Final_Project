@@ -5,10 +5,15 @@ import axios from "axios";
 import ObjectiveRow from "./ObjectiveRow";
 import AddNewObjective from "./AddNewObjective";
 import "./LearningObj.css";
+import { Button } from "react-bootstrap";
 
 function LearningObjective() {
 	const [learningObjective, setLearningObjective] = useState([]);
+	const [isVisible, setIsVisible] = useState(false);
 
+	const toggleVisibility = () => {
+		setIsVisible(!isVisible);
+	};
 	function handleSubmitObj(newObjective) {
 		setLearningObjective((prevState) => [...prevState, newObjective]);
 	}
@@ -45,15 +50,38 @@ function LearningObjective() {
 	return (
 		<div className="learning-objective-wrapper">
 			<div className="learning-objective-flex-row">
-				<AddNewObjective handleAddObjective={handleSubmitObj} />
+				<Button
+					className="btn btn-danger"
+					style={{ marginLeft: "1em" }}
+					onClick={toggleVisibility}
+				>
+					Add Objective
+				</Button>
+				{isVisible && <AddNewObjective handleAddObjective={handleSubmitObj} />}
 			</div>
 			<Container fluid className="learning-objective-container">
 				<div>
-					<Table hover size="sm" responsive="sm" class="table-responsive">
+					<Table hover size="sm" responsive="sm" className="table-responsive">
 						<thead>
 							<tr>
-								<th>SKILLS</th>
-								<th>LEARNING OBJECTIVES</th>
+								<th
+									style={{
+										padding: "2em",
+										textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
+										fontSize: "20px",
+									}}
+								>
+									SKILLS
+								</th>
+								<th
+									style={{
+										padding: "2em",
+										textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
+										fontSize: "20px",
+									}}
+								>
+									LEARNING OBJECTIVES
+								</th>
 							</tr>
 						</thead>
 						<tbody>

@@ -40,7 +40,7 @@ function Profile() {
 				setUserData(data[0]);
 			})
 			.catch((e) => console.log({ error: e.message }));
-	}, []);
+	}, [profileId]);
 	const picLink = `https://robohash.org/${id}.png`;
 	console.log(id);
 	console.log("mes", userData);

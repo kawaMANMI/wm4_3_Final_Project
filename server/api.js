@@ -49,20 +49,53 @@ ORDER BY u.name, s.skill_name ASC;
 // get skill by region filter
 router.get("/skills-by-region", (req, res) => {
 	const region = req.query.region;
+	const classCode = req.query.classCode;
 	const query = `
-SELECT u.id AS student_id, u.name AS student_name, r.name AS region_name, s.skill_name, SUM(ulo.score) AS total_score
+SELECT u.id AS student_id, u.name AS student_name, u.class_code AS class_code, r.name AS region_name, s.skill_name, SUM(ulo.score) AS total_score
 FROM user_learning_obj ulo
 JOIN users u ON ulo.user_id = u.id
 JOIN skills s ON ulo.lo_id = s.id
 JOIN region r ON u.region_id = r.id
 WHERE ($1::text IS NULL OR r.name = $1::text)
+AND ($2::text IS NULL OR u.class_code = $2::text)
 GROUP BY u.id, u.name, r.name, s.skill_name
 ORDER BY u.name ASC
-
-
-
   `;
-	const params = [region || null];
+	const params = [region || null, classCode || null];
+
+	db.query(query, params, (error, result) => {
+		if (error) {
+			res.status(500).json({ error: "Error executing query" });
+		} else {
+			res.json(result.rows);
+		}
+	});
+});
+
+//second query to get students by class and region
+router.get("/skills-by-region", (req, res) => {
+	const region = req.query.region;
+	const classCode = req.query.classCode;
+	const query = `
+        SELECT 
+            u.id AS student_id, 
+            u.name AS student_name, 
+            u.class_code, 
+            r.name AS region_name, 
+            SUM(ulo.score) AS total_score
+        FROM 
+            users u
+            JOIN user_learning_obj ulo ON u.id = ulo.user_id
+            JOIN region r ON u.region_id = r.id
+        WHERE 
+            ($1::text IS NULL OR r.name = $1::text) AND 
+            ($2::text IS NULL OR u.class_code = $2::text)
+        GROUP BY 
+            u.id, u.name, u.class_code, r.name
+        ORDER BY 
+            total_score DESC;
+    `;
+	const params = [region || null, classCode || null];
 
 	db.query(query, params, (error, result) => {
 		if (error) {
@@ -132,7 +165,6 @@ router.delete("/learning_objectives/:id", (req, res) => {
 		.then(() => res.json("Objective was deleted successfully"))
 		.catch((error) => res.status(500).json({ error: error.message }));
 });
-
 
 //get specific user profile
 router.get("/user-profile/:id", (req, res) => {
@@ -272,7 +304,6 @@ router.post("/forgot-password", async (req, res) => {
 		} else {
 			logger.debug("Email  is  exist");
 		}
-
 		// Create a random token
 		const token = crypto.randomBytes(20).toString("hex");
 

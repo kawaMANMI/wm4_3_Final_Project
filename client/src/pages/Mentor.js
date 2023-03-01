@@ -19,6 +19,7 @@ function Mentor() {
 	}
 	const [scores, setScores] = useState([]);
 	const [selectedRegion, setSelectedRegion] = useState("");
+	const [isAscending, setIsAscending] = useState(true);
 
 	useEffect(() => {
 		axios
@@ -38,41 +39,46 @@ function Mentor() {
 
 	console.log(scores);
 
-	// axios
-	// 	.get(`/user-profile/${userId}`)
-	// 	.then((response) => {
-	// 		console.log(response.data); // handle response data here
-	// 	})
-	// 	.catch((error) => {
-	// 		console.error(error);
-	// 	});
-
 	const uniqueSkills = scores
 		.map((score) => score.skill_name)
 		.filter((value, index, array) => array.indexOf(value) === index);
 	//create an object to store the scores for each student
 	const studentScores = {};
-	scores.forEach(({ student_id, student_name, skill_name, total_score }) => {
-		//if the student has already been added to the object,update their scores,
+	scores.forEach(
+		({ student_id, student_name, class_code, skill_name, total_score }) => {
+			//if the student has already been added to the object,update their scores,
 
-	
-		if (student_id in studentScores) {
-			// studentScores[student_id].totalScore =
-			// 	Number(studentScores[student_id].totalScore) + Number(total_score);
-			studentScores[student_id].skills[skill_name] = total_score;
-			console.log(studentScores[student_id].totalScore);
-		} else {
-			//if the student hasn't been added to the object,add them to the object with their initial score
-
-			studentScores[student_id] = {
-				student_id: student_id,
-				name: student_name,
-				total_score: total_score,
-				skills: { [skill_name]: total_score },
-			};
+			if (student_id in studentScores) {
+				studentScores[student_id].totalScore =
+					Number(studentScores[student_id].totalScore) + Number(total_score);
+				studentScores[student_id].skills[skill_name] = total_score;
+			} else {
+				//if the student hasn't been added to the object,add them to the object with their initial score
+				studentScores[student_id] = {
+					student_id: student_id,
+					class_code: class_code,
+					name: student_name,
+					total_score: total_score,
+					skills: { [skill_name]: total_score },
+				};
+			}
 		}
+	);
+	let sortedStudentNames = Object.values(studentScores).sort((a, b) => {
+		return a.name.localeCompare(b.name);
 	});
-	console.log(Object.values(studentScores));
+
+	const sortByName = () => {
+		const sortedScores = [...scores];
+		if (isAscending) {
+			sortedScores.sort((a, b) => a.student_name.localeCompare(b.student_name));
+		} else {
+			sortedScores.sort((a, b) => b.student_name.localeCompare(a.student_name));
+		}
+		setScores(sortedScores);
+		setIsAscending(!isAscending);
+	};
+
 	return (
 		<Container fluid responsive="sm" className="table_container">
 			<div className="button_container">
@@ -81,7 +87,6 @@ function Mentor() {
 						<Dropdown.Toggle variant="primary" id="dropdown-basic">
 							REGIONS
 						</Dropdown.Toggle>
-
 						<Dropdown.Menu>
 							<Dropdown.Item onClick={() => setSelectedRegion("London")}>
 								London
@@ -107,11 +112,16 @@ function Mentor() {
 				</Button>
 			</div>
 			<div className="table-wrapper">
-				<h2>STUDENTS LIST</h2>
+				<h2 style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)" }}>
+					STUDENTS LIST
+				</h2>
 				<Table size="sm" hover responsive="sm">
-					<thead>
+					<thead style={{ margin: "1em" }}>
 						<tr>
-							<th className="text-center">Name</th>
+							<th className="text-center" onClick={sortByName}>
+								Name {isAscending ? "▲" : "▼"}
+							</th>
+							<th>Class Code</th>
 							{uniqueSkills.map((skill) => (
 								<th key={skill}>{skill}</th>
 							))}
@@ -120,20 +130,27 @@ function Mentor() {
 						</tr>
 					</thead>
 					<tbody>
-						{Object.values(studentScores).map(
-							({ student_id, name, skills, total_score }, i) => (
+						{sortedStudentNames.map(
+							({ student_id, name, class_code, skills, total_score }, i) => (
 								<tr key={i}>
 									<td className="text-center col-2">{name}</td>
+									<td>{class_code}</td>
 									{uniqueSkills.map((skill) => (
 										<td key={skill} className="text-center col-4">
 											{skills[skill] || "0"}
 										</td>
 									))}
+
 									<td key={i} className="text-center col-4">
 										{total_score}
 									</td>
 									<td style={{ margin: "auto", textAlign: "center" }}>
-										<button onClick={() => handleUser(student_id)}>View</button>
+										<Button
+											variant="link"
+											onClick={() => handleUser(student_id)}
+										>
+											View More
+										</Button>
 									</td>
 								</tr>
 							)
