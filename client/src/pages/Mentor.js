@@ -6,6 +6,8 @@ import Button from "react-bootstrap/Button";
 import "./Mentor.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import Container from "react-bootstrap/Container";
+import RegionDropdown from "./RegionDropdown";
+import ClassCodeDropdown from "./ClassCodeDropdown";
 
 function Mentor() {
 	const navigate = useNavigate();
@@ -21,7 +23,7 @@ function Mentor() {
 	const [selectedRegion, setSelectedRegion] = useState("");
 	const [isAscending, setIsAscending] = useState(true);
 	const [selectedClassCode, setSelectedClassCode] = useState("");
-	
+
 	useEffect(() => {
 		axios
 			.get(
@@ -38,19 +40,16 @@ function Mentor() {
 			.catch((error) => {
 				console.log({ error: error.message });
 			});
-	}, [selectedRegion,selectedClassCode]);
+	}, [selectedRegion, selectedClassCode]);
 
 	console.log(scores);
 	const filteredScores = selectedClassCode
 		? scores.filter((score) => score.class_code === selectedClassCode)
 		: scores;
 
-	// const uniqueSkills = scores
-	// 	.map((score) => score.skill_name)
-	// 	.filter((value, index, array) => array.indexOf(value) === index);
-		const uniqueSkills = filteredScores
-			.map((score) => score.skill_name)
-			.filter((value, index, array) => array.indexOf(value) === index);
+	const uniqueSkills = filteredScores
+		.map((score) => score.skill_name)
+		.filter((value, index, array) => array.indexOf(value) === index);
 	//create an object to store the scores for each student
 	const studentScores = {};
 	scores.forEach(
@@ -92,54 +91,10 @@ function Mentor() {
 		<Container fluid responsive="sm" className="table_container">
 			<div className="button_container">
 				<div>
-					<Dropdown>
-						<Dropdown.Toggle variant="primary" id="dropdown-basic">
-							REGIONS
-						</Dropdown.Toggle>
-						<Dropdown.Menu>
-							<Dropdown.Item onClick={() => setSelectedRegion("London")}>
-								London
-							</Dropdown.Item>
-							<Dropdown.Item onClick={() => setSelectedRegion("North West")}>
-								North West
-							</Dropdown.Item>
-							<Dropdown.Item onClick={() => setSelectedRegion("West Midlands")}>
-								West Midlands
-							</Dropdown.Item>
-							<Dropdown.Item onClick={() => setSelectedRegion("Cape Town")}>
-								Cape Town
-							</Dropdown.Item>
-						</Dropdown.Menu>
-					</Dropdown>
+					<RegionDropdown setSelectedRegion={setSelectedRegion} />
+					<ClassCodeDropdown setSelectedClassCode={setSelectedClassCode} />
 				</div>
-				<div>
-					{" "}
-					<Dropdown>
-						<Dropdown.Toggle variant="primary" id="dropdown-basic">
-							Class Code
-						</Dropdown.Toggle>
-						<Dropdown.Menu>
-							<Dropdown.Item onClick={() => setSelectedClassCode("WM3")}>
-								WM3
-							</Dropdown.Item>
-							<Dropdown.Item onClick={() => setSelectedClassCode("WM4")}>
-								WM4
-							</Dropdown.Item>
-							<Dropdown.Item onClick={() => setSelectedClassCode("NW5")}>
-								NW5
-							</Dropdown.Item>
-							<Dropdown.Item onClick={() => setSelectedClassCode("ND3")}>
-								ND3
-							</Dropdown.Item>
-							<Dropdown.Item onClick={() => setSelectedClassCode("NW2")}>
-								NW2
-							</Dropdown.Item>
-							<Dropdown.Item onClick={() => setSelectedClassCode("LON3")}>
-								LON3
-							</Dropdown.Item>
-						</Dropdown.Menu>
-					</Dropdown>
-				</div>
+				<div></div>
 				<Button
 					variant="primary"
 					className="button_enabled"
