@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Card, Table, Accordion } from "react-bootstrap";
 
-function TableOfAllScores() {
+function TableOfAllScores({ colorForIsDarkModeTable }) {
 	const [skillScores, setSkillScores] = useState([]);
 
 	useEffect(() => {
@@ -29,6 +29,7 @@ function TableOfAllScores() {
 				marginTop: "30px",
 				marginBottom: "200px",
 				boxShadow: "1px 3px 3px #888888",
+				...colorForIsDarkModeTable,
 			}}
 		>
 			<Card.Header
@@ -36,17 +37,19 @@ function TableOfAllScores() {
 				as="h4"
 				style={{
 					textAlign: "center",
+					...colorForIsDarkModeTable,
 				}}
 			>
 				Scores Table
 			</Card.Header>
 			<Accordion defaultActiveKey="0">
-				<Accordion.Item eventKey="1">
+				<Accordion.Item eventKey="1" style={colorForIsDarkModeTable}>
 					<Accordion.Header>
 						<strong
 							style={{
 								color: "#DC143C",
 								textShadow: "1px 1px 1px grey",
+								colorForIsDarkModeTable,
 							}}
 						>
 							CHECK YOUR SCORES PER SKILLS
@@ -61,10 +64,11 @@ function TableOfAllScores() {
 								boxShadow: "5px 10px 8px #888888",
 								borderRadius: "5px",
 								marginBottom: "20PX",
+								...colorForIsDarkModeTable,
 							}}
 						>
 							<thead>
-								<tr style={{ color: "#DC143C" }}>
+								<tr style={{ color: "#DC143C", ...colorForIsDarkModeTable }}>
 									<th>#</th>
 									<th>Date</th>
 									<th>HTML/CSS</th>
@@ -75,17 +79,19 @@ function TableOfAllScores() {
 									<th>DATABASE_POSTGRES</th>
 								</tr>
 							</thead>
-							<tbody>
+							<tbody style={colorForIsDarkModeTable}>
 								{skillScores.map((score, index) => (
-									<tr key={index}>
-										<td>{index + 1}</td>
-										<td>{score.date}</td>
-										<td>{score.html_css}</td>
-										<td>{score.git}</td>
-										<td>{score.javascript}</td>
-										<td>{score.react}</td>
-										<td>{score.node}</td>
-										<td>{score.database_postgres}</td>
+									<tr key={index} style={colorForIsDarkModeTable}>
+										<td style={colorForIsDarkModeTable}>{index + 1}</td>
+										<td style={colorForIsDarkModeTable}>{score.date}</td>
+										<td style={colorForIsDarkModeTable}>{score.html_css}</td>
+										<td style={colorForIsDarkModeTable}>{score.git}</td>
+										<td style={colorForIsDarkModeTable}>{score.javascript}</td>
+										<td style={colorForIsDarkModeTable}>{score.react}</td>
+										<td style={colorForIsDarkModeTable}>{score.node}</td>
+										<td style={colorForIsDarkModeTable}>
+											{score.database_postgres}
+										</td>
 									</tr>
 								))}
 							</tbody>

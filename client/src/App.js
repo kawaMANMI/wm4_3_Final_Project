@@ -41,8 +41,18 @@ const App = () => {
 					path="/contact"
 					element={<Contact colorForIsDarkMode={colorForIsDarkMode} />}
 				/>
-				<Route path="/mentor" element={<Mentor colorForIsDarkMode={colorForIsDarkMode}/>} />
-				<Route path="/user-profile" element={<Profile />} />
+				<Route
+					path="/mentor"
+					element={
+						<Mentor
+							colorForIsDarkMode={colorForIsDarkMode}
+						/>
+					}
+				/>
+				<Route
+					path="/user-profile"
+					element={<Profile 	isDarkMode={isDarkMode} colorForIsDarkMode={colorForIsDarkMode} />}
+				/>
 				<Route path="/student" element={<Student />} />
 				<Route path="skills" element={<LearningObjective />} />
 			</Routes>
