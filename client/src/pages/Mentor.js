@@ -20,10 +20,13 @@ function Mentor() {
 	const [scores, setScores] = useState([]);
 	const [selectedRegion, setSelectedRegion] = useState("");
 	const [isAscending, setIsAscending] = useState(true);
-
+	const [selectedClassCode, setSelectedClassCode] = useState("");
+	
 	useEffect(() => {
 		axios
-			.get(`api/skills-by-region?region=${selectedRegion}`)
+			.get(
+				`api/skills-by-region?region=${selectedRegion}&classCode=${selectedClassCode}`
+			)
 			.then((res) => {
 				if (res.status === 200) {
 					return res.data;
@@ -35,13 +38,19 @@ function Mentor() {
 			.catch((error) => {
 				console.log({ error: error.message });
 			});
-	}, [selectedRegion]);
+	}, [selectedRegion,selectedClassCode]);
 
 	console.log(scores);
+	const filteredScores = selectedClassCode
+		? scores.filter((score) => score.class_code === selectedClassCode)
+		: scores;
 
-	const uniqueSkills = scores
-		.map((score) => score.skill_name)
-		.filter((value, index, array) => array.indexOf(value) === index);
+	// const uniqueSkills = scores
+	// 	.map((score) => score.skill_name)
+	// 	.filter((value, index, array) => array.indexOf(value) === index);
+		const uniqueSkills = filteredScores
+			.map((score) => score.skill_name)
+			.filter((value, index, array) => array.indexOf(value) === index);
 	//create an object to store the scores for each student
 	const studentScores = {};
 	scores.forEach(
@@ -99,6 +108,34 @@ function Mentor() {
 							</Dropdown.Item>
 							<Dropdown.Item onClick={() => setSelectedRegion("Cape Town")}>
 								Cape Town
+							</Dropdown.Item>
+						</Dropdown.Menu>
+					</Dropdown>
+				</div>
+				<div>
+					{" "}
+					<Dropdown>
+						<Dropdown.Toggle variant="primary" id="dropdown-basic">
+							Class Code
+						</Dropdown.Toggle>
+						<Dropdown.Menu>
+							<Dropdown.Item onClick={() => setSelectedClassCode("WM3")}>
+								WM3
+							</Dropdown.Item>
+							<Dropdown.Item onClick={() => setSelectedClassCode("WM4")}>
+								WM4
+							</Dropdown.Item>
+							<Dropdown.Item onClick={() => setSelectedClassCode("NW5")}>
+								NW5
+							</Dropdown.Item>
+							<Dropdown.Item onClick={() => setSelectedClassCode("ND3")}>
+								ND3
+							</Dropdown.Item>
+							<Dropdown.Item onClick={() => setSelectedClassCode("NW2")}>
+								NW2
+							</Dropdown.Item>
+							<Dropdown.Item onClick={() => setSelectedClassCode("LON3")}>
+								LON3
 							</Dropdown.Item>
 						</Dropdown.Menu>
 					</Dropdown>
