@@ -8,8 +8,6 @@ import Dropdown from "react-bootstrap/Dropdown";
 import Container from "react-bootstrap/Container";
 
 function Mentor() {
-	const userRegion = sessionStorage.getItem("userRegion");
-	console.log(userRegion + "Kawa");
 	const navigate = useNavigate();
 	function handleSkill() {
 		navigate("/skills");
