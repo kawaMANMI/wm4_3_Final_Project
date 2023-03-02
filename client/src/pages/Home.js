@@ -1,6 +1,6 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import "./Home.css";
-import Login from "./Login";
+import HomePage from "./HomePage";
 
 export function Home({ isDarkMode }) {
 	const homeStyle = isDarkMode
@@ -14,8 +14,7 @@ export function Home({ isDarkMode }) {
 		  };
 	return (
 		<main role="main" className={`appClass ${homeStyle}`}>
-			<h1>Login</h1>
-			<Login isDarkMode={isDarkMode} />
+			<HomePage />
 		</main>
 	);
 }
