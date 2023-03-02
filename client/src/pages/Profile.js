@@ -14,6 +14,7 @@ import {
 	Button,
 } from "react-bootstrap";
 import Chart from "./Chart";
+import TableOfAllScores from "./TableOfAllScores";
 
 function Profile() {
 	const navigate = useNavigate();
@@ -108,6 +109,7 @@ function Profile() {
 				</Card.Header>
 				<Chart />
 			</Card>
+			<TableOfAllScores />
 		</Container>
 	);
 }

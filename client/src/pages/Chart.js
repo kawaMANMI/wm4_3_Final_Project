@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Card, Row, Col } from "react-bootstrap";
+import { Card, Row, Col, Accordion } from "react-bootstrap";
 import {
 	LineChart,
 	Line,
@@ -29,11 +29,11 @@ function Chart() {
 				console.error({ error: error.message });
 			});
 	}, []);
-	console.log(skillScores);
+
 	return (
-		<div style={{ marginBottom: "200px" }}>
+		<div style={{ marginBottom: "30px" }}>
 			{skillScores.length === 0 ? (
-				<div>Loading...</div>
+				<span className="d-flex justify-content-center">Loading...</span>
 			) : (
 				<Row
 					xs={1}
@@ -51,45 +51,50 @@ function Chart() {
 										boxShadow: "1px 3px 3px #888888",
 									}}
 								>
-									<Card.Body>
-										<Card.Header
-											className="d-flex justify-content-center"
-											as="strong"
-											style={{
-												textAlign: "center",
-											}}
-										>
-											{key.toUpperCase()}
-										</Card.Header>
-										<LineChart
-											width={500}
-											height={200}
-											data={skillScores}
-											syncId="anyId"
-											margin={{
-												top: 10,
-												right: 70,
-												left: 0,
-												bottom: 0,
-											}}
-										>
-											<CartesianGrid strokeDasharray="3 3" />
-											<XAxis dataKey="date" />
-											<YAxis />
-											<Tooltip />
-											<Line
-												type="monotone"
-												dataKey={key}
-												stroke="#8884d8"
-												fill="#8884d8"
-											/>
-										</LineChart>
-									</Card.Body>
+									<Accordion defaultActiveKey="0">
+										<Accordion.Item eventKey="1">
+											<Accordion.Header>
+												<strong
+													style={{
+														color: "#DC143C",
+														textShadow: "1px 1px 1px grey",
+													}}
+												>
+													{key.toUpperCase()}
+												</strong>
+											</Accordion.Header>
+											<Accordion.Body>
+												<LineChart
+													className="d-flex justify-content-center"
+													width={500}
+													height={200}
+													data={skillScores}
+													syncId="anyId"
+													margin={{
+														top: 10,
+														right: 70,
+														left: 0,
+														bottom: 0,
+													}}
+												>
+													<CartesianGrid strokeDasharray="3 3" />
+													<XAxis dataKey="date" />
+													<YAxis />
+													<Tooltip />
+													<Line
+														type="monotone"
+														dataKey={key}
+														stroke="#8884d8"
+														fill="#8884d8"
+													/>
+												</LineChart>
+											</Accordion.Body>
+										</Accordion.Item>
+									</Accordion>
 								</Card>
 							</Col>
 						))}
 				</Row>
-				// </div>
 			)}
 		</div>
 	);
