@@ -90,6 +90,7 @@
 		"pg": "^8.9.0",
 		"react-bootstrap": "^2.7.2",
 		"react-icons": "^4.7.1",
+		"react-refresh": "^0.14.0",
 		"react-router-dom": "^6.8.1",
 		"recharts": "^2.4.3",
 		"rsuite": "^5.28.0",

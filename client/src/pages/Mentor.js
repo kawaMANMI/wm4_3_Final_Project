@@ -4,7 +4,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import "./Mentor.css";
-import Dropdown from "react-bootstrap/Dropdown";
 import Container from "react-bootstrap/Container";
 import RegionDropdown from "./RegionDropdown";
 import ClassCodeDropdown from "./ClassCodeDropdown";
@@ -42,7 +41,6 @@ function Mentor() {
 			});
 	}, [selectedRegion, selectedClassCode]);
 
-	console.log(scores);
 	const filteredScores = selectedClassCode
 		? scores.filter((score) => score.class_code === selectedClassCode)
 		: scores;
@@ -90,11 +88,8 @@ function Mentor() {
 	return (
 		<Container fluid responsive="sm" className="table_container">
 			<div className="button_container">
-				<div>
-					<RegionDropdown setSelectedRegion={setSelectedRegion} />
-					<ClassCodeDropdown setSelectedClassCode={setSelectedClassCode} />
-				</div>
-				<div></div>
+				<RegionDropdown setSelectedRegion={setSelectedRegion} />
+				<ClassCodeDropdown setSelectedClassCode={setSelectedClassCode} />
 				<Button
 					variant="primary"
 					className="button_enabled"
@@ -111,7 +106,8 @@ function Mentor() {
 					<thead style={{ margin: "1em" }}>
 						<tr>
 							<th className="text-center" onClick={sortByName}>
-								Name {isAscending ? "▲" : "▼"}
+								Name
+								{/* {isAscending ? "▲" : "▼"} */}
 							</th>
 							<th>Class Code</th>
 							{uniqueSkills.map((skill) => (

@@ -46,7 +46,7 @@ ORDER BY u.name, s.skill_name ASC;
 		});
 });
 
-// get skill by region filter
+// get skill by region filter and class
 router.get("/skills-by-region", (req, res) => {
 	const region = req.query.region;
 	const classCode = req.query.classCode;
@@ -61,40 +61,6 @@ AND ($2::text IS NULL OR u.class_code = $2::text)
 GROUP BY u.id, u.name, r.name, s.skill_name
 ORDER BY u.name ASC
   `;
-	const params = [region || null, classCode || null];
-
-	db.query(query, params, (error, result) => {
-		if (error) {
-			res.status(500).json({ error: "Error executing query" });
-		} else {
-			res.json(result.rows);
-		}
-	});
-});
-
-//second query to get students by class and region
-router.get("/skills-by-region", (req, res) => {
-	const region = req.query.region;
-	const classCode = req.query.classCode;
-	const query = `
-        SELECT 
-            u.id AS student_id, 
-            u.name AS student_name, 
-            u.class_code, 
-            r.name AS region_name, 
-            SUM(ulo.score) AS total_score
-        FROM 
-            users u
-            JOIN user_learning_obj ulo ON u.id = ulo.user_id
-            JOIN region r ON u.region_id = r.id
-        WHERE 
-            ($1::text IS NULL OR r.name = $1::text) AND 
-            ($2::text IS NULL OR u.class_code = $2::text)
-        GROUP BY 
-            u.id, u.name, u.class_code, r.name
-        ORDER BY 
-            total_score DESC;
-    `;
 	const params = [region || null, classCode || null];
 
 	db.query(query, params, (error, result) => {
@@ -154,6 +120,7 @@ router.put("/learning_objectives/:id", async (req, res) => {
 		res.status(500).json({ error: error.message });
 	}
 });
+//delete  a learning object
 router.delete("/learning_objectives/:id", (req, res) => {
 	const id = req.params.id;
 	if (isNaN(id)) {
@@ -177,21 +144,6 @@ router.get("/user-profile/:id", (req, res) => {
 		.catch((error) => res.status(500).json({ Error: error.message }));
 });
 
-//post a specific learning_obj
-// router.post("/learning_objectives", async (req, res) => {
-// 	const { objective } = req.body;
-// 	if (!objective) {
-// 		return res.status(400).json({ error: "Objective is required" });
-// 	}
-// 	try {
-// 		await db.query("INSERT INTO learning_objectives(objective) VALUES($1)", [
-// 			objective,
-// 		]);
-// 		res.json("Objective was added successfully");
-// 	} catch (error) {
-// 		res.status(500).json({ error: error.message });
-// 	}
-// });
 // Cookie
 // router.get("/testCookie", async (req, res) => {
 // 	const userId = req.session.userId;
