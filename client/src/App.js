@@ -9,6 +9,7 @@ import Mentor from "./pages/Mentor";
 import Student from "./pages/Student";
 import Profile from "./pages/Profile";
 import LearningObjective from "./pages/LearningObjective";
+import Login from "./pages/Login";
 const App = () => {
 	const [isDarkMode, setIsDarkMode] = useState(false);
 	const handleDarkModeToggle = () => {
@@ -36,6 +37,7 @@ const App = () => {
 				<Route path="/user-profile" element={<Profile />} />
 				<Route path="/student" element={<Student />} />
 				<Route path="skills" element={<LearningObjective />} />
+				<Route path="/login" element={<Login />} />
 			</Routes>
 			<Footer isDarkMode={isDarkMode} />
 		</div>
