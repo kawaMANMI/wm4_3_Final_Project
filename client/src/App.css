@@ -1,0 +1,22 @@
+body {
+	--dd-text: #333;
+	--dd-bg: #fff;
+	color: var(--dd-text);
+	
+}
+
+body.dark {
+	--dd-text: #fff;
+	--dd-bg: #333;
+}
+
+#app {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+html {
+	height: 100vh;
+}
