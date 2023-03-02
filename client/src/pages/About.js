@@ -1,8 +1,8 @@
 import "./Home.css";
-const About = ({ colorForIsDarkMode }) => {
+const About = () => {
 	return (
-		<main role="main" className={`appClass ${colorForIsDarkMode}`}>
-			<div style={colorForIsDarkMode}>
+		<main role="main">
+			<div>
 				<h1>About</h1>
 				<p>
 					Starter kit for full-stack JavaScript projects. For more information,

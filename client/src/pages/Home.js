@@ -2,11 +2,11 @@
 import "./Home.css";
 import Login from "./Login";
 
-export function Home({ colorForIsDarkMode }) {
+export function Home() {
 	return (
-		<main role="main" className={`appClass ${colorForIsDarkMode}`}>
+		<main role="main" className={"appClass"}>
 			<h1>Login</h1>
-			<Login colorForIsDarkMode={colorForIsDarkMode} />
+			<Login />
 		</main>
 	);
 }

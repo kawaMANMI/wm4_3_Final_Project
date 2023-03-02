@@ -60,9 +60,7 @@ function Chart({ colorForIsDarkModeTable }) {
 											eventKey="1"
 											style={colorForIsDarkModeTable}
 										>
-											<Accordion.Header
-												style={{ backgroundColor: "#d9534f !important" }}
-											>
+											<Accordion.Header style={{ border: "red" }}>
 												<strong
 													style={{
 														textShadow: "1px 1px 1px grey",

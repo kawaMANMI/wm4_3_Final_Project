@@ -9,49 +9,34 @@ import Mentor from "./pages/Mentor";
 import Student from "./pages/Student";
 import Profile from "./pages/Profile";
 import LearningObjective from "./pages/LearningObjective";
+import "./App.css";
 const App = () => {
 	const [isDarkMode, setIsDarkMode] = useState(false);
 	const handleDarkModeToggle = () => {
 		setIsDarkMode(!isDarkMode);
 	};
-	const colorForIsDarkMode = isDarkMode
-		? {
-				backgroundColor: "#333",
-				color: "#fff",
-				// eslint-disable-next-line no-mixed-spaces-and-tabs
-		  }
-		: {
-				backgroundColor: "#fff",
-				color: "#333",
-				// eslint-disable-next-line no-mixed-spaces-and-tabs
-		  };
+	const className = isDarkMode ? "dark" : null;
+
+	const colorForIsDarkMode = {
+		backgroundColor: "var(--dd-bg)",
+		color: "var(--dd-text)",
+	};
 	return (
-		<div style={colorForIsDarkMode}>
+		<div id="app" className={className}>
 			<Header isDarkMode={isDarkMode} onDarkModeToggle={handleDarkModeToggle} />
 			<Routes>
+				<Route path="/" element={<Home />} />
+				<Route path="/about" element={<About />} />
+				<Route path="/contact" element={<Contact />} />
+				<Route path="/mentor" element={<Mentor />} />
 				<Route
-					path="/"
-					element={<Home colorForIsDarkMode={colorForIsDarkMode} />}
-				/>
-				<Route
-					path="/about"
-					element={<About colorForIsDarkMode={colorForIsDarkMode} />}
-				/>
-				<Route
-					path="/contact"
-					element={<Contact colorForIsDarkMode={colorForIsDarkMode} />}
-				/>
-				<Route
-					path="/mentor"
+					path="/user-profile"
 					element={
-						<Mentor
+						<Profile
+							isDarkMode={isDarkMode}
 							colorForIsDarkMode={colorForIsDarkMode}
 						/>
 					}
-				/>
-				<Route
-					path="/user-profile"
-					element={<Profile 	isDarkMode={isDarkMode} colorForIsDarkMode={colorForIsDarkMode} />}
 				/>
 				<Route path="/student" element={<Student />} />
 				<Route path="skills" element={<LearningObjective />} />

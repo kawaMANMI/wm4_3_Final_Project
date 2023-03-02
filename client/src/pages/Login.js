@@ -145,7 +145,6 @@ export function Login({ colorForIsDarkMode }) {
 					<Button
 						// onClick={toggleForgetPasswordFrom}
 						className="btn btn-light d-block"
-						style={colorForIsDarkMode}
 					>
 						<BiKey className="Forget-icon" />
 						<span className="forget-text">Forget Password</span>
