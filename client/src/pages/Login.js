@@ -2,13 +2,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
-// import Form from "react-bootstrap/Form";
 import axios from "axios";
 import SignupForm from "./SignupForm";
 import ForgetPasswordFrom from "./ForgetPassword";
-import { FaUser } from "react-icons/fa";
-import { FaUserPlus } from "react-icons/fa";
-import { BiKey } from "react-icons/bi";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import "./login.css";
@@ -83,70 +79,77 @@ export function Login({ myClassDarkMode }) {
 	);
 
 	return (
-		<div className="bodyLoginComponent">
-			<form onSubmit={handleSubmit}>
-				<Form.Group className="custom-input">
-					<Form.Label htmlFor="username">Username</Form.Label>
-					<Form.Control
-						type="text"
-						placeholder="Enter Username"
-						value={username}
-						id="username"
-						onChange={(event) => setUsername(event.target.value)}
-						required
-					/>
-				</Form.Group>
-
-				<Form.Group className="custom-input">
-					<Form.Label htmlFor="password">Password</Form.Label>
-					<div className="input-group">
+		<div className="d-flex justify-content-center align-items-center vh-100">
+			<Form
+				className="p-4 bg-light"
+				onSubmit={handleSubmit}
+				style={{ boxShadow: "3px 5px 8px #888888", borderRadius: "10PX" }}
+			>
+				<div style={{ padding: "30px" }}>
+					<h2 className="text-center mb-4">Login</h2>
+					<Form.Group controlId="username">
+						<Form.Label htmlFor="username">Username</Form.Label>
 						<Form.Control
-							type={isPasswordVisible ? "text" : "password"}
-							id="password"
-							value={password}
-							onChange={(event) => setPassword(event.target.value)}
+							type="text"
+							placeholder="Username"
+							value={username}
+							id="username"
+							onChange={(event) => setUsername(event.target.value)}
+							required
 						/>
-						<div
-							className="input-group-text password-toggle-icon"
-							onClick={togglePasswordVisibility}
-							onKeyDown={(event) => {
-								if (event.key === "Enter") {
-									togglePasswordVisibility();
-								}
-							}}
-							role="button"
-							tabIndex={0}
-						>
-							{isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+					</Form.Group>
+
+					<Form.Group controlId="formBasicPassword">
+						<Form.Label htmlFor="password">Password</Form.Label>
+						<div className="input-group">
+							<Form.Control
+								type={isPasswordVisible ? "text" : "password"}
+								id="password"
+								placeholder="**********"
+								value={password}
+								onChange={(event) => setPassword(event.target.value)}
+							/>
+							<div
+								className="input-group-text password-toggle-icon"
+								onClick={togglePasswordVisibility}
+								onKeyDown={(event) => {
+									if (event.key === "Enter") {
+										togglePasswordVisibility();
+									}
+								}}
+								role="button"
+								tabIndex={0}
+							>
+								{isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+							</div>
 						</div>
-					</div>
-				</Form.Group>
-
-				<Button className="btn btn-light" type="submit">
-					<FaUser className="login-icon" />
-					<span className="login-text">Login</span>
-				</Button>
-				<Button onClick={toggleSignupForm} className="btn btn-light">
-					<FaUserPlus className="signup-icon" />
-					<span className="signup-text">Sign Up</span>
-				</Button>
-				<OverlayTrigger placement="top" overlay={tooltip}>
+						<OverlayTrigger placement="top" overlay={tooltip}>
+							<Button variant="link">Forgot password?</Button>
+						</OverlayTrigger>
+					</Form.Group>
 					<Button
-						// onClick={toggleForgetPasswordFrom}
-						className="btn btn-light d-block"
+						style={{ marginTop: "10px" }}
+						variant="primary"
+						type="submit"
+						className="w-100"
 					>
-						<BiKey className="Forget-icon" />
-						<span className="forget-text">Forget Password</span>
+						Login
 					</Button>
-				</OverlayTrigger>
-				{showSignupForm ? (
-					<SignupForm onDismiss={handleSignupFormDismiss} />
-				) : null}
 
-				{showForgetPasswordFrom ? (
-					<ForgetPasswordFrom onDismiss={handleForgetPasswordFormDismiss} />
-				) : null}
-			</form>
+					<div className="d-flex justify-content-center">
+						<Button variant="link" onClick={toggleSignupForm}>
+							Create an account
+						</Button>
+					</div>
+					{showSignupForm ? (
+						<SignupForm onDismiss={handleSignupFormDismiss} />
+					) : null}
+
+					{showForgetPasswordFrom ? (
+						<ForgetPasswordFrom onDismiss={handleForgetPasswordFormDismiss} />
+					) : null}
+				</div>
+			</Form>
 		</div>
 	);
 }

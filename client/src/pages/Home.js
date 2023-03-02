@@ -1,13 +1,11 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 import "./Home.css";
-
-import Login from "./Login";
+import HomePage from "./HomePage";
 
 export function Home({ myClassDarkMode }) {
 	return (
-		<main role="main" className="background-image">
-			<h1>Login</h1>
-			<Login myClassDarkMode={myClassDarkMode} />
+		<main role="main" className={myClassDarkMode}>
+			<HomePage />
 		</main>
 	);
 }

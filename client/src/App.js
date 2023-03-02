@@ -10,6 +10,7 @@ import Student from "./pages/Student";
 import Profile from "./pages/Profile";
 import LearningObjective from "./pages/LearningObjective";
 import "./App.css";
+import Login from "./pages/Login";
 const App = () => {
 	const [isDarkMode, setIsDarkMode] = useState(false);
 	const handleDarkModeToggle = () => {
@@ -29,7 +30,7 @@ const App = () => {
 				myClassDarkMode={myClassDarkMode}
 			/>
 			<Routes>
-				<Route path="/" element={<Home myClassDarkMode={myClassDarkMode}  />} />
+				<Route path="/" element={<Home myClassDarkMode={myClassDarkMode} />} />
 				<Route path="/about" element={<About />} />
 				<Route path="/contact" element={<Contact />} />
 				<Route path="/mentor" element={<Mentor />} />
@@ -44,6 +45,7 @@ const App = () => {
 				/>
 				<Route path="/student" element={<Student />} />
 				<Route path="skills" element={<LearningObjective />} />
+				<Route path="/login" element={<Login />} />
 			</Routes>
 			<Footer isDarkMode={isDarkMode} />
 		</div>
