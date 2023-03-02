@@ -26,43 +26,42 @@ ORDER BY total_score DESC;
 		});
 });
 //get skills and scores for all students and region
-// router.get("/skills-scores", (req, res) => {
-// 	db.query(
-// 		`SELECT u.id AS student_id, u.name AS student_name, r.name AS region_name, s.skill_name, SUM(ulo.score) AS total_score
-// FROM user_learning_obj ulo
-// JOIN users u ON ulo.user_id = u.id
-// JOIN skills s ON ulo.lo_id = s.id
-// JOIN region r ON u.region_id = r.id
-// WHERE r.name IN ('North West', 'London', 'West Midlands', 'Cape Town')
-// GROUP BY u.id, u.name, r.name, s.skill_name
-// ORDER BY u.name, s.skill_name ASC;
-// 	`
-// 	)
-// 		.then((result) => {
-// 			res.json(result.rows);
-// 		})
-// 		.catch((err) => {
-// 			res.status(500).json(err);
-// 		});
-// });
+router.get("/skills-scores", (req, res) => {
+	db.query(
+		`SELECT u.id AS student_id, u.name AS student_name, r.name AS region_name, s.skill_name, SUM(ulo.score) AS total_score
+FROM user_learning_obj ulo
+JOIN users u ON ulo.user_id = u.id
+JOIN skills s ON ulo.lo_id = s.id
+JOIN region r ON u.region_id = r.id
+WHERE r.name IN ('North West', 'London', 'West Midlands', 'Cape Town')
+GROUP BY u.id, u.name, r.name, s.skill_name
+ORDER BY u.name, s.skill_name ASC;
+	`
+	)
+		.then((result) => {
+			res.json(result.rows);
+		})
+		.catch((err) => {
+			res.status(500).json(err);
+		});
+});
 
-// get skill by region filter
+// get skill by region filter and class
 router.get("/skills-by-region", (req, res) => {
 	const region = req.query.region;
+	const classCode = req.query.classCode;
 	const query = `
-SELECT u.id AS student_id, u.name AS student_name, r.name AS region_name, s.skill_name, SUM(ulo.score) AS total_score
+SELECT u.id AS student_id, u.name AS student_name, u.class_code AS class_code, r.name AS region_name, s.skill_name, SUM(ulo.score) AS total_score
 FROM user_learning_obj ulo
 JOIN users u ON ulo.user_id = u.id
 JOIN skills s ON ulo.lo_id = s.id
 JOIN region r ON u.region_id = r.id
 WHERE ($1::text IS NULL OR r.name = $1::text)
+AND ($2::text IS NULL OR u.class_code = $2::text)
 GROUP BY u.id, u.name, r.name, s.skill_name
 ORDER BY u.name ASC
-
-
-
   `;
-	const params = [region || null];
+	const params = [region || null, classCode || null];
 
 	db.query(query, params, (error, result) => {
 		if (error) {
@@ -121,6 +120,7 @@ router.put("/learning_objectives/:id", async (req, res) => {
 		res.status(500).json({ error: error.message });
 	}
 });
+//delete  a learning object
 router.delete("/learning_objectives/:id", (req, res) => {
 	const id = req.params.id;
 	if (isNaN(id)) {
@@ -133,21 +133,17 @@ router.delete("/learning_objectives/:id", (req, res) => {
 		.catch((error) => res.status(500).json({ error: error.message }));
 });
 
-//post a specific learning_obj
-// router.post("/learning_objectives", async (req, res) => {
-// 	const { objective } = req.body;
-// 	if (!objective) {
-// 		return res.status(400).json({ error: "Objective is required" });
-// 	}
-// 	try {
-// 		await db.query("INSERT INTO learning_objectives(objective) VALUES($1)", [
-// 			objective,
-// 		]);
-// 		res.json("Objective was added successfully");
-// 	} catch (error) {
-// 		res.status(500).json({ error: error.message });
-// 	}
-// });
+//get specific user profile
+router.get("/user-profile/:id", (req, res) => {
+	const user_Id = req.params.id;
+	db.query(
+		"SELECT users.name, users.username, users.class_code, region.name AS region FROM users INNER JOIN region ON users.region_id = region.id AND users.id=$1",
+		[user_Id]
+	)
+		.then((result) => res.json(result.rows))
+		.catch((error) => res.status(500).json({ Error: error.message }));
+});
+
 // Cookie
 // router.get("/testCookie", async (req, res) => {
 // 	const userId = req.session.userId;
@@ -260,7 +256,6 @@ router.post("/forgot-password", async (req, res) => {
 		} else {
 			logger.debug("Email  is  exist");
 		}
-
 		// Create a random token
 		const token = crypto.randomBytes(20).toString("hex");
 

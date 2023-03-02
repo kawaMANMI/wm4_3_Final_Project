@@ -1,8 +1,8 @@
 .button_container {
 	display: flex;
 	justify-content: space-between;
-	margin-bottom: 1em;
-	margin-right: 1em;
+	margin-bottom: 0.5em;
+	margin-right: 0.5em;
 }
 
 .button_enabled {
@@ -14,13 +14,18 @@
 	background-color: #0069d9;
 	border-color: #0062cc;
 }
+
 h2 {
 	text-align: center;
 }
+
 .table-wrapper {
 	overflow-x: auto;
+	width: auto;
 }
-
+.table_container {
+	width: 80%;
+}
 @media (max-width: 768px) {
 	.table_container {
 		padding: 10px;

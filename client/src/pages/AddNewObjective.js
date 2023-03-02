@@ -38,40 +38,37 @@ function AddNewObjective({ handleSubmitObj }) {
 	};
 	return (
 		<div className="d-flex align-items-center">
-			<Form onSubmit={handleSubmitPost}>
-				<DropdownButton
-					id="dropdown-basic-button"
-					title={`Skill ${selectedOption}`}
-				>
+			<Form onSubmit={handleSubmitPost} style={{ marginLeft: "1em" }}>
+				<DropdownButton id="dropdown-basic-button" title={"Skill"}>
 					<Dropdown.Item
 						onClick={() => handleOptionChange({ target: { value: "option1" } })}
 					>
-						Option 1
+						HTML
 					</Dropdown.Item>
 					<Dropdown.Item
 						onClick={() => handleOptionChange({ target: { value: "option2" } })}
 					>
-						Option 2
+						GIT
 					</Dropdown.Item>
 					<Dropdown.Item
 						onClick={() => handleOptionChange({ target: { value: "option3" } })}
 					>
-						Option 3
+						JAVASCRIPT
 					</Dropdown.Item>
 					<Dropdown.Item
 						onClick={() => handleOptionChange({ target: { value: "option4" } })}
 					>
-						Option 4
+						REACT
 					</Dropdown.Item>
 					<Dropdown.Item
 						onClick={() => handleOptionChange({ target: { value: "option5" } })}
 					>
-						Option 5
+						NODE
 					</Dropdown.Item>
 					<Dropdown.Item
 						onClick={() => handleOptionChange({ target: { value: "option6" } })}
 					>
-						Option 6
+						POSTGRES
 					</Dropdown.Item>
 				</DropdownButton>
 
