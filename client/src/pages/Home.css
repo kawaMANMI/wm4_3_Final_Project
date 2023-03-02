@@ -1,17 +1,8 @@
-body {
-	--dd-text: #fff;
-	--dd-bg: #333;
-	color: var(--dd-text);
-
-	@media (prefers-color-scheme: dark) {
-		--dd-text: #333;
-		--dd-bg: #fff;
-	}
-}
-
-.appClass {
-	height: 100vh;
-	width: 100vw;
+.background-image {
+	background-image: url("./CYF-background.png");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
 }
 
 .logo {

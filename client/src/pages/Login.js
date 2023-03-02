@@ -13,7 +13,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import "./login.css";
 
-export function Login({ colorForIsDarkMode }) {
+export function Login({ myClassDarkMode }) {
 	const navigate = useNavigate();
 	function handleLogin(userInfo) {
 		if (userInfo.data) {
@@ -83,7 +83,7 @@ export function Login({ colorForIsDarkMode }) {
 	);
 
 	return (
-		<div className="bodyLoginComponent" style={colorForIsDarkMode}>
+		<div className="bodyLoginComponent">
 			<form onSubmit={handleSubmit}>
 				<Form.Group className="custom-input">
 					<Form.Label htmlFor="username">Username</Form.Label>
@@ -94,7 +94,6 @@ export function Login({ colorForIsDarkMode }) {
 						id="username"
 						onChange={(event) => setUsername(event.target.value)}
 						required
-						style={colorForIsDarkMode}
 					/>
 				</Form.Group>
 
@@ -106,7 +105,6 @@ export function Login({ colorForIsDarkMode }) {
 							id="password"
 							value={password}
 							onChange={(event) => setPassword(event.target.value)}
-							style={colorForIsDarkMode}
 						/>
 						<div
 							className="input-group-text password-toggle-icon"
@@ -118,26 +116,17 @@ export function Login({ colorForIsDarkMode }) {
 							}}
 							role="button"
 							tabIndex={0}
-							style={colorForIsDarkMode}
 						>
 							{isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
 						</div>
 					</div>
 				</Form.Group>
 
-				<Button
-					className="btn btn-light"
-					type="submit"
-					style={colorForIsDarkMode}
-				>
+				<Button className="btn btn-light" type="submit">
 					<FaUser className="login-icon" />
 					<span className="login-text">Login</span>
 				</Button>
-				<Button
-					onClick={toggleSignupForm}
-					className="btn btn-light"
-					style={colorForIsDarkMode}
-				>
+				<Button onClick={toggleSignupForm} className="btn btn-light">
 					<FaUserPlus className="signup-icon" />
 					<span className="signup-text">Sign Up</span>
 				</Button>
@@ -151,10 +140,7 @@ export function Login({ colorForIsDarkMode }) {
 					</Button>
 				</OverlayTrigger>
 				{showSignupForm ? (
-					<SignupForm
-						onDismiss={handleSignupFormDismiss}
-						colorForIsDarkMode={colorForIsDarkMode}
-					/>
+					<SignupForm onDismiss={handleSignupFormDismiss} />
 				) : null}
 
 				{showForgetPasswordFrom ? (

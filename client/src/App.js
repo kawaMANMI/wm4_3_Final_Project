@@ -15,17 +15,21 @@ const App = () => {
 	const handleDarkModeToggle = () => {
 		setIsDarkMode(!isDarkMode);
 	};
-	const className = isDarkMode ? "dark" : null;
+	const myClassDarkMode = isDarkMode ? "dark" : "light";
 
 	const colorForIsDarkMode = {
 		backgroundColor: "var(--dd-bg)",
 		color: "var(--dd-text)",
 	};
 	return (
-		<div id="app" className={className}>
-			<Header isDarkMode={isDarkMode} onDarkModeToggle={handleDarkModeToggle} />
+		<div id="app" className={myClassDarkMode}>
+			<Header
+				isDarkMode={isDarkMode}
+				onDarkModeToggle={handleDarkModeToggle}
+				myClassDarkMode={myClassDarkMode}
+			/>
 			<Routes>
-				<Route path="/" element={<Home />} />
+				<Route path="/" element={<Home myClassDarkMode={myClassDarkMode}  />} />
 				<Route path="/about" element={<About />} />
 				<Route path="/contact" element={<Contact />} />
 				<Route path="/mentor" element={<Mentor />} />
