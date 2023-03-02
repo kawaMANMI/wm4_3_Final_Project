@@ -189,9 +189,9 @@ router.post("/login", async (req, res) => {
 
 const classes = [
 	{ 1: ["WM1", "WM2", "WM3", "WM4"] },
-	{ 2: ["NW1", "NW1", "NW2", "NW2"] },
+	{ 2: ["NW1", "NW1", "NW3", "NW4"] },
 	{ 3: ["LON1", "LON2", "LON3", "LON4"] },
-	{ 4: ["CT2"] },
+	{ 4: ["CT1", "CT2", "CT3"] },
 ];
 
 router.get("/regions-and-classes", async (req, res) => {
@@ -310,11 +310,11 @@ router.post("/forgot-password", async (req, res) => {
 router.get("/checklist", (req, res) => {
 	db.query(
 		`SELECT s.id AS skill_id, s.skill_name, array_agg(json_build_object('objective_id', lo.id,'objective', lo.objective)) AS objectives
-		 FROM skills AS s
-		 INNER JOIN learning_objectives AS lo
-		 ON s.id = lo.skill_id
-		 GROUP BY s.id, s.skill_name
-		 ORDER BY s.id;`
+     FROM skills AS s
+     INNER JOIN learning_objectives AS lo
+     ON s.id = lo.skill_id
+     GROUP BY s.id, s.skill_name
+     ORDER BY s.id;`
 	)
 		.then((result) => res.json(result.rows))
 		.catch((error) => res.status(500).json({ error: error.message }));
@@ -353,20 +353,20 @@ router.get("/recent-scores", (req, res) => {
 	const userID = req.session.userId;
 	db.query(
 		`SELECT s.skill_name, ROUND(AVG(ulo.score)) AS average_score
-		FROM (
-  			SELECT lo.skill_id, ulo.*
-  			FROM user_learning_obj as ulo
-  			JOIN (
-    			SELECT lo_id, MAX(submitted_at) AS recent_submitted_at
-    			FROM user_learning_obj
-    			WHERE user_id = ${userID}
-    			GROUP BY lo_id
-  			) as recent_ulo ON ulo.lo_id = recent_ulo.lo_id AND ulo.submitted_at = recent_ulo.recent_submitted_at
-  			JOIN learning_objectives as lo ON ulo.lo_id = lo.id
-		) as ulo
-		JOIN skills as s ON ulo.skill_id = s.id
-		GROUP BY s.skill_name
-		ORDER BY s.skill_name;`
+    FROM (
+        SELECT lo.skill_id, ulo.*
+        FROM user_learning_obj as ulo
+        JOIN (
+          SELECT lo_id, MAX(submitted_at) AS recent_submitted_at
+          FROM user_learning_obj
+          WHERE user_id = ${userID}
+          GROUP BY lo_id
+        ) as recent_ulo ON ulo.lo_id = recent_ulo.lo_id AND ulo.submitted_at = recent_ulo.recent_submitted_at
+        JOIN learning_objectives as lo ON ulo.lo_id = lo.id
+    ) as ulo
+    JOIN skills as s ON ulo.skill_id = s.id
+    GROUP BY s.skill_name
+    ORDER BY s.skill_name;`
 	)
 		.then((result) => res.json(result.rows))
 		.catch((error) => res.status(500).json({ error: error.message }));
@@ -389,18 +389,18 @@ router.get("/all-scores", async (req, res) => {
 	const userID = req.session.userId;
 	db.query(
 		`SELECT TO_CHAR(user_learning_obj.submitted_at,'Mon-DD') AS date,
-		ROUND(AVG(CASE WHEN skills.skill_name = 'HTML/CSS' THEN user_learning_obj.score ELSE NULL END)) AS HTML_CSS,
-  		ROUND(AVG(CASE WHEN skills.skill_name = 'Git' THEN user_learning_obj.score ELSE NULL END)) AS Git,
-  		ROUND(AVG(CASE WHEN skills.skill_name = 'JavaScript' THEN user_learning_obj.score ELSE NULL END)) AS JavaScript,
-  		ROUND(AVG(CASE WHEN skills.skill_name = 'React' THEN user_learning_obj.score ELSE NULL END)) AS React,
-  		ROUND(AVG(CASE WHEN skills.skill_name = 'Node' THEN user_learning_obj.score ELSE NULL END)) AS Node,
-  		ROUND(AVG(CASE WHEN skills.skill_name = 'Database-Postgres' THEN user_learning_obj.score ELSE NULL END)) AS Database_Postgres
-		FROM user_learning_obj
-		JOIN learning_objectives ON user_learning_obj.lo_id = learning_objectives.id
-		JOIN skills ON learning_objectives.skill_id = skills.id
-		WHERE user_learning_obj.user_id = ${userID}
-		GROUP BY TO_CHAR(user_learning_obj.submitted_at,'Mon-DD')
-		ORDER BY TO_CHAR(user_learning_obj.submitted_at,'Mon-DD')`
+    ROUND(AVG(CASE WHEN skills.skill_name = 'HTML/CSS' THEN user_learning_obj.score ELSE NULL END)) AS HTML_CSS,
+      ROUND(AVG(CASE WHEN skills.skill_name = 'Git' THEN user_learning_obj.score ELSE NULL END)) AS Git,
+      ROUND(AVG(CASE WHEN skills.skill_name = 'JavaScript' THEN user_learning_obj.score ELSE NULL END)) AS JavaScript,
+      ROUND(AVG(CASE WHEN skills.skill_name = 'React' THEN user_learning_obj.score ELSE NULL END)) AS React,
+      ROUND(AVG(CASE WHEN skills.skill_name = 'Node' THEN user_learning_obj.score ELSE NULL END)) AS Node,
+      ROUND(AVG(CASE WHEN skills.skill_name = 'Database-Postgres' THEN user_learning_obj.score ELSE NULL END)) AS Database_Postgres
+    FROM user_learning_obj
+    JOIN learning_objectives ON user_learning_obj.lo_id = learning_objectives.id
+    JOIN skills ON learning_objectives.skill_id = skills.id
+    WHERE user_learning_obj.user_id = ${userID}
+    GROUP BY TO_CHAR(user_learning_obj.submitted_at,'Mon-DD')
+    ORDER BY TO_CHAR(user_learning_obj.submitted_at,'Mon-DD')`
 	)
 		.then((result) => res.json(result.rows))
 		.catch((error) => res.status(500).json({ error: error.message }));

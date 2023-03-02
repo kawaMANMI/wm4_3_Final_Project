@@ -1,4 +1,3 @@
-import "./Home.css";
 const About = () => {
 	return (
 		<main role="main">

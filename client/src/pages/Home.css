@@ -13,9 +13,6 @@
 	color: rgb(255, 0, 0);
 }
 
-.message:hover {
-	background-color: yellow;
-}
 
 .table_container {
 	width: 50%;

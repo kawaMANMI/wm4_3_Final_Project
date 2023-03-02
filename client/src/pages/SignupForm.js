@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
 import axios from "axios";
-
-function SignupForm({ onDismiss, colorForIsDarkMode }) {
+import "./signup.css";
+function SignupForm({ onDismiss, myClassDarkMode }) {
 	const [name, setName] = useState("");
 	const [username, setUsername] = useState("");
 	const [email, setEmail] = useState("");
@@ -91,6 +91,9 @@ function SignupForm({ onDismiss, colorForIsDarkMode }) {
 				.then((response) => {
 					responseData = response.data;
 					alert(responseData);
+					if (responseData.includes("successfully")) {
+						onDismiss();
+					}
 					// handleDismiss()
 				});
 			// handle the response from the server
@@ -104,85 +107,72 @@ function SignupForm({ onDismiss, colorForIsDarkMode }) {
 	};
 	return (
 		<Modal show={true} onHide={handleDismiss}>
-			<Modal.Header style={colorForIsDarkMode} closeButton>
-				<Modal.Title style={colorForIsDarkMode}>Sign Up</Modal.Title>
+			<Modal.Header closeButton className={myClassDarkMode}>
+				<Modal.Title>Sign Up</Modal.Title>
 			</Modal.Header>
-			<Modal.Body style={colorForIsDarkMode}>
-				<Form onSubmit={handleSubmit} style={colorForIsDarkMode}>
-					<Form.Group
-						style={colorForIsDarkMode}
-						className="mb-3"
-						controlId="formBasicName"
-					>
-						<Form.Label style={colorForIsDarkMode}>Username</Form.Label>
+			<Modal.Body className={myClassDarkMode}>
+				<Form onSubmit={handleSubmit} variant="danger">
+					<Form.Group className="mb-3" controlId="formBasicName">
+						<Form.Label>Username</Form.Label>
 						<Form.Control
-							style={colorForIsDarkMode}
 							type="text"
 							placeholder="Enter Name"
 							value={username}
 							onChange={handleUserNameChange}
+							className={myClassDarkMode}
 							required
 						/>
 					</Form.Group>
 
-					<Form.Group
-						className="mb-3"
-						style={colorForIsDarkMode}
-						controlId="formBasicName"
-					>
-						<Form.Label style={colorForIsDarkMode}>Name</Form.Label>
+					<Form.Group className="mb-3" controlId="formBasicName">
+						<Form.Label>Name</Form.Label>
 						<Form.Control
-							style={colorForIsDarkMode}
 							type="text"
 							placeholder="Enter name"
 							value={name}
 							onChange={handleNameChange}
+							className={myClassDarkMode}
 							required
 						/>
 					</Form.Group>
 
-					<Form.Group
-						className="mb-3"
-						style={colorForIsDarkMode}
-						controlId="formBasicEmail"
-					>
+					<Form.Group className="mb-3" controlId="formBasicEmail">
 						<Form.Label>Email address</Form.Label>
 						<Form.Control
 							type="email"
 							placeholder="Enter email"
 							value={email}
 							onChange={handleEmailChange}
-							style={colorForIsDarkMode}
+							className={myClassDarkMode}
 							required
 						/>
 					</Form.Group>
 
 					<Form.Group
-						className="mb-3"
-						style={colorForIsDarkMode}
+						className={`mb-3 ${myClassDarkMode}`}
 						controlId="formBasicRole"
 					>
-						<Form.Label style={colorForIsDarkMode}>Role</Form.Label>
+						<Form.Label>Role</Form.Label>
 						<Form.Select
-							style={colorForIsDarkMode}
 							value={roleValue}
 							onChange={handleRoleChange}
+							className={myClassDarkMode}
 							required
 						>
-							<option value="">Select role</option>
+							<option className={myClassDarkMode} value="">
+								Select role
+							</option>
 							<option value="Mentor">Mentor</option>
 							<option value="Student">Student</option>
 						</Form.Select>
 					</Form.Group>
 
 					<Form.Group
-						className="mb-3"
-						style={colorForIsDarkMode}
+						className={`mb-3 ${myClassDarkMode}`}
 						controlId="formBasicRegion"
 					>
-						<Form.Label style={colorForIsDarkMode}>Region</Form.Label>
+						<Form.Label>Region</Form.Label>
 						<Form.Select
-							style={colorForIsDarkMode}
 							value={regionValue}
 							onChange={(event) =>
 								handleRegionChange({
@@ -190,6 +180,7 @@ function SignupForm({ onDismiss, colorForIsDarkMode }) {
 									index: event.target.selectedIndex,
 								})
 							}
+							className={myClassDarkMode}
 							required
 						>
 							<option value="">Select region</option>
@@ -201,16 +192,12 @@ function SignupForm({ onDismiss, colorForIsDarkMode }) {
 						</Form.Select>
 					</Form.Group>
 
-					<Form.Group
-						className="mb-3"
-						style={colorForIsDarkMode}
-						controlId="formBasicClasses"
-					>
-						<Form.Label style={colorForIsDarkMode}>Class</Form.Label>
+					<Form.Group className="mb-3" controlId="formBasicClasses">
+						<Form.Label>Class</Form.Label>
 						<Form.Select
-							style={colorForIsDarkMode}
 							value={classValue}
 							onChange={handleClassChange}
+							className={myClassDarkMode}
 							required
 						>
 							<option value="">Select Cohort</option>
@@ -221,54 +208,42 @@ function SignupForm({ onDismiss, colorForIsDarkMode }) {
 							))}
 						</Form.Select>
 					</Form.Group>
-					<Form.Group
-						className="mb-3"
-						style={colorForIsDarkMode}
-						controlId="formBasicPassword"
-					>
-						<Form.Label style={colorForIsDarkMode}>Password</Form.Label>
+					<Form.Group className="mb-3" controlId="formBasicPassword">
+						<Form.Label>Password</Form.Label>
 						<Form.Control
-							style={colorForIsDarkMode}
 							type="password"
 							placeholder="Password"
 							value={password}
+							className={myClassDarkMode}
 							onChange={handlePasswordChange}
 						/>
 					</Form.Group>
 
-					<Form.Group
-						className="mb-3"
-						style={colorForIsDarkMode}
-						controlId="formBasicPassword"
-					>
-						<Form.Label style={colorForIsDarkMode}>Confirm Password</Form.Label>
+					<Form.Group className="mb-3" controlId="formBasicPassword">
+						<Form.Label>Confirm Password</Form.Label>
 						<Form.Control
-							style={colorForIsDarkMode}
 							type="password"
 							placeholder="Password"
 							value={confirmPassword}
+							className={myClassDarkMode}
 							onChange={handleConfirmPassword}
 						/>
 						{confirmPasswordError && (
-							<Form.Text className="text-danger" style={colorForIsDarkMode}>
+							<Form.Text className="text-danger">
 								{confirmPasswordError}
 							</Form.Text>
 						)}
 					</Form.Group>
 
 					<Button
-						style={colorForIsDarkMode}
 						type="submit"
 						disabled={confirmPassword !== password}
-						className="ms-2 btn-light"
+						variant="danger"
+						className="ms-2"
 					>
 						Sign Up
 					</Button>
-					<Button
-						style={colorForIsDarkMode}
-						onClick={handleDismiss}
-						className="ms-2 btn-light"
-					>
+					<Button onClick={handleDismiss} variant="danger" className="ms-2">
 						Close
 					</Button>
 				</Form>

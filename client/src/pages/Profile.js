@@ -15,7 +15,7 @@ import {
 import Chart from "./Chart";
 import TableOfAllScores from "./TableOfAllScores";
 
-function Profile({ isDarkMode, colorForIsDarkMode }) {
+function Profile({ myClassDarkMode }) {
 	const navigate = useNavigate();
 	function handleChecklist() {
 		navigate("/student");
@@ -39,17 +39,7 @@ function Profile({ isDarkMode, colorForIsDarkMode }) {
 	}, []);
 	const picLink = `https://robohash.org/${id}.png`;
 	// console.log(id);
-	const colorForIsDarkModeTable = isDarkMode
-		? {
-				backgroundColor: "#333",
-				color: "#fff",
-				// eslint-disable-next-line no-mixed-spaces-and-tabs
-		  }
-		: {
-				backgroundColor: "#fff",
-				color: "#dc143c",
-				// eslint-disable-next-line no-mixed-spaces-and-tabs
-		  };
+
 	return (
 		<Container
 			style={{
@@ -60,7 +50,7 @@ function Profile({ isDarkMode, colorForIsDarkMode }) {
 				boxShadow: "1px 3px 3px #888888",
 			}}
 		>
-			<Row style={colorForIsDarkMode}>
+			<Row className={myClassDarkMode}>
 				<Col sm={12} md={6} className="d-flex justify-content-center">
 					<Image
 						src={picLink}
@@ -69,28 +59,21 @@ function Profile({ isDarkMode, colorForIsDarkMode }) {
 						alt="profile picture"
 					/>
 				</Col>
-				<Col
-					sm={12}
-					md={6}
-					className="d-flex justify-content-center"
-					style={colorForIsDarkMode}
-				>
+				<Col sm={12} md={6} className="d-flex justify-content-center">
 					<Card style={{ width: "30rem", marginTop: "15px" }}>
-						<Card.Header as="h4" style={colorForIsDarkMode}>
-							User Profile
-						</Card.Header>
+						<Card.Header as="h4">User Profile</Card.Header>
 
-						<ListGroup variant="flush" style={colorForIsDarkMode}>
-							<ListGroup.Item style={colorForIsDarkMode}>
+						<ListGroup variant="flush">
+							<ListGroup.Item>
 								<strong>Name:</strong> {userData["name"]}
 							</ListGroup.Item>
-							<ListGroup.Item style={colorForIsDarkMode}>
+							<ListGroup.Item>
 								<strong>Username:</strong> {userData["username"]}
 							</ListGroup.Item>
-							<ListGroup.Item style={colorForIsDarkMode}>
+							<ListGroup.Item>
 								<strong>Class:</strong> {userData["class_code"]}
 							</ListGroup.Item>
-							<ListGroup.Item style={colorForIsDarkMode}>
+							<ListGroup.Item>
 								<strong>Region:</strong> {userData["region"]}
 							</ListGroup.Item>
 						</ListGroup>
@@ -99,7 +82,7 @@ function Profile({ isDarkMode, colorForIsDarkMode }) {
 			</Row>
 			<Row style={{ marginTop: "30px" }}>
 				<Col className="d-flex justify-content-center">
-					<ListGroup.Item style={colorForIsDarkModeTable}>
+					<ListGroup.Item>
 						<strong>Current Score Level:</strong>
 					</ListGroup.Item>
 				</Col>
@@ -115,14 +98,13 @@ function Profile({ isDarkMode, colorForIsDarkMode }) {
 					as="h4"
 					style={{
 						textAlign: "center",
-						...colorForIsDarkModeTable,
 					}}
 				>
 					Progress Chart
 				</Card.Header>
-				<Chart colorForIsDarkModeTable={colorForIsDarkModeTable} />
+				<Chart />
 			</Card>
-			<TableOfAllScores colorForIsDarkModeTable={colorForIsDarkModeTable} />
+			<TableOfAllScores />
 		</Container>
 	);
 }

@@ -4,75 +4,43 @@ import { Container, Form, Button } from "react-bootstrap";
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 import "./Footer.css";
 
-function Footer({ isDarkMode }) {
-	const footerStyle = isDarkMode
-		? {
-				backgroundColor: "#333",
-				color: "#fff",
-				boxShadow: "0 2px 4px rgba(255, 255, 255, 0.4)",
-		  }
-		: {
-				backgroundColor: "rgb(235, 235, 235)",
-				color: "#2f2f2f",
-				boxShadow: "0 2px 4px rgba(0, 0, 0, 0.4)",
-		  };
-	const socialIconsStyle = isDarkMode ? { color: "#fff" } : { color: "#333" };
-	const subscribeButtonStyle = isDarkMode
-		? {
-				backgroundColor: "#fff",
-				color: "#333",
-		  }
-		: {
-				backgroundColor: "#2f2f2f",
-				color: "#fff",
-		  };
-
+function Footer({ myClassDarkMode }) {
 	return (
-		<footer className="footer" style={footerStyle}>
+		<footer className={`footer ${myClassDarkMode}`}>
 			<Container>
 				<div className="d-flex justify-content-center align-items-center">
-					<div className="social-icons" style={socialIconsStyle}>
-						<a
-							style={socialIconsStyle}
-							href="https://www.facebook.com/codeyourfuture.io/?locale=en_GB"
-						>
-							<FaFacebook />
+					<div className={`social-icons ${myClassDarkMode}`}>
+						<a href="https://www.facebook.com/codeyourfuture.io/?locale=en_GB">
+							<FaFacebook className={myClassDarkMode} />
 						</a>
-						<a
-							style={socialIconsStyle}
-							href="https://twitter.com/CodeYourFuture"
-						>
-							<FaTwitter />
+						<a href="https://twitter.com/CodeYourFuture">
+							<FaTwitter className={myClassDarkMode} />
 						</a>
-						<a
-							style={socialIconsStyle}
-							href="https://www.instagram.com/codeyourfuture_/"
-						>
-							<FaInstagram />
+						<a href="https://www.instagram.com/codeyourfuture_/">
+							<FaInstagram className={myClassDarkMode} />
 						</a>
-						<a
-							style={socialIconsStyle}
-							href="https://www.linkedin.com/company/codeyourfuture/"
-						>
-							<FaLinkedin />
+						<a href="https://www.linkedin.com/company/codeyourfuture/">
+							<FaLinkedin className={myClassDarkMode} />
 						</a>
 					</div>
 				</div>
 			</Container>
 			<div className="footer-subscribe">
 				<Container>
-					<Form className="d-flex justify-content-center align-items-center">
-						<Form.Group controlId="formBasicEmail" className="mb-0">
-							<Form.Control
-								type="email"
-								placeholder="Enter email"
-								style={isDarkMode ? { backgroundColor: "#444" } : {}}
-							/>
+					<Form className="d-flex justify-content-center align-items-center mb-3">
+						<Form.Group
+							controlId="formBasicEmail"
+							style={{
+								width: "300px",
+								marginRight: "10px",
+							}}
+						>
+							<Form.Control type="email" placeholder="Enter email" />
 						</Form.Group>
 						<Button
 							type="submit"
-							className="subscribe-button ml-2"
-							style={subscribeButtonStyle}
+							variant="danger"
+							className={`${myClassDarkMode}`}
 						>
 							Subscribe
 						</Button>

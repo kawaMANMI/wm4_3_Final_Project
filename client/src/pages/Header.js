@@ -6,7 +6,12 @@ import "./Header.css"; // Import the Header.css file with the additional styles
 import logo from "./logo_cyf.png";
 import logo2 from "./logo_cyf2.png";
 
-function Header({ isDarkMode, onDarkModeToggle, myClassDarkMode }) {
+function Header({
+	isDarkMode,
+	onDarkModeToggle,
+	myClassDarkMode,
+	myClassDarkModeForNavbar,
+}) {
 	const name = sessionStorage.getItem("name");
 	const navigate = useNavigate();
 	const [loggedIn, setLoggedIn] = useState(true);
@@ -31,20 +36,26 @@ function Header({ isDarkMode, onDarkModeToggle, myClassDarkMode }) {
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
 				<Navbar.Collapse id="basic-navbar-nav">
 					<Nav className="ml-auto">
-						<NavLink to="/" className={`nav-link ${myClassDarkMode}`}>
+						<NavLink to="/" className={`nav-link ${myClassDarkModeForNavbar}`}>
 							Home
 						</NavLink>
-						<NavLink to="/about" className={`nav-link ${myClassDarkMode}`}>
+						<NavLink
+							to="/about"
+							className={`nav-link ${myClassDarkModeForNavbar}`}
+						>
 							About
 						</NavLink>
-						<NavLink to="/contact" className={`nav-link ${myClassDarkMode}`}>
+						<NavLink
+							to="/contact"
+							className={`nav-link ${myClassDarkModeForNavbar}`}
+						>
 							Contact
 						</NavLink>
 						{loggedIn && name !== "" && name !== null ? (
 							<NavLink
 								to="/"
 								onClick={handleLogout}
-								className={`nav-link ${myClassDarkMode}`}
+								className={`nav-link ${myClassDarkModeForNavbar}`}
 							>
 								Logout
 							</NavLink>
@@ -52,7 +63,7 @@ function Header({ isDarkMode, onDarkModeToggle, myClassDarkMode }) {
 						{loggedIn && name !== "" && name !== null ? (
 							<NavLink
 								to="/user-profile"
-								className={`nav-link ${myClassDarkMode}`}
+								className={`nav-link ${myClassDarkModeForNavbar}`}
 							>
 								{name}
 							</NavLink>
