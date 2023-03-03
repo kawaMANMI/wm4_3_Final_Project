@@ -1,13 +1,21 @@
 import React from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 
-function RegionDropdown({ selectedRegion, setSelectedRegion }) {
+function RegionDropdown({
+	selectedRegion,
+	setSelectedRegion,
+	myClassDarkMode,
+}) {
 	return (
-		<Dropdown>
-			<Dropdown.Toggle id="dropdown-basic">
-				{!setSelectedRegion ? "All Regions" : selectedRegion}All regions
+		<Dropdown className={myClassDarkMode}>
+			<Dropdown.Toggle
+				variant="danger"
+				id="dropdown-basic"
+				className={myClassDarkMode}
+			>
+				{!selectedRegion ? "All Regions" : selectedRegion}
 			</Dropdown.Toggle>
-			<Dropdown.Menu>
+			<Dropdown.Menu className={myClassDarkMode}>
 				<Dropdown.Item onClick={() => setSelectedRegion("")}>
 					All Regions
 				</Dropdown.Item>

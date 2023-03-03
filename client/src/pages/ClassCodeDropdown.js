@@ -1,14 +1,18 @@
 import React from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 
-function ClassCodeDropdown({ selectedClassCode, setSelectedClassCode }) {
+function ClassCodeDropdown({
+	selectedClassCode,
+	setSelectedClassCode,
+	myClassDarkMode,
+}) {
 	return (
 		<div>
 			<Dropdown>
-				<Dropdown.Toggle id="dropdown-basic">
+				<Dropdown.Toggle variant="danger" id="dropdown-basic">
 					{selectedClassCode ? selectedClassCode : "All Classes"}
 				</Dropdown.Toggle>
-				<Dropdown.Menu>
+				<Dropdown.Menu className={myClassDarkMode}>
 					<Dropdown.Item onClick={() => setSelectedClassCode("WM3")}>
 						WM3
 					</Dropdown.Item>

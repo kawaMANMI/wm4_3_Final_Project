@@ -10,7 +10,7 @@ import {
 } from "recharts";
 import axios from "axios";
 
-function Chart({ colorForIsDarkModeTable }) {
+function Chart({ myClassDarkMode }) {
 	const [skillScores, setSkillScores] = useState([]);
 
 	useEffect(() => {
@@ -32,7 +32,7 @@ function Chart({ colorForIsDarkModeTable }) {
 	}, []);
 
 	return (
-		<div style={{ marginBottom: "30px", ...colorForIsDarkModeTable }}>
+		<div className={myClassDarkMode} style={{ marginBottom: "30px" }}>
 			{skillScores.length === 0 ? (
 				<span className="d-flex justify-content-center">Loading...</span>
 			) : (
@@ -48,18 +48,16 @@ function Chart({ colorForIsDarkModeTable }) {
 					{Object.keys(skillScores[0])
 						.slice(1)
 						.map((key) => (
-							<Col key={key} style={colorForIsDarkModeTable}>
+							<Col key={key}>
 								<Card
+									className={myClassDarkMode}
 									style={{
 										marginTop: "30px",
 										boxShadow: "1px 3px 3px #888888",
 									}}
 								>
-									<Accordion defaultActiveKey="0">
-										<Accordion.Item
-											eventKey="1"
-											style={colorForIsDarkModeTable}
-										>
+									<Accordion defaultActiveKey="0" className={myClassDarkMode}>
+										<Accordion.Item eventKey="1" className={myClassDarkMode}>
 											<Accordion.Header style={{ border: "red" }}>
 												<strong
 													style={{
