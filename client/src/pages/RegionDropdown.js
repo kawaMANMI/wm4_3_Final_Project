@@ -1,7 +1,7 @@
 import React from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 
-function RegionDropdown({selectedRegion, setSelectedRegion}) {
+function RegionDropdown({ selectedRegion, setSelectedRegion }) {
 	return (
 		<Dropdown>
 			<Dropdown.Toggle id="dropdown-basic">
