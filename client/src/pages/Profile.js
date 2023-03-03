@@ -16,7 +16,7 @@ import {
 import Chart from "./Chart";
 import TableOfAllScores from "./TableOfAllScores";
 
-function Profile({ myClassDarkMode, isDarkMode }) {
+function Profile({ myClassDarkMode }) {
 	const navigate = useNavigate();
 	const location = useLocation();
 	// profileId taken from the navigate object

@@ -41,12 +41,7 @@ const App = () => {
 				/>
 				<Route
 					path="/user-profile"
-					element={
-						<Profile
-							myClassDarkMode={myClassDarkMode}
-							isDarkMode={isDarkMode}
-						/>
-					}
+					element={<Profile myClassDarkMode={myClassDarkMode} />}
 				/>
 				<Route path="/user-profile/:id" element={<Profile />} />
 				<Route path="/student" element={<Student />} />
