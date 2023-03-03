@@ -1,11 +1,17 @@
 import { React, useState } from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import { NavLink, useNavigate } from "react-router-dom";
+import { FiMoon, FiSun } from "react-icons/fi";
 import "./Header.css"; // Import the Header.css file with the additional styles
 import logo from "./logo_cyf.png";
 import logo2 from "./logo_cyf2.png";
 
-function Header({ isDarkMode, onDarkModeToggle }) {
+function Header({
+	isDarkMode,
+	onDarkModeToggle,
+	myClassDarkMode,
+	myClassDarkModeForNavbar,
+}) {
 	const name = sessionStorage.getItem("name");
 	const navigate = useNavigate();
 	const [loggedIn, setLoggedIn] = useState(true);
@@ -18,13 +24,7 @@ function Header({ isDarkMode, onDarkModeToggle }) {
 	};
 
 	return (
-		<div
-			className="header-container"
-			style={{
-				backgroundColor: isDarkMode ? "#333" : "#EBEBEB",
-				color: isDarkMode ? "#FFF" : "#000",
-			}}
-		>
+		<div className={myClassDarkMode}>
 			<Navbar className="header-nav" expand="lg">
 				<Navbar.Brand href="/">
 					<img
@@ -36,24 +36,18 @@ function Header({ isDarkMode, onDarkModeToggle }) {
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
 				<Navbar.Collapse id="basic-navbar-nav">
 					<Nav className="ml-auto">
-						<NavLink
-							to="/"
-							className="nav-link"
-							style={{ color: isDarkMode ? "#FFF" : "#000" }}
-						>
+						<NavLink to="/" className={`nav-link ${myClassDarkModeForNavbar}`}>
 							Home
 						</NavLink>
 						<NavLink
 							to="/about"
-							className="nav-link"
-							style={{ color: isDarkMode ? "#FFF" : "#000" }}
+							className={`nav-link ${myClassDarkModeForNavbar}`}
 						>
 							About
 						</NavLink>
 						<NavLink
 							to="/contact"
-							className="nav-link"
-							style={{ color: isDarkMode ? "#FFF" : "#000" }}
+							className={`nav-link ${myClassDarkModeForNavbar}`}
 						>
 							Contact
 						</NavLink>
@@ -61,8 +55,7 @@ function Header({ isDarkMode, onDarkModeToggle }) {
 							<NavLink
 								to="/"
 								onClick={handleLogout}
-								className="nav-link"
-								style={{ color: isDarkMode ? "#FFF" : "#000" }}
+								className={`nav-link ${myClassDarkModeForNavbar}`}
 							>
 								Logout
 							</NavLink>
@@ -70,32 +63,23 @@ function Header({ isDarkMode, onDarkModeToggle }) {
 						{loggedIn && name !== "" && name !== null ? (
 							<NavLink
 								to="/user-profile"
-								className="nav-link"
-								style={{ color: isDarkMode ? "#FFF" : "#000" }}
+								className={`nav-link ${myClassDarkModeForNavbar}`}
 							>
 								{name}
 							</NavLink>
 						) : null}
 					</Nav>
 				</Navbar.Collapse>
-				<button
-					className="mode-toggle-btn"
-					onClick={onDarkModeToggle}
-					style={{
-						backgroundColor: isDarkMode ? "#FFF" : "#ED4343",
-						color: isDarkMode ? "#000" : "#FFF",
-					}}
-				>
-					{isDarkMode ? "Light Mode" : "Dark Mode"}
-				</button>
+				{isDarkMode ? (
+					<FiMoon className="icon" onClick={onDarkModeToggle} size={18} />
+				) : (
+					<FiSun className="icon" onClick={onDarkModeToggle} size={18} />
+				)}
+				{/* <button className="mode-toggle-btn" onClick={onDarkModeToggle}>
+					DarkMode
+				</button> */}
 			</Navbar>
-			<div
-				className="header_line"
-				// style={{
-				//   backgroundColor: isDarkMode ? "#FFF" : "#ED4343",
-				//   boxShadow: isDarkMode ? "none" : "0 2px 4px rgba(0, 0, 0, 0.4)",
-				// }}
-			></div>
+			<div className="header_line"></div>
 		</div>
 	);
 }

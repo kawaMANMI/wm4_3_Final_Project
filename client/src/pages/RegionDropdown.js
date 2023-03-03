@@ -1,26 +1,26 @@
 import React from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 
-function RegionDropdown(props) {
+function RegionDropdown({ selectedRegion, setSelectedRegion }) {
 	return (
 		<Dropdown>
-			<Dropdown.Toggle variant="primary" id="dropdown-basic">
-				{!props.selectedRegion ? "All Regions" : props.selectedRegion}
+			<Dropdown.Toggle id="dropdown-basic">
+				{!setSelectedRegion ? "All Regions" : selectedRegion}All regions
 			</Dropdown.Toggle>
 			<Dropdown.Menu>
-				<Dropdown.Item onClick={() => props.setSelectedRegion("")}>
+				<Dropdown.Item onClick={() => setSelectedRegion("")}>
 					All Regions
 				</Dropdown.Item>
-				<Dropdown.Item onClick={() => props.setSelectedRegion("London")}>
+				<Dropdown.Item onClick={() => setSelectedRegion("London")}>
 					London
 				</Dropdown.Item>
-				<Dropdown.Item onClick={() => props.setSelectedRegion("North West")}>
+				<Dropdown.Item onClick={() => setSelectedRegion("North West")}>
 					North West
 				</Dropdown.Item>
-				<Dropdown.Item onClick={() => props.setSelectedRegion("West Midlands")}>
+				<Dropdown.Item onClick={() => setSelectedRegion("West Midlands")}>
 					West Midlands
 				</Dropdown.Item>
-				<Dropdown.Item onClick={() => props.setSelectedRegion("Cape Town")}>
+				<Dropdown.Item onClick={() => setSelectedRegion("Cape Town")}>
 					Cape Town
 				</Dropdown.Item>
 			</Dropdown.Menu>

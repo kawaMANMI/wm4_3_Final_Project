@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import CYFBgImage from "./CodeYourFuture.jpeg";
 import "./HomePage.css";
 
 function HomePage() {
@@ -8,8 +9,14 @@ function HomePage() {
 	function handleLogin() {
 		navigate("/login");
 	}
+	const backgroundImageStyle = {
+		backgroundImage: `url(${CYFBgImage})`,
+		backgroundSize: "cover",
+		backgroundPosition: "center center",
+		backgroundRepeat: "no-repeat",
+	};
 	return (
-		<div className="home-page">
+		<div className="home-page" style={backgroundImageStyle}>
 			<Container>
 				<Row>
 					<Col lg="6" md="6" xs="12" className="d-flex align-items-center">

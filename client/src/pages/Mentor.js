@@ -8,7 +8,7 @@ import Container from "react-bootstrap/Container";
 import RegionDropdown from "./RegionDropdown";
 import ClassCodeDropdown from "./ClassCodeDropdown";
 
-function Mentor() {
+function Mentor({ colorForIsDarkMode }) {
 	const navigate = useNavigate();
 	function handleSkill() {
 		navigate("/skills");
@@ -91,8 +91,8 @@ function Mentor() {
 				<RegionDropdown setSelectedRegion={setSelectedRegion} />
 				<ClassCodeDropdown setSelectedClassCode={setSelectedClassCode} />
 				<Button
-					variant="primary"
 					className="button_enabled"
+					style={colorForIsDarkMode}
 					onClick={handleSkill}
 				>
 					Learning Objectives

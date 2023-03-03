@@ -42,7 +42,6 @@
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
-/* .bodyLoginComponent:hover {
-	box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-	transform: translateY(-.5px); 
-} */
+.myLoginLinks:hover {
+	color: #ed4343;
+}

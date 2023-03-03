@@ -7,9 +7,9 @@ import SignupForm from "./SignupForm";
 import ForgetPasswordFrom from "./ForgetPassword";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
-import "./loginSignUp.css";
+import "./login.css";
 
-export function Login() {
+export function Login({ myClassDarkMode, myClassDarkModeForNavbar }) {
 	const navigate = useNavigate();
 	function handleLogin(userInfo) {
 		if (userInfo.data) {
@@ -78,15 +78,18 @@ export function Login() {
 	);
 
 	return (
-		<div className="d-flex justify-content-center align-items-center vh-100">
+		<div className="d-flex justify-content-center align-items-center m-3">
 			<Form
-				className="p-4 bg-light"
+				className="p-4"
 				onSubmit={handleSubmit}
-				style={{ boxShadow: "3px 5px 8px #888888", borderRadius: "10PX" }}
+				style={{
+					boxShadow: "3px 5px 8px #888888",
+					borderRadius: "10PX",
+				}}
 			>
 				<div style={{ padding: "30px" }}>
 					<h2 className="text-center mb-4">Login</h2>
-					<Form.Group controlId="username">
+					<Form.Group className={myClassDarkMode}>
 						<Form.Label htmlFor="username">Username</Form.Label>
 						<Form.Control
 							type="text"
@@ -94,11 +97,12 @@ export function Login() {
 							value={username}
 							id="username"
 							onChange={(event) => setUsername(event.target.value)}
+							className={myClassDarkMode}
 							required
 						/>
 					</Form.Group>
 
-					<Form.Group controlId="formBasicPassword">
+					<Form.Group>
 						<Form.Label htmlFor="password">Password</Form.Label>
 						<div className="input-group">
 							<Form.Control
@@ -107,9 +111,11 @@ export function Login() {
 								placeholder="**********"
 								value={password}
 								onChange={(event) => setPassword(event.target.value)}
+								className={myClassDarkMode}
 							/>
 							<div
 								className="input-group-text password-toggle-icon"
+								style={{ backgroundColor: "#ed4343" }}
 								onClick={togglePasswordVisibility}
 								onKeyDown={(event) => {
 									if (event.key === "Enter") {
@@ -119,16 +125,25 @@ export function Login() {
 								role="button"
 								tabIndex={0}
 							>
-								{isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+								{isPasswordVisible ? (
+									<FaEyeSlash className={myClassDarkModeForNavbar} />
+								) : (
+									<FaEye className={myClassDarkModeForNavbar} />
+								)}
 							</div>
 						</div>
 						<OverlayTrigger placement="top" overlay={tooltip}>
-							<Button variant="link">Forgot password?</Button>
+							<Button
+								variant="link"
+								className={`myLoginLinks ${myClassDarkModeForNavbar}`}
+							>
+								Forgot password?
+							</Button>
 						</OverlayTrigger>
 					</Form.Group>
 					<Button
 						style={{ marginTop: "10px" }}
-						variant="primary"
+						variant="danger"
 						type="submit"
 						className="w-100"
 					>
@@ -136,12 +151,19 @@ export function Login() {
 					</Button>
 
 					<div className="d-flex justify-content-center">
-						<Button variant="link" onClick={toggleSignupForm}>
+						<Button
+							variant="link"
+							className={`myLoginLinks ${myClassDarkModeForNavbar}`}
+							onClick={toggleSignupForm}
+						>
 							Create an account
 						</Button>
 					</div>
 					{showSignupForm ? (
-						<SignupForm onDismiss={handleSignupFormDismiss} />
+						<SignupForm
+							onDismiss={handleSignupFormDismiss}
+							myClassDarkMode={myClassDarkMode}
+						/>
 					) : null}
 
 					{showForgetPasswordFrom ? (
