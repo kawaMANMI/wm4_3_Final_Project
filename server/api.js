@@ -404,9 +404,7 @@ router.get("/all-scores", async (req, res) => {
 //CRUD ENDPOINTS FOR RESOURCES
 // GET endpoints for all resources
 router.get("/all-resources", async (req, res) => {
-	db.query(
-		"SELECT * FROM resources;"
-	)
+	db.query("SELECT * FROM resources;")
 		.then((result) => res.json(result.rows))
 		.catch((error) => res.status(500).json({ error: error.message }));
 });

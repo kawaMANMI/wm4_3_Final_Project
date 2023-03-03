@@ -28,7 +28,7 @@ function AllResources() {
 			</Card.Header>
 			<Card.Body>
 				<Card.Title>List of all Resources</Card.Title>
-                <Card.Text>To be completed</Card.Text>
+				<Card.Text>To be completed</Card.Text>
 			</Card.Body>
 		</Card>
 	);
