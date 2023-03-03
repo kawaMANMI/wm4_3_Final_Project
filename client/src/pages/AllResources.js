@@ -22,7 +22,7 @@ function AllResources() {
 	}, []);
 	console.log("Resources", resources);
 	return (
-		<Card style={{ marginTop: "30px" }}>
+		<Card style={{ marginTop: "30px", marginBottom: "30px" }}>
 			<Card.Header className="card-header" as="h4">
 				Extra Resources on the Skills
 			</Card.Header>
