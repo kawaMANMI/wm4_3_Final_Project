@@ -55,7 +55,7 @@ function TableOfAllScores({ colorForIsDarkModeTable }) {
 							CHECK YOUR SCORES PER SKILLS
 						</strong>
 					</Accordion.Header>
-					<Accordion.Body className="d-flex justify-content-center">
+					<Accordion.Body>
 						<Table
 							responsive
 							striped
