@@ -52,7 +52,7 @@ function LearningObjective() {
 			<div className="learning-objective-flex-row">
 				<Button
 					className="btn btn-danger"
-					style={{ marginLeft: "1em" }}
+					style={{ margin: "2em" }}
 					onClick={toggleVisibility}
 				>
 					Add Objective
