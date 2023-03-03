@@ -52,9 +52,7 @@ function TableOfAllScores({ myClassDarkMode }) {
 							CHECK YOUR SCORES PER SKILLS
 						</strong>
 					</Accordion.Header>
-					<Accordion.Body
-						className={`d-flex justify-content-center ${myClassDarkMode}`}
-					>
+					<Accordion.Body className={myClassDarkMode}>
 						<Table
 							responsive
 							bordered
