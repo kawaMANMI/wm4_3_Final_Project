@@ -4,7 +4,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 function RegionDropdown(props) {
 	return (
 		<Dropdown>
-			<Dropdown.Toggle variant="primary" id="dropdown-basic">
+			<Dropdown.Toggle id="dropdown-basic">
 				{!props.selectedRegion ? "All Regions" : props.selectedRegion}
 			</Dropdown.Toggle>
 			<Dropdown.Menu>

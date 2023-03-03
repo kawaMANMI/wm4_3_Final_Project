@@ -5,7 +5,7 @@ function ClassCodeDropdown(props) {
 	return (
 		<div>
 			<Dropdown>
-				<Dropdown.Toggle variant="primary" id="dropdown-basic">
+				<Dropdown.Toggle id="dropdown-basic">
 					{props.selectedClassCode ? props.selectedClassCode : "All Classes"}
 				</Dropdown.Toggle>
 				<Dropdown.Menu>
