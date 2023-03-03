@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import "./UsersProfile.css";
+import Resources from "./Resources";
 
 import {
 	Container,
@@ -90,6 +91,7 @@ function Profile() {
 					<ListGroup.Item>
 						<strong>Current Score Level:</strong>
 					</ListGroup.Item>
+					<Resources />
 				</Col>
 				<Col className="d-flex justify-content-center">
 					<Button variant="danger" onClick={handleChecklist}>
