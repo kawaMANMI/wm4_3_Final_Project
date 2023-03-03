@@ -91,7 +91,6 @@ function Mentor({ colorForIsDarkMode }) {
 				<RegionDropdown setSelectedRegion={setSelectedRegion} />
 				<ClassCodeDropdown setSelectedClassCode={setSelectedClassCode} />
 				<Button
-					variant="primary"
 					className="button_enabled"
 					style={colorForIsDarkMode}
 					onClick={handleSkill}

@@ -66,9 +66,9 @@ td {
 .table-responsive-sm {
 	border: 3px solid red;
 	box-shadow: 5px 5px 5px red;
-	/* margin-top: 2em;
-			margin-left: 2em;
-			margin-right: 2em; */
+	margin-top: 2em;
+	/* margin-left: 2em; */
+	/* margin-right: 2em; */
 	margin: 3em;
 }
 
