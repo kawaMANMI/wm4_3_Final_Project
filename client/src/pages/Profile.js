@@ -60,6 +60,7 @@ function Profile({ myClassDarkMode }) {
 						roundedCircle
 						style={{ background: "#8888", maxWidth: "40%" }}
 						alt="profile picture"
+						crossOrigin="anonymous"
 					/>
 				</Col>
 				<Col sm={12} md={6} className="d-flex justify-content-center">
