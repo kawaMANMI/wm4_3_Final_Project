@@ -16,7 +16,7 @@ import {
 import Chart from "./Chart";
 import TableOfAllScores from "./TableOfAllScores";
 
-function Profile() {
+function Profile({ myClassDarkMode }) {
 	const navigate = useNavigate();
 	const location = useLocation();
 	// profileId taken from the navigate object
@@ -43,8 +43,6 @@ function Profile() {
 			.catch((e) => console.log({ error: e.message }));
 	}, [profileId]);
 	const picLink = `https://robohash.org/${id}.png`;
-	console.log(id);
-	console.log("mes", userData);
 	return (
 		<Container
 			style={{
@@ -55,7 +53,7 @@ function Profile() {
 				boxShadow: "1px 3px 3px #888888",
 			}}
 		>
-			<Row>
+			<Row className={myClassDarkMode}>
 				<Col sm={12} md={6} className="d-flex justify-content-center">
 					<Image
 						src={picLink}

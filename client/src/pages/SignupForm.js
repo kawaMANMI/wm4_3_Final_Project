@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
 import axios from "axios";
-
-function SignupForm(props) {
+import "./signup.css";
+function SignupForm({ onDismiss, myClassDarkMode }) {
 	const [name, setName] = useState("");
 	const [username, setUsername] = useState("");
 	const [email, setEmail] = useState("");
@@ -91,6 +91,9 @@ function SignupForm(props) {
 				.then((response) => {
 					responseData = response.data;
 					alert(responseData);
+					if (responseData.includes("successfully")) {
+						onDismiss();
+					}
 					// handleDismiss()
 				});
 			// handle the response from the server
@@ -100,15 +103,15 @@ function SignupForm(props) {
 	};
 	const handleDismiss = () => {
 		// Handle form dismissal here
-		props.onDismiss();
+		onDismiss();
 	};
 	return (
 		<Modal show={true} onHide={handleDismiss}>
-			<Modal.Header closeButton>
+			<Modal.Header closeButton className={myClassDarkMode}>
 				<Modal.Title>Sign Up</Modal.Title>
 			</Modal.Header>
-			<Modal.Body>
-				<Form onSubmit={handleSubmit}>
+			<Modal.Body className={myClassDarkMode}>
+				<Form onSubmit={handleSubmit} variant="danger">
 					<Form.Group className="mb-3" controlId="formBasicName">
 						<Form.Label>Username</Form.Label>
 						<Form.Control
@@ -116,6 +119,7 @@ function SignupForm(props) {
 							placeholder="Enter Name"
 							value={username}
 							onChange={handleUserNameChange}
+							className={myClassDarkMode}
 							required
 						/>
 					</Form.Group>
@@ -127,6 +131,7 @@ function SignupForm(props) {
 							placeholder="Enter name"
 							value={name}
 							onChange={handleNameChange}
+							className={myClassDarkMode}
 							required
 						/>
 					</Form.Group>
@@ -138,20 +143,34 @@ function SignupForm(props) {
 							placeholder="Enter email"
 							value={email}
 							onChange={handleEmailChange}
+							className={myClassDarkMode}
 							required
 						/>
 					</Form.Group>
 
-					<Form.Group className="mb-3" controlId="formBasicRole">
+					<Form.Group
+						className={`mb-3 ${myClassDarkMode}`}
+						controlId="formBasicRole"
+					>
 						<Form.Label>Role</Form.Label>
-						<Form.Select value={roleValue} onChange={handleRoleChange} required>
-							<option value="">Select role</option>
+						<Form.Select
+							value={roleValue}
+							onChange={handleRoleChange}
+							className={myClassDarkMode}
+							required
+						>
+							<option className={myClassDarkMode} value="">
+								Select role
+							</option>
 							<option value="Mentor">Mentor</option>
 							<option value="Student">Student</option>
 						</Form.Select>
 					</Form.Group>
 
-					<Form.Group className="mb-3" controlId="formBasicRegion">
+					<Form.Group
+						className={`mb-3 ${myClassDarkMode}`}
+						controlId="formBasicRegion"
+					>
 						<Form.Label>Region</Form.Label>
 						<Form.Select
 							value={regionValue}
@@ -161,6 +180,7 @@ function SignupForm(props) {
 									index: event.target.selectedIndex,
 								})
 							}
+							className={myClassDarkMode}
 							required
 						>
 							<option value="">Select region</option>
@@ -177,6 +197,7 @@ function SignupForm(props) {
 						<Form.Select
 							value={classValue}
 							onChange={handleClassChange}
+							className={myClassDarkMode}
 							required
 						>
 							<option value="">Select Cohort</option>
@@ -193,6 +214,7 @@ function SignupForm(props) {
 							type="password"
 							placeholder="Password"
 							value={password}
+							className={myClassDarkMode}
 							onChange={handlePasswordChange}
 						/>
 					</Form.Group>
@@ -203,6 +225,7 @@ function SignupForm(props) {
 							type="password"
 							placeholder="Password"
 							value={confirmPassword}
+							className={myClassDarkMode}
 							onChange={handleConfirmPassword}
 						/>
 						{confirmPasswordError && (
@@ -213,13 +236,14 @@ function SignupForm(props) {
 					</Form.Group>
 
 					<Button
-						variant="primary"
 						type="submit"
 						disabled={confirmPassword !== password}
+						variant="danger"
+						className="ms-2"
 					>
 						Sign Up
 					</Button>
-					<Button variant="primary" onClick={handleDismiss} className="ms-2">
+					<Button onClick={handleDismiss} variant="danger" className="ms-2">
 						Close
 					</Button>
 				</Form>
