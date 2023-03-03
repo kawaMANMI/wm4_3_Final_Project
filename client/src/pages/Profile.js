@@ -1,8 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import "./UsersProfile.css";
+
 import {
 	Container,
 	Row,
@@ -17,6 +18,10 @@ import TableOfAllScores from "./TableOfAllScores";
 
 function Profile({ myClassDarkMode }) {
 	const navigate = useNavigate();
+	const location = useLocation();
+	// profileId taken from the navigate object
+	const profileId = location.state ? location.state.studentId : "";
+
 	function handleChecklist() {
 		navigate("/student");
 	}
@@ -24,7 +29,7 @@ function Profile({ myClassDarkMode }) {
 	const id = sessionStorage.getItem("userId");
 	useEffect(() => {
 		axios
-			.get("/api/user-profile")
+			.get(`/api/user-profile/${profileId}`)
 			.then((response) => {
 				if (response.status === 200) {
 					return response.data;
@@ -36,10 +41,8 @@ function Profile({ myClassDarkMode }) {
 				setUserData(data[0]);
 			})
 			.catch((e) => console.log({ error: e.message }));
-	}, []);
+	}, [profileId]);
 	const picLink = `https://robohash.org/${id}.png`;
-	// console.log(id);
-
 	return (
 		<Container
 			style={{
