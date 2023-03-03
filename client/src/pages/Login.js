@@ -79,7 +79,7 @@ export function Login({ myClassDarkMode, myClassDarkModeForNavbar }) {
 	);
 
 	return (
-		<div className="d-flex justify-content-center align-items-center m-3">
+		<div className="d-flex justify-content-center align-items-center bodyLoginComponent">
 			<Form
 				className="p-4"
 				onSubmit={handleSubmit}

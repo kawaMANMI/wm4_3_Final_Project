@@ -88,8 +88,14 @@ function Mentor({ colorForIsDarkMode }) {
 	return (
 		<Container fluid responsive="sm" className="table_container">
 			<div className="button_container">
-				<RegionDropdown setSelectedRegion={setSelectedRegion} />
-				<ClassCodeDropdown setSelectedClassCode={setSelectedClassCode} />
+				<RegionDropdown
+					setSelectedRegion={setSelectedRegion}
+					selectedRegion={selectedRegion}
+				/>
+				<ClassCodeDropdown
+					setSelectedClassCode={setSelectedClassCode}
+					selectedClassCode={selectedClassCode}
+				/>
 				<Button
 					variant="primary"
 					className="button_enabled"
