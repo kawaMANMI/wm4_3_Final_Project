@@ -20,13 +20,18 @@
 	background-color: #0069d9;
 	border-color: #0062cc;
 }
+
 h2 {
 	text-align: center;
 }
+
 .table-wrapper {
 	overflow-x: auto;
+	width: auto;
 }
-
+.table_container {
+	width: 80%;
+}
 @media (max-width: 768px) {
 	.table_container {
 		padding: 10px;

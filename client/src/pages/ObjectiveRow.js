@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import "./LearningObj.css";
 
 function ObjectiveRow({ objective, onDelete, onChange }) {
 	const [isEditing, setIsEditing] = useState(false);
@@ -36,15 +37,6 @@ function ObjectiveRow({ objective, onDelete, onChange }) {
 				console.error(error);
 			});
 	};
-	// stop editing after cohort starts
-	// function editTime() {
-	// 	let currentDate = new Date();
-	// 	let editDate = new Date("2023-04-01");
-	// 	if (currentDate.getTime() > editDate.getTime()) {
-	// 		setIsEditing(false);
-	// 	}
-	// 	editTime(currentDate);
-	// }
 
 	return (
 		<div
@@ -72,7 +64,7 @@ function ObjectiveRow({ objective, onDelete, onChange }) {
 				}}
 			>
 				{isEditing ? (
-					<div>
+					<div className="button-container">
 						<button
 							onClick={updateObjective(objective.objective_id, editedObjective)}
 						>
