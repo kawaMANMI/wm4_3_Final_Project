@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import CYFBgImage from "./codeyourfuture.jpeg";
+import CYFBgImage from "./CodeYourFuture.jpeg";
 import "./HomePage.css";
 
 function HomePage() {

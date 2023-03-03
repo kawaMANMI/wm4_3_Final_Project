@@ -57,6 +57,7 @@ function TableOfAllScores({ colorForIsDarkModeTable }) {
 					</Accordion.Header>
 					<Accordion.Body className="d-flex justify-content-center">
 						<Table
+							responsive
 							striped
 							bordered
 							hover
