@@ -27,7 +27,7 @@ function TableOfAllScores({ colorForIsDarkModeTable }) {
 		<Card
 			style={{
 				marginTop: "30px",
-				marginBottom: "200px",
+				marginBottom: "20px",
 				boxShadow: "1px 3px 3px #888888",
 				...colorForIsDarkModeTable,
 			}}
@@ -55,7 +55,7 @@ function TableOfAllScores({ colorForIsDarkModeTable }) {
 							CHECK YOUR SCORES PER SKILLS
 						</strong>
 					</Accordion.Header>
-					<Accordion.Body className="d-flex justify-content-center">
+					<Accordion.Body>
 						<Table
 							responsive
 							striped
