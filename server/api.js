@@ -400,4 +400,41 @@ router.get("/all-scores", async (req, res) => {
 		.then((result) => res.json(result.rows))
 		.catch((error) => res.status(500).json({ error: error.message }));
 });
+
+//CRUD ENDPOINTS FOR RESOURCES
+// GET endpoints for all resources
+router.get("/all-resources", async (req, res) => {
+	db.query("SELECT * FROM resources;")
+		.then((result) => res.json(result.rows))
+		.catch((error) => res.status(500).json({ error: error.message }));
+});
+// GET endpoints for resources per student
+router.get("/resources", async (req, res) => {
+	// const userID = req.session.userId;
+	const userID = 1;
+	db.query(
+		`SELECT title, url, reading_time, AVERAGE_SCORE FROM
+(SELECT S.id AS skill_id,
+	ROUND(AVG(ULO.SCORE)) AS AVERAGE_SCORE
+FROM
+	(SELECT LO.SKILL_ID,
+			ULO.*
+		FROM USER_LEARNING_OBJ AS ULO
+		JOIN
+			(SELECT LO_ID,
+					MAX(SUBMITTED_AT) AS RECENT_SUBMITTED_AT
+				FROM USER_LEARNING_OBJ
+				WHERE USER_ID = ${userID}
+				GROUP BY LO_ID) AS RECENT_ULO ON ULO.LO_ID = RECENT_ULO.LO_ID
+		AND ULO.SUBMITTED_AT = RECENT_ULO.RECENT_SUBMITTED_AT
+		JOIN LEARNING_OBJECTIVES AS LO ON ULO.LO_ID = LO.ID) AS ULO
+JOIN SKILLS AS S ON ULO.SKILL_ID = S.ID
+GROUP BY S.id
+ORDER BY S.id) AS avgs INNER JOIN resources r ON r.skill_id = avgs.skill_id WHERE average_score < 5
+ORDER BY average_score ASC
+LIMIT 3;`
+	)
+		.then((result) => res.json(result.rows))
+		.catch((error) => res.status(500).json({ error: error.message }));
+});
 export default router;
