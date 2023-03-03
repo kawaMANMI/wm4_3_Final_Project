@@ -22,8 +22,7 @@ export function Login() {
 		if (userInfo.role === "Mentor") {
 			navigate("/mentor");
 		} else {
-			// navigate("/student");
-			navigate("/user-profile");
+			navigate("/landing-page");
 		}
 	}
 	const [username, setUsername] = useState("");

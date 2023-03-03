@@ -1,6 +1,4 @@
-// import React from "react";
 import React, { useState, useEffect } from "react";
-// import { Card, Row, Col, Accordion } from "react-bootstrap";
 import axios from "axios";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
@@ -8,7 +6,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 function Resources() {
     const profileId = location.state ? location.state.studentId : "";
     const [resources, setResources] = useState([]);
-    const id = sessionStorage.getItem("userId");
+    // const id = sessionStorage.getItem("userId");
     useEffect(() => {
 			axios
 				.get(`/api/resources/${profileId}`)
@@ -26,8 +24,8 @@ function Resources() {
 		}, [profileId]);
         console.log("Resources", resources);
     return (
-			<Card>
-				<Card.Header>Resources</Card.Header>
+			<Card style={{ marginTop: "30px" }}>
+				<Card.Header className="card-header" as="h4">Current Score Level:</Card.Header>
 				<Card.Body>
 					<Card.Title>Recommended Resources</Card.Title>
 					<Card.Text>

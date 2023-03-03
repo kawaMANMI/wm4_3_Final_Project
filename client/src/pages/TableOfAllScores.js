@@ -27,7 +27,7 @@ function TableOfAllScores() {
 		<Card
 			style={{
 				marginTop: "30px",
-				marginBottom: "200px",
+				marginBottom: "20px",
 				boxShadow: "1px 3px 3px #888888",
 			}}
 		>
