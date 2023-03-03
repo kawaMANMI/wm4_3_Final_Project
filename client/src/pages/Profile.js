@@ -16,7 +16,7 @@ import {
 import Chart from "./Chart";
 import TableOfAllScores from "./TableOfAllScores";
 
-function Profile({ myClassDarkMode }) {
+function Profile({ myClassDarkMode, isDarkMode }) {
 	const navigate = useNavigate();
 	const location = useLocation();
 	// profileId taken from the navigate object
@@ -63,20 +63,23 @@ function Profile({ myClassDarkMode }) {
 					/>
 				</Col>
 				<Col sm={12} md={6} className="d-flex justify-content-center">
-					<Card style={{ width: "30rem", marginTop: "15px" }}>
+					<Card
+						className={myClassDarkMode}
+						style={{ width: "30rem", marginTop: "15px" }}
+					>
 						<Card.Header as="h4">User Profile</Card.Header>
 
-						<ListGroup variant="flush">
-							<ListGroup.Item>
+						<ListGroup variant="flush" className={myClassDarkMode}>
+							<ListGroup.Item className={myClassDarkMode}>
 								<strong>Name:</strong> {userData["name"]}
 							</ListGroup.Item>
-							<ListGroup.Item>
+							<ListGroup.Item className={myClassDarkMode}>
 								<strong>Username:</strong> {userData["username"]}
 							</ListGroup.Item>
-							<ListGroup.Item>
+							<ListGroup.Item className={myClassDarkMode}>
 								<strong>Class:</strong> {userData["class_code"]}
 							</ListGroup.Item>
-							<ListGroup.Item>
+							<ListGroup.Item className={myClassDarkMode}>
 								<strong>Region:</strong> {userData["region"]}
 							</ListGroup.Item>
 						</ListGroup>
@@ -97,7 +100,7 @@ function Profile({ myClassDarkMode }) {
 			</Row>
 			<Card style={{ marginTop: "30px" }}>
 				<Card.Header
-					className="card-header"
+					className={`card-header ${myClassDarkMode}`}
 					as="h4"
 					style={{
 						textAlign: "center",
@@ -105,9 +108,9 @@ function Profile({ myClassDarkMode }) {
 				>
 					Progress Chart
 				</Card.Header>
-				<Chart />
+				<Chart myClassDarkMode={myClassDarkMode} />
 			</Card>
-			<TableOfAllScores />
+			<TableOfAllScores myClassDarkMode={myClassDarkMode} />
 		</Container>
 	);
 }

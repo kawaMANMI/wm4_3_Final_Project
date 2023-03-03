@@ -7,6 +7,7 @@ import "./Footer.css";
 function Footer({ myClassDarkMode }) {
 	return (
 		<footer className={`footer ${myClassDarkMode}`}>
+			<div className="header_line"></div>
 			<Container>
 				<div className="d-flex justify-content-center align-items-center">
 					<div className={`social-icons ${myClassDarkMode}`}>

@@ -1,14 +1,16 @@
 .footer {
 	/* position: fixed; */
-	left: 0;
-	bottom: 0;
+	/* left: 0;
+	bottom: 0; */
 	width: 100%;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 	background-color: rgb(235, 235, 235);
-	justify-content: center;
+	/* justify-content: center;
 	align-items: center;
+	
+	position: absolute; */
 	text-align: center;
-	position: absolute;
+	margin-top: auto;
 }
 
 .social-icons a {

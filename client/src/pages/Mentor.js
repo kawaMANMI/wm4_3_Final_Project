@@ -8,7 +8,7 @@ import Container from "react-bootstrap/Container";
 import RegionDropdown from "./RegionDropdown";
 import ClassCodeDropdown from "./ClassCodeDropdown";
 
-function Mentor({ colorForIsDarkMode }) {
+function Mentor({ myClassDarkMode }) {
 	const navigate = useNavigate();
 	function handleSkill() {
 		navigate("/skills");
@@ -86,30 +86,31 @@ function Mentor({ colorForIsDarkMode }) {
 	};
 
 	return (
-		<Container fluid responsive="sm" className="table_container">
+		<Container
+			fluid
+			responsive="sm"
+			className={`table_container ${myClassDarkMode}`}
+		>
 			<div className="button_container">
 				<RegionDropdown
 					setSelectedRegion={setSelectedRegion}
 					selectedRegion={selectedRegion}
+					myClassDarkMode={myClassDarkMode}
 				/>
 				<ClassCodeDropdown
 					setSelectedClassCode={setSelectedClassCode}
 					selectedClassCode={selectedClassCode}
+					myClassDarkMode={myClassDarkMode}
 				/>
-				<Button
-					variant="primary"
-					className="button_enabled"
-					style={colorForIsDarkMode}
-					onClick={handleSkill}
-				>
+				<Button variant="danger" onClick={handleSkill}>
 					Learning Objectives
 				</Button>
 			</div>
-			<div className="table-wrapper">
+			<div className={`table-wrapper ${myClassDarkMode}`}>
 				<h2 style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)" }}>
 					STUDENTS LIST
 				</h2>
-				<Table size="sm" hover responsive="sm">
+				<Table className={myClassDarkMode} size="sm" hover responsive="sm">
 					<thead style={{ margin: "1em" }}>
 						<tr>
 							<th className="text-center" onClick={sortByName}>
