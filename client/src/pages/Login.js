@@ -20,7 +20,7 @@ export function Login({ myClassDarkMode, myClassDarkModeForNavbar }) {
 		sessionStorage.setItem("userRole", userInfo.role);
 		sessionStorage.setItem("userRegion", userInfo.region_id);
 		if (userInfo.role === "Mentor") {
-			navigate("/mentor");
+			navigate("/landingpagementor");
 		} else {
 			navigate("/landing-page");
 		}

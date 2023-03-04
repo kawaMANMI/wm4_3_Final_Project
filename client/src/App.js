@@ -12,6 +12,7 @@ import LearningObjective from "./pages/LearningObjective";
 import "./App.css";
 import Login from "./pages/Login";
 import LandingPage from "./pages/LandingPage";
+import LandingPageMentor from "./pages/LandingPageMentor";
 const App = () => {
 	const [isDarkMode, setIsDarkMode] = useState(false);
 	const handleDarkModeToggle = () => {
@@ -38,6 +39,10 @@ const App = () => {
 				<Route
 					path="/mentor"
 					element={<Mentor myClassDarkMode={myClassDarkMode} />}
+				/>
+				<Route
+					path="/landingpagementor"
+					element={<LandingPageMentor myClassDarkMode={myClassDarkMode} />}
 				/>
 				<Route
 					path="/user-profile"

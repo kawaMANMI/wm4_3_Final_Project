@@ -10,9 +10,6 @@ import ClassCodeDropdown from "./ClassCodeDropdown";
 
 function Mentor({ myClassDarkMode }) {
 	const navigate = useNavigate();
-	function handleSkill() {
-		navigate("/skills");
-	}
 	function handleUser(student_id) {
 		navigate(`/user-profile/${student_id}`, {
 			state: { studentId: student_id },
@@ -91,7 +88,10 @@ function Mentor({ myClassDarkMode }) {
 			responsive="sm"
 			className={`table_container ${myClassDarkMode}`}
 		>
-			<div className="button_container">
+			<div
+				className="button_container"
+				style={{ justifyContent: "space-around" }}
+			>
 				<RegionDropdown
 					setSelectedRegion={setSelectedRegion}
 					selectedRegion={selectedRegion}
@@ -102,16 +102,17 @@ function Mentor({ myClassDarkMode }) {
 					selectedClassCode={selectedClassCode}
 					myClassDarkMode={myClassDarkMode}
 				/>
-				<Button variant="danger" onClick={handleSkill}>
-					Learning Objectives
-				</Button>
 			</div>
 			<div className={`table-wrapper ${myClassDarkMode}`}>
-				<h2 style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)" }}>
+				<h2
+					style={{
+						color: "rgb(220,53,69)",
+					}}
+				>
 					STUDENTS LIST
 				</h2>
 				<Table className={myClassDarkMode} size="sm" hover responsive="sm">
-					<thead style={{ margin: "1em" }}>
+					<thead style={{ margin: "1em", color: "rgb(220,53,69)" }}>
 						<tr>
 							<th className="text-center" onClick={sortByName}>
 								Name
@@ -119,9 +120,11 @@ function Mentor({ myClassDarkMode }) {
 							</th>
 							<th>Class Code</th>
 							{uniqueSkills.map((skill) => (
-								<th key={skill}>{skill}</th>
+								<th key={skill} className="d-none d-sm-table-cell">
+									{skill}
+								</th>
 							))}
-							<th> Total score</th>
+							<th className="d-none d-sm-table-cell"> Total score</th>
 							<th>Student Profile</th>
 						</tr>
 					</thead>
@@ -132,15 +135,21 @@ function Mentor({ myClassDarkMode }) {
 									<td className="text-center col-2">{name}</td>
 									<td>{class_code}</td>
 									{uniqueSkills.map((skill) => (
-										<td key={skill} className="text-center col-4">
+										<td
+											key={skill}
+											className="text-center col-6 col-sm-4 d-none d-sm-table-cell"
+										>
 											{skills[skill] || "0"}
 										</td>
 									))}
 
-									<td key={i} className="text-center col-4">
+									<td key={i} className="text-center d-none d-sm-table-cell">
 										{total_score}
 									</td>
-									<td style={{ margin: "auto", textAlign: "center" }}>
+									<td
+										className="hidden-sm"
+										style={{ margin: "auto", textAlign: "center" }}
+									>
 										<Button
 											variant="link"
 											onClick={() => handleUser(student_id)}
