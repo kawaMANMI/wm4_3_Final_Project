@@ -402,12 +402,14 @@ router.get("/all-scores", async (req, res) => {
 });
 
 //CRUD ENDPOINTS FOR RESOURCES
-// GET endpoints for all resources
-router.get("/all-resources", async (req, res) => {
-	db.query("SELECT * FROM resources;")
+// GET all resources for skill id
+router.get("/all-resources/:id", async (req, res) => {
+	const skill_Id = req.params.id;
+	db.query(`SELECT * FROM resources WHERE skill_id=${skill_Id};`)
 		.then((result) => res.json(result.rows))
 		.catch((error) => res.status(500).json({ error: error.message }));
 });
+
 // GET endpoints for resources per student
 router.get("/resources", async (req, res) => {
 	// const userID = req.session.userId;
