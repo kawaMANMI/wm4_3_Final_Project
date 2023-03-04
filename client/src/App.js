@@ -13,6 +13,7 @@ import "./App.css";
 import Login from "./pages/Login";
 import LandingPage from "./pages/LandingPage";
 import LandingPageMentor from "./pages/LandingPageMentor";
+import MoreResources from "./pages/MoreResources";
 const App = () => {
 	const [isDarkMode, setIsDarkMode] = useState(false);
 	const handleDarkModeToggle = () => {
@@ -61,6 +62,7 @@ const App = () => {
 						/>
 					}
 				/>
+				<Route path="/more-resources/:skill_id" element={<MoreResources />} />
 			</Routes>
 			<Footer myClassDarkMode={myClassDarkMode} />
 		</div>

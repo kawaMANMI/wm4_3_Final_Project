@@ -20,7 +20,6 @@ function LandingPage() {
 			style={{
 				border: "1px solid grey",
 				padding: "30px",
-				width: "70rem",
 				borderRadius: "5px",
 				boxShadow: "1px 3px 3px #888888",
 			}}

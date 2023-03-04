@@ -1,35 +1,82 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import Card from "react-bootstrap/Card";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { Row, Card, Accordion, Col, Collapse } from "react-bootstrap";
+import skills from "./Skill.json";
 
 function AllResources() {
-	// const profileId = location.state ? location.state.studentId : "";
-	const [resources, setResources] = useState([]);
-	useEffect(() => {
-		axios
-			.get("/api/all-resources")
-			.then((response) => {
-				if (response.status === 200) {
-					return response.data;
-				} else {
-					throw new Error("Something is wrong");
-				}
-			})
-			.then((data) => {
-				setResources(data);
-			})
-			.catch((e) => console.log({ error: e.message }));
-	}, []);
-	console.log("Resources", resources);
+	const [openCollapseId, setOpenCollapseId] = useState("");
+
+	const handleCardClick = (id) => {
+		setOpenCollapseId(openCollapseId === id ? "" : id);
+	};
+
 	return (
-		<Card style={{ marginTop: "30px", marginBottom: "30px" }}>
-			<Card.Header className="card-header" as="h4">
-				Extra Resources on the Skills
+		<Card
+			style={{
+				marginTop: "30px",
+				marginBottom: "20px",
+				boxShadow: "1px 3px 3px #888888",
+			}}
+		>
+			<Card.Header
+				className="card-header"
+				as="h4"
+				style={{
+					textAlign: "center",
+				}}
+			>
+				More Resources and Course work
 			</Card.Header>
-			<Card.Body>
-				<Card.Title>List of all Resources</Card.Title>
-				<Card.Text>To be completed</Card.Text>
-			</Card.Body>
+			<Accordion defaultActiveKey="0">
+				<Accordion.Item eventKey="1">
+					<Accordion.Header>
+						<strong
+							style={{
+								color: "#DC143C",
+								textShadow: "1px 1px 1px grey",
+							}}
+						>
+							Select the Skill
+						</strong>
+					</Accordion.Header>
+					<Accordion.Body>
+						<Row className="g-4">
+							{skills.map((skill) => (
+								<Col
+									sm={5}
+									md={6}
+									lg={4}
+									key={skill.id}
+									className="d-flex justify-content-center"
+								>
+									<Card border="light" className="card-with-fixed-height">
+										<Card.Img
+											variant="top"
+											src={skill.url}
+											crossOrigin="anonymous"
+											onClick={() => handleCardClick(skill.id)}
+											aria-controls={skill.id}
+											aria-expanded={openCollapseId === skill.id}
+										/>
+										<Collapse in={openCollapseId === skill.id}>
+											<div id={skill.id}>
+												<div className="d-flex justify-content-around mb-2 mt-2">
+													<Link to={`/more-resources/${skill.id}`}>
+														Resources
+													</Link>
+													<Link to={`/more-coursework/${skill.id}`}>
+														Coursework
+													</Link>
+												</div>
+											</div>
+										</Collapse>
+									</Card>
+								</Col>
+							))}
+						</Row>
+					</Accordion.Body>
+				</Accordion.Item>
+			</Accordion>
 		</Card>
 	);
 }
