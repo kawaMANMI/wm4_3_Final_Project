@@ -3,11 +3,6 @@
 	flex-direction: row;
 }
 
-th {
-	color: red;
-	text-align: center;
-}
-
 td {
 	text-align: center;
 	font-weight: bold;
@@ -64,12 +59,14 @@ td {
 /*  style for objective row component */
 
 .table-responsive-sm {
-	border: 3px solid red;
-	box-shadow: 5px 5px 5px red;
+	border:1px solid grey;
+	border-radius: 5px;
+	box-shadow: 1px 3px 3px #888888;
+	padding:30px;
+	width:auto;
+	margin-right: 5em;
 	margin-top: 2em;
-	/* margin-left: 2em; */
-	/* margin-right: 2em; */
-	margin: 3em;
+	margin-bottom:2em;
 }
 
 @media screen and (max-width: 767px) {

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import "./LearningObj.css";
+import { Container,Button } from "react-bootstrap";
 
 function AddNewObjective({ handleSubmitObj }) {
 	const [obj, setObj] = useState("");
@@ -37,9 +37,19 @@ function AddNewObjective({ handleSubmitObj }) {
 		}
 	};
 	return (
-		<div className="d-flex align-items-center">
-			<Form onSubmit={handleSubmitPost} style={{ marginLeft: "1em" }}>
-				<DropdownButton id="dropdown-basic-button" title={"Skill"}>
+		<Container
+			style={{
+				border: "1px solid grey",
+				borderRadius: "5px",
+				boxShadow: "1px 3px 3px #888888",
+			}}
+		>
+			<Form onSubmit={handleSubmitPost}>
+				<DropdownButton
+					variant="danger"
+					id="dropdown-basic-button"
+					title={"Skill"}
+				>
 					<Dropdown.Item
 						onClick={() => handleOptionChange({ target: { value: "option1" } })}
 					>
@@ -83,11 +93,11 @@ function AddNewObjective({ handleSubmitObj }) {
 						onChange={handleChangeObj}
 					/>
 				</Form.Group>
-				<Button variant="primary" type="submit" className="btn-block">
+				<Button variant="danger" type="submit">
 					Submit Objective
 				</Button>
 			</Form>
-		</div>
+		</Container>
 	);
 }
 export default AddNewObjective;

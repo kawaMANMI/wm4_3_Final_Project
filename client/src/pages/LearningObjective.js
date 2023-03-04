@@ -49,14 +49,15 @@ function LearningObjective() {
 
 	return (
 		<div className="learning-objective-wrapper">
-			<div className="learning-objective-flex-row">
-				<Button
-					className="btn btn-danger"
-					style={{ margin: "2em" }}
-					onClick={toggleVisibility}
-				>
-					Add Objective
-				</Button>
+			<Button
+				style={{ width: "7em", height: "4em", margin:"2em"}}
+				className="btn btn-danger"
+				onClick={toggleVisibility}
+			>
+				Add Objective
+			</Button>
+			<div
+			>
 				{isVisible && <AddNewObjective handleAddObjective={handleSubmitObj} />}
 			</div>
 			<Container fluid className="learning-objective-container">
@@ -67,7 +68,7 @@ function LearningObjective() {
 								<th
 									style={{
 										padding: "2em",
-										textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
+										color: "rgb(255,255,255)",
 										fontSize: "20px",
 									}}
 								>
@@ -76,7 +77,7 @@ function LearningObjective() {
 								<th
 									style={{
 										padding: "2em",
-										textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
+										color: "rgb(255,255,255)",
 										fontSize: "20px",
 									}}
 								>
