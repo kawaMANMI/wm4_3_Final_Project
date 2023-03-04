@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import "./LearningObj.css";
-import { Container,Button } from "react-bootstrap";
+import { Container, Button } from "react-bootstrap";
 
 function AddNewObjective({ handleSubmitObj }) {
 	const [obj, setObj] = useState("");

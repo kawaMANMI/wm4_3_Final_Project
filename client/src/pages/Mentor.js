@@ -88,7 +88,10 @@ function Mentor({ myClassDarkMode }) {
 			responsive="sm"
 			className={`table_container ${myClassDarkMode}`}
 		>
-			<div className="button_container" style={{justifyContent:"space-around"}}>
+			<div
+				className="button_container"
+				style={{ justifyContent: "space-around" }}
+			>
 				<RegionDropdown
 					setSelectedRegion={setSelectedRegion}
 					selectedRegion={selectedRegion}

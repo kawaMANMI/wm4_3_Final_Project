@@ -39,8 +39,7 @@ function ObjectiveRow({ objective, onDelete, onChange }) {
 	};
 
 	return (
-		<div
-		>
+		<div>
 			{isEditing ? (
 				<input
 					type="text"

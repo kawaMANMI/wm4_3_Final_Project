@@ -59,14 +59,14 @@ td {
 /*  style for objective row component */
 
 .table-responsive-sm {
-	border:1px solid grey;
+	border: 1px solid grey;
 	border-radius: 5px;
 	box-shadow: 1px 3px 3px #888888;
-	padding:30px;
-	width:auto;
+	padding: 30px;
+	width: auto;
 	margin-right: 5em;
 	margin-top: 2em;
-	margin-bottom:2em;
+	margin-bottom: 2em;
 }
 
 @media screen and (max-width: 767px) {
