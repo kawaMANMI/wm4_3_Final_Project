@@ -39,13 +39,7 @@ function ObjectiveRow({ objective, onDelete, onChange }) {
 	};
 
 	return (
-		<div
-			style={{
-				display: "flex",
-				justifyContent: "space-between",
-				margin: "1em",
-			}}
-		>
+		<div>
 			{isEditing ? (
 				<input
 					type="text"

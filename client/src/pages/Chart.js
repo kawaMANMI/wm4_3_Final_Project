@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Card, Row, Col, Accordion } from "react-bootstrap";
 import {
+	ResponsiveContainer,
 	LineChart,
 	Line,
 	XAxis,
@@ -62,36 +63,41 @@ function Chart({ myClassDarkMode }) {
 												<strong
 													style={{
 														textShadow: "1px 1px 1px grey",
+														display: "flex",
+														justifyContent: "center",
+														alignItems: "center",
+														flexWrap: "wrap",
+														maxWidth: "100%",
 													}}
 												>
 													{key.toUpperCase()}
 												</strong>
 											</Accordion.Header>
 											<Accordion.Body>
-												<LineChart
-													className="d-flex justify-content-center"
-													width={500}
-													height={200}
-													data={skillScores}
-													syncId="anyId"
-													margin={{
-														top: 10,
-														right: 70,
-														left: 0,
-														bottom: 0,
-													}}
-												>
-													<CartesianGrid strokeDasharray="3 3" />
-													<XAxis dataKey="date" />
-													<YAxis />
-													<Tooltip />
-													<Line
-														type="monotone"
-														dataKey={key}
-														stroke="#8884d8"
-														fill="#8884d8"
-													/>
-												</LineChart>
+												<ResponsiveContainer width="100%" height={200}>
+													<LineChart
+														className="d-flex justify-content-center"
+														data={skillScores}
+														syncId="anyId"
+														margin={{
+															top: 10,
+															right: 20,
+															left: 0,
+															bottom: 0,
+														}}
+													>
+														<CartesianGrid strokeDasharray="3 3" />
+														<XAxis dataKey="date" />
+														<YAxis />
+														<Tooltip />
+														<Line
+															type="monotone"
+															dataKey={key}
+															stroke="#8884d8"
+															fill="#8884d8"
+														/>
+													</LineChart>
+												</ResponsiveContainer>
 											</Accordion.Body>
 										</Accordion.Item>
 									</Accordion>
