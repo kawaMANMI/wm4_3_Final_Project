@@ -37,7 +37,7 @@ function LearningObjective() {
 	}, []);
 
 	const deleteObjective = (id) => {
-		fetch(`api/learning_objectives/${id}`, {
+		fetch(`/api/learning_objectives/${id}`, {
 			method: "DELETE",
 			headers: {
 				"Content-Type": "application/json",

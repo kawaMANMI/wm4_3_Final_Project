@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import "./LearningObj.css";
 
 function ObjectiveRow({ objective, onDelete, onChange }) {
 	const [isEditing, setIsEditing] = useState(false);
 	const [editedObjective, setEditedObjective] = useState(objective.objective);
+	const [isEditingEnabled, setIsEditingEnabled] = useState(false);
 	const handleEdit = () => {
+		if (isEditingEnabled) {
+			alert("Editing after cohort starts is not allowed");
+			return;
+		}
 		setIsEditing(true);
 	};
 
@@ -37,7 +42,13 @@ function ObjectiveRow({ objective, onDelete, onChange }) {
 				console.error(error);
 			});
 	};
-
+	useEffect(() => {
+		const currentDate = new Date();
+		const editDate = new Date("2023-28-02");
+		if (currentDate > editDate.getTime()) {
+			setIsEditingEnabled(false);
+		}
+	}, []);
 	return (
 		<div>
 			{isEditing ? (
