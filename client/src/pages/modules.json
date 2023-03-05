@@ -1,0 +1,83 @@
+ [
+  {
+    "title": "HTML/CSS",
+    "overview":
+      "Learn the basics of HTML and CSS to create beautiful and responsive web pages.",
+    "objectives": [
+      "Understand the structure and syntax of HTML and CSS",
+      "Create basic web pages with HTML and CSS",
+      "Use responsive design techniques to make your pages work well on different devices",
+    ],
+    "resources": [
+      { "title": "HTML Tutorial", "url": "https://www.w3schools.com/html/" },
+      { "title": "CSS Tutorial", "url": "https://www.w3schools.com/css/" },
+      {
+        "title": "Responsive Web Design Basics",
+        "url": "https://developers.google.com/web/fundamentals/design-and-ux/responsive/",
+      }
+    ]
+  },
+  {
+    "title": "JavaScript Core",
+    "overview":
+      "Learn the basics of JavaScript programming, including variables, data types, and control flow.",
+    "objectives": [
+      "Understand the basic syntax and data types of JavaScript",
+      "Write basic scripts to manipulate the DOM and handle user interactions",
+      "Use control flow statements like if/else and loops to create complex behavior",
+    ],
+    "resources": [
+      { "title": "JavaScript Tutorial", "url": "https://www.w3schools.com/js/" },
+      {
+        "title": "MDN Web Docs",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+      },
+      {
+        "title": "JavaScript Garden",
+        "url": "https://bonsaiden.github.io/JavaScript-Garden/",
+      }
+    ]
+  },
+  {
+    "title": "React",
+    "overview":
+      "Learn how to build complex, dynamic user interfaces using the React JavaScript library.",
+    "objectives": [
+      "Understand the basic principles of React, including components and state",
+      "Create complex user interfaces using components and props",
+      "Use the React lifecycle methods to handle events and manage state",
+    ],
+    "resources": [
+      {
+        "title": "React Tutorial",
+        "url": "https://reactjs.org/tutorial/tutorial.html",
+      },
+      {
+        "title": "React Documentation",
+        "url": "https://reactjs.org/docs/getting-started.html",
+      },
+      {
+        "title": "React Fundamentals",
+        "url": "https://egghead.io/courses/react-fundamentals",
+      }
+    ]
+  },
+  {
+    "title": "Node.js",
+    "overview":
+      "Learn how to use Node.js to build powerful, scalable web applications and APIs.",
+    "objectives": [
+      "Understand the basic architecture and syntax of Node.js",
+      "Create server-side applications using Node.js and Express",
+      "Build RESTful APIs to connect your applications to the web",
+    ],
+    "resources": [
+      { "title": "Node.js Tutorial", "url": "https://www.w3schools.com/nodejs/" },
+      { "title": "Node.js Documentation", "url": "https://nodejs.org/en/docs/" },
+      {
+        "title": "Express.js Guide",
+        "url": "https://expressjs.com/en/guide/routing.html",
+      }
+    ]
+  }
+]

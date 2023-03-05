@@ -46,10 +46,10 @@ function Header({
 							About
 						</NavLink>
 						<NavLink
-							to="/contact"
+							to="/cyfSyllabus"
 							className={`nav-link ${myClassDarkModeForNavbar}`}
 						>
-							Contact
+							CYF-Syllabus
 						</NavLink>
 						{loggedIn && name !== "" && name !== null ? (
 							<NavLink
