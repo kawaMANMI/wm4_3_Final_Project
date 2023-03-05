@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import "./LearningObj.css";
+import { Container, Button } from "react-bootstrap";
 
 function ObjectiveRow({ objective, onDelete, onChange }) {
 	const [isEditing, setIsEditing] = useState(false);
 	const [editedObjective, setEditedObjective] = useState(objective.objective);
-	const [isEditingEnabled, setIsEditingEnabled] = useState(false);
+	const [isEditingEnabled, setIsEditingEnabled] = useState(true);
+
 	const handleEdit = () => {
 		if (isEditingEnabled) {
-			alert("Editing after cohort starts is not allowed");
-			return;
+			setIsEditing(true);
+		} else {
+			setIsEditing(false);
 		}
-		setIsEditing(true);
 	};
 
 	const handleCancel = () => {
@@ -44,13 +46,17 @@ function ObjectiveRow({ objective, onDelete, onChange }) {
 	};
 	useEffect(() => {
 		const currentDate = new Date();
-		const editDate = new Date("2023-28-02");
-		if (currentDate > editDate.getTime()) {
+		const editDate = new Date("2023-04-04");
+		if (currentDate >= editDate.getTime()) {
 			setIsEditingEnabled(false);
 		}
+		if (currentDate < editDate.getTime()) {
+			setIsEditingEnabled(true);
+		}
 	}, []);
+
 	return (
-		<div>
+		<Container fluid>
 			{isEditing ? (
 				<input
 					type="text"
@@ -58,7 +64,7 @@ function ObjectiveRow({ objective, onDelete, onChange }) {
 					onChange={(e) => setEditedObjective(e.target.value)}
 				/>
 			) : (
-				<div>{objective.objective}</div>
+				<Container>{objective.objective}</Container>
 			)}
 			<div
 				style={{
@@ -71,24 +77,32 @@ function ObjectiveRow({ objective, onDelete, onChange }) {
 				{isEditing ? (
 					<div className="button-container">
 						<button
+							disabled={!isEditingEnabled} // set disabled prop based on isEditingEnabled
 							onClick={updateObjective(objective.objective_id, editedObjective)}
+							// onClick={() =>
+							// 	updateObjective(objective.objective_id, editedObjective)
+							// }
 						>
 							Save
 						</button>
-						<button onClick={handleCancel}>Cancel</button>
+						<Button onClick={handleCancel}>Cancel</Button>
 					</div>
 				) : (
 					<div>
-						<button style={{ marginRight: "10px" }}>
-							<FaEdit style={{ color: "007BFF" }} onClick={handleEdit} />
-						</button>
-						<button onClick={() => onDelete()}>
-							<FaTrash style={{ color: "red" }} />
-						</button>
+						<Button
+							disabled={!isEditingEnabled} // set disabled prop based on isEditingEnabled
+							className="btn btn-secondary"
+							style={{ marginRight: "10px" }}
+						>
+							<FaEdit style={{ color: "black" }} onClick={handleEdit} />
+						</Button>
+						<Button className="btn btn-danger" onClick={() => onDelete()}>
+							<FaTrash style={{ color: "black" }} />
+						</Button>
 					</div>
 				)}
 			</div>
-		</div>
+		</Container>
 	);
 }
 
