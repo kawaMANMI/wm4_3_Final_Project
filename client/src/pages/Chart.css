@@ -1,0 +1,12 @@
+@media (max-width: 280px) {
+	.Accordion.Header strong {
+		max-width: 80%;
+		font-size: 0.1rem;
+	}
+}
+
+@media (min-width: 281px) {
+	.Accordion.Header {
+		max-width: 100%;
+	}
+}

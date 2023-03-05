@@ -10,6 +10,7 @@ import {
 	Tooltip,
 } from "recharts";
 import axios from "axios";
+import "./Chart.css";
 
 function Chart({ myClassDarkMode }) {
 	const [skillScores, setSkillScores] = useState([]);
@@ -35,7 +36,12 @@ function Chart({ myClassDarkMode }) {
 	return (
 		<div className={myClassDarkMode} style={{ marginBottom: "30px" }}>
 			{skillScores.length === 0 ? (
-				<span className="d-flex justify-content-center">Loading...</span>
+				<span
+					className="d-flex justify-content-center"
+					style={{ fontSize: "1.2rem" }}
+				>
+					Sorry there is no data...
+				</span>
 			) : (
 				<Row
 					xs={1}
