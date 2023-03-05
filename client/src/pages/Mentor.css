@@ -1,4 +1,3 @@
-
 .button_container {
 	display: flex;
 	justify-content: space-between;
@@ -25,7 +24,6 @@ h2 {
 
 .table_container {
 	width: auto;
-		
 }
 @media (max-width: 768px) {
 	.table_container {

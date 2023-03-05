@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import "./Mentor.css";
-import { Container, Card} from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import RegionDropdown from "./RegionDropdown";
 import ClassCodeDropdown from "./ClassCodeDropdown";
 
