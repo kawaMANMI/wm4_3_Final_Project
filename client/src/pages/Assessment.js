@@ -3,14 +3,15 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Container, Card, ListGroup } from "react-bootstrap";
 
-function MoreResources() {
+function Assessment() {
 	const { skill_name, skill_id } = useParams();
-	const [resources, setResources] = useState([]);
+	console.log(skill_id);
+	const [assessment, setAssessment] = useState([]);
 
-	//Get the resources for the skill id
+	//Get the assessment for the skill id
 	useEffect(() => {
 		axios
-			.get(`/api/all-resources/${skill_name}/${skill_id}`)
+			.get(`/api/assessment/${skill_name}/${skill_id}`)
 			.then((response) => {
 				if (response.status === 200) {
 					return response.data;
@@ -19,7 +20,7 @@ function MoreResources() {
 				}
 			})
 			.then((data) => {
-				setResources(data);
+				setAssessment(data);
 			})
 			.catch((e) => console.log({ error: e.message }));
 	}, [skill_name, skill_id]);
@@ -41,17 +42,17 @@ function MoreResources() {
 							textAlign: "center",
 						}}
 					>
-						{skill_name.toUpperCase()}-Resources
+						{skill_name.toUpperCase()}-Assessment
 					</Card.Header>
 					<ListGroup variant="flush">
-						{resources.map((resource) => (
+						{assessment.map((data, index) => (
 							<a
-								href={resource.url}
-								key={resource.id}
+								href={data.coursework}
+								key={data.id}
 								style={{ textDecoration: "none" }}
 							>
-								<ListGroup.Item key={resource.title}>
-									{resource.title}
+								<ListGroup.Item key={data.id}>
+									Assessment-{index + 1}
 								</ListGroup.Item>
 							</a>
 						))}
@@ -62,4 +63,4 @@ function MoreResources() {
 	);
 }
 
-export default MoreResources;
+export default Assessment;

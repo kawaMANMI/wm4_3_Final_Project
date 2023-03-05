@@ -408,7 +408,7 @@ router.get("/all-scores", async (req, res) => {
 
 //CRUD ENDPOINTS FOR RESOURCES
 // GET all resources for skill id
-router.get("/all-resources/:id", async (req, res) => {
+router.get("/all-resources/:skill/:id", async (req, res) => {
 	const skill_Id = req.params.id;
 	db.query(`SELECT * FROM resources WHERE skill_id=${skill_Id};`)
 		.then((result) => res.json(result.rows))
@@ -441,6 +441,14 @@ ORDER BY S.id) AS avgs INNER JOIN resources r ON r.skill_id = avgs.skill_id WHER
 ORDER BY average_score ASC
 LIMIT 3;`
 	)
+		.then((result) => res.json(result.rows))
+		.catch((error) => res.status(500).json({ error: error.message }));
+});
+
+//Get all assessment for skills
+router.get("/assessment/:skill/:id", async (req, res) => {
+	const skill_Id = req.params.id;
+	db.query(`SELECT * FROM coursework WHERE course_skill=${skill_Id};`)
 		.then((result) => res.json(result.rows))
 		.catch((error) => res.status(500).json({ error: error.message }));
 });
