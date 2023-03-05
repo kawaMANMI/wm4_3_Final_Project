@@ -36,6 +36,7 @@ function AddNewObjective({ handleSubmitObj }) {
 			console.error(error);
 		}
 	};
+
 	return (
 		<Container
 			style={{

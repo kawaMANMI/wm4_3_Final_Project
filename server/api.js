@@ -111,6 +111,11 @@ router.put("/learning_objectives/:id", async (req, res) => {
 	if (!objective || !id) {
 		return res.status(400).json({ error: "Objective  is required" });
 	}
+	const currentDate = new Date();
+	const editDate = new Date("2023-02-28");
+	if (currentDate.getTime() > editDate.getTime()) {
+		return res.status(400).json({ error: "Editing is not allowed" });
+	}
 	try {
 		await db.query(
 			"UPDATE learning_objectives SET objective = $1 WHERE id = $2",

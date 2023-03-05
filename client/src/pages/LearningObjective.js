@@ -17,6 +17,7 @@ function LearningObjective() {
 	function handleSubmitObj(newObjective) {
 		setLearningObjective((prevState) => [...prevState, newObjective]);
 	}
+
 	function getLearningObj() {
 		axios
 			.get("/api/checklist")
@@ -37,7 +38,7 @@ function LearningObjective() {
 	}, []);
 
 	const deleteObjective = (id) => {
-		fetch(`api/learning_objectives/${id}`, {
+		fetch(`/api/learning_objectives/${id}`, {
 			method: "DELETE",
 			headers: {
 				"Content-Type": "application/json",
@@ -61,6 +62,9 @@ function LearningObjective() {
 			</div>
 			<Container fluid className="learning-objective-container">
 				<div>
+					<h2 style={{ color: "rgb(220,53,69)" }}>
+						Skill and Learning Objectives
+					</h2>
 					<Table hover size="sm" responsive="sm" className="table-responsive">
 						<thead>
 							<tr>
