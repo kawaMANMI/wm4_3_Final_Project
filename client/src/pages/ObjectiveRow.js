@@ -76,7 +76,7 @@ function ObjectiveRow({ objective, onDelete, onChange }) {
 			>
 				{isEditing ? (
 					<div className="button-container">
-						<button
+						<Button
 							disabled={!isEditingEnabled} // set disabled prop based on isEditingEnabled
 							onClick={updateObjective(objective.objective_id, editedObjective)}
 							// onClick={() =>
@@ -84,7 +84,7 @@ function ObjectiveRow({ objective, onDelete, onChange }) {
 							// }
 						>
 							Save
-						</button>
+						</Button>
 						<Button onClick={handleCancel}>Cancel</Button>
 					</div>
 				) : (

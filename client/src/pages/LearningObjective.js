@@ -50,16 +50,30 @@ function LearningObjective() {
 
 	return (
 		<div className="learning-objective-wrapper">
-			<Button
-				style={{ width: "7em", height: "4em", margin: "2em" }}
-				className="btn btn-danger"
-				onClick={toggleVisibility}
-			>
-				Add Objective
-			</Button>
-			<div>
-				{isVisible && <AddNewObjective handleAddObjective={handleSubmitObj} />}
+			<div className="toggle-container">
+				<div>
+					<Button
+						style={{
+							width: "7em",
+							height: "4em",
+							margin: "2em",
+							display: "flex",
+							direction: "column",
+						}}
+						className="btn btn-danger"
+						onClick={toggleVisibility}
+					>
+						Add Objective
+					</Button>
+				</div>
+
+				<div>
+					{isVisible && (
+						<AddNewObjective handleAddObjective={handleSubmitObj} />
+					)}
+				</div>
 			</div>
+
 			<Container fluid className="learning-objective-container">
 				<div>
 					<h2 style={{ color: "rgb(220,53,69)" }}>
