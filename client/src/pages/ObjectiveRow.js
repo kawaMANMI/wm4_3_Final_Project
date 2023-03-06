@@ -3,7 +3,7 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import "./LearningObj.css";
 import { Container, Button } from "react-bootstrap";
 
-function ObjectiveRow({ objective, onDelete, onChange }) {
+function ObjectiveRow({ objective, onDelete, onChange, handleRefresh }) {
 	const [isEditing, setIsEditing] = useState(false);
 	const [editedObjective, setEditedObjective] = useState(objective.objective);
 	const [isEditingEnabled, setIsEditingEnabled] = useState(true);
@@ -21,7 +21,7 @@ function ObjectiveRow({ objective, onDelete, onChange }) {
 		setEditedObjective(objective.objective);
 	};
 	// Make a PUT request to save the edited objective to the server
-	const updateObjective = (id) => {
+	const updateObjective = async (id, editedObjective) => {
 		fetch(`/api/learning_objectives/${id}`, {
 			method: "PUT",
 			headers: {
@@ -30,7 +30,9 @@ function ObjectiveRow({ objective, onDelete, onChange }) {
 			body: JSON.stringify({ objective: editedObjective }),
 		})
 			.then((response) => {
+				console.log("res", response);
 				if (response.ok) {
+					handleRefresh();
 					return response.json();
 				} else {
 					throw new Error("Failed to update learning objective");
@@ -78,10 +80,9 @@ function ObjectiveRow({ objective, onDelete, onChange }) {
 					<div className="button-container">
 						<Button
 							disabled={!isEditingEnabled} // set disabled prop based on isEditingEnabled
-							onClick={updateObjective(objective.objective_id, editedObjective)}
-							// onClick={() =>
-							// 	updateObjective(objective.objective_id, editedObjective)
-							// }
+							onClick={() =>
+								updateObjective(objective.objective_id, editedObjective)
+							}
 						>
 							Save
 						</Button>
@@ -91,13 +92,13 @@ function ObjectiveRow({ objective, onDelete, onChange }) {
 					<div>
 						<Button
 							disabled={!isEditingEnabled} // set disabled prop based on isEditingEnabled
-							className="btn btn-secondary"
+							className="btn btn-danger"
 							style={{ marginRight: "10px" }}
 						>
-							<FaEdit style={{ color: "black" }} onClick={handleEdit} />
+							<FaEdit style={{ color: "white" }} onClick={handleEdit} />
 						</Button>
 						<Button className="btn btn-danger" onClick={() => onDelete()}>
-							<FaTrash style={{ color: "black" }} />
+							<FaTrash style={{ color: "white" }} />
 						</Button>
 					</div>
 				)}
