@@ -62,10 +62,12 @@ function AllResources() {
 										<Collapse in={openCollapseId === skill.id}>
 											<div id={skill.id}>
 												<div className="d-flex justify-content-around mb-2 mt-2">
-													<Link to={`/more-resources/${skill.id}`}>
+													<Link
+														to={`/more-resources/${skill.title}/${skill.id}`}
+													>
 														Resources
 													</Link>
-													<Link to={`/more-coursework/${skill.id}`}>
+													<Link to={`/assessment/${skill.title}/${skill.id}`}>
 														Assessment
 													</Link>
 												</div>
