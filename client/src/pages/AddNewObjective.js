@@ -6,7 +6,7 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import "./LearningObj.css";
 import { Container, Button } from "react-bootstrap";
 
-function AddNewObjective({ handleSubmitObj }) {
+function AddNewObjective({ handleRefresh }) {
 	const [obj, setObj] = useState("");
 	const [selectedOption, setSelectedOption] = useState("option1");
 	const handleOptionChange = (event) => setSelectedOption(event.target.value);
@@ -15,7 +15,7 @@ function AddNewObjective({ handleSubmitObj }) {
 		setObj(e.target.value);
 	}
 
-	const handleSubmitPost = async (e, objective) => {
+	const handleSubmitPost = async (e) => {
 		e.preventDefault();
 		try {
 			const res = await axios.post("/api/learning_objectives", {
@@ -23,11 +23,12 @@ function AddNewObjective({ handleSubmitObj }) {
 				objective: obj,
 			});
 			if (res.status === 200) {
-				const newObjective = {
-					skill_id: selectedOption.slice(-1),
-					objective: objective,
-				};
-				handleSubmitObj(newObjective);
+				// const newObjective = {
+				// 	skill_id: selectedOption.slice(-1),
+				// 	objective: obj,
+				// };
+				handleRefresh();
+
 				alert(res.data.message);
 			} else {
 				throw new Error("Failed to save the objective");
