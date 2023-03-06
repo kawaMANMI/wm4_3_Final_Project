@@ -21,7 +21,7 @@ function AllResources({ myClassDarkMode }) {
 			className={myClassDarkMode}
 		>
 			<Card.Header
-				className={`card-header ${myClassDarkMode}`}
+				className={"card-header "}
 				as="h4"
 				style={{
 					textAlign: "center",
@@ -30,7 +30,7 @@ function AllResources({ myClassDarkMode }) {
 				More Resources and Assessment
 			</Card.Header>
 			<Accordion defaultActiveKey="0" classame={myClassDarkMode}>
-				<Accordion.Item eventKey="1">
+				<Accordion.Item eventKey="1" className={myClassDarkMode}>
 					<Accordion.Header>
 						<strong
 							style={{
@@ -51,7 +51,10 @@ function AllResources({ myClassDarkMode }) {
 									key={skill.id}
 									className="d-flex justify-content-center"
 								>
-									<Card border="light" className="card-with-fixed-height">
+									<Card
+										border="light"
+										className={`card-with-fixed-height ${myClassDarkMode}`}
+									>
 										<Card.Img
 											variant="top"
 											src={skill.url}
@@ -65,10 +68,14 @@ function AllResources({ myClassDarkMode }) {
 												<div className="d-flex justify-content-around mb-2 mt-2">
 													<Link
 														to={`/more-resources/${skill.title}/${skill.id}`}
+														style={{ color: "red" }}
 													>
 														Resources
 													</Link>
-													<Link to={`/assessment/${skill.title}/${skill.id}`}>
+													<Link
+														to={`/assessment/${skill.title}/${skill.id}`}
+														style={{ color: "red" }}
+													>
 														Assessment
 													</Link>
 												</div>

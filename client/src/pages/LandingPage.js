@@ -49,7 +49,7 @@ function LandingPage({ myClassDarkMode }) {
 					className={`d-flex justify-content-center ${myClassDarkMode}`}
 				>
 					<Card className={myClassDarkMode} style={{ marginTop: "30px" }}>
-						<Card.Header className="card-header" as="h4">
+						<Card.Header as="h4">
 							Welcome to CodeYourFuture Knowledge Checklist
 						</Card.Header>
 						<Card.Body>
@@ -89,7 +89,7 @@ function LandingPage({ myClassDarkMode }) {
 			</Row>
 			<Card className={myClassDarkMode} style={{ marginTop: "30px" }}>
 				<Card.Header
-					className={`card-header ${myClassDarkMode}`}
+					className={"card-header "}
 					as="h4"
 					style={{
 						textAlign: "center",
