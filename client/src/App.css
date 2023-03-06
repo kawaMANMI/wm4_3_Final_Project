@@ -13,6 +13,24 @@
 	background-color: var(--dd-dark);
 }
 
+.dark .accordion-button {
+	color: var(--dd-light);
+	background-color: var(--dd-dark);
+}
+
+.light .accordion-button {
+	color: var(--dd-dark);
+	background-color: var(--dd-light);
+}
+
+.light .accordion-button::before {
+	color: red;
+}
+
+.dark .accordion-button::before {
+	color: rgb(62, 198, 12);
+}
+
 .light-navbar {
 	color: var(--dd-dark);
 }
