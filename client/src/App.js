@@ -64,7 +64,10 @@ const App = () => {
 					path="/student"
 					element={<Student myClassDarkMode={myClassDarkMode} />}
 				/>
-				<Route path="skills" element={<LearningObjective myClassDarkMode={myClassDarkMode}/>} />
+				<Route
+					path="skills"
+					element={<LearningObjective myClassDarkMode={myClassDarkMode} />}
+				/>
 				<Route
 					path="/landing-page"
 					element={<LandingPage myClassDarkMode={myClassDarkMode} />}
