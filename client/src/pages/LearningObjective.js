@@ -10,14 +10,17 @@ import { Button } from "react-bootstrap";
 function LearningObjective({ myClassDarkMode }) {
 	const [learningObjective, setLearningObjective] = useState([]);
 	const [isVisible, setIsVisible] = useState(false);
-
+	const [refresh, setRefresh] = useState(false);
 	const toggleVisibility = () => {
 		setIsVisible(!isVisible);
 	};
-	function handleSubmitObj(newObjective) {
-		setLearningObjective((prevState) => [...prevState, newObjective]);
+	// function handleSubmitObj(newObjective) {
+	// 	// setLearningObjective((prevState) => [...prevState, newObjective]);
+	// 	// setLearningObjective()
+	// }
+	function handleRefresh() {
+		setRefresh(!refresh);
 	}
-
 	function getLearningObj() {
 		axios
 			.get("/api/checklist")
@@ -47,7 +50,7 @@ function LearningObjective({ myClassDarkMode }) {
 			getLearningObj();
 		});
 	};
-
+	console.log("fkdmg", learningObjective);
 	return (
 		<div className={`learning-objective-wrapper ${myClassDarkMode}`}>
 			<div className="toggle-container">
@@ -70,8 +73,8 @@ function LearningObjective({ myClassDarkMode }) {
 				<div>
 					{isVisible && (
 						<AddNewObjective
-							handleAddObjective={handleSubmitObj}
 							myClassDarkMode={myClassDarkMode}
+							handleRefresh={handleRefresh}
 						/>
 					)}
 				</div>
@@ -82,8 +85,8 @@ function LearningObjective({ myClassDarkMode }) {
 				className={`learning-objective-container ${myClassDarkMode}`}
 			>
 				<div>
-					<h2 style={{ color: "rgb(220,53,69)" }}>
-						Skill and Learning Objectives
+					<h2 style={{ color: "rgb(220,53,69)", marginTop: "1em" }}>
+						Skills and Learning Objectives
 					</h2>
 					<Table
 						hover
@@ -96,7 +99,7 @@ function LearningObjective({ myClassDarkMode }) {
 								<th
 									style={{
 										padding: "2em",
-										color: "rgb(255,255,255)",
+										textAlign: "center",
 										fontSize: "20px",
 									}}
 								>
@@ -105,7 +108,7 @@ function LearningObjective({ myClassDarkMode }) {
 								<th
 									style={{
 										padding: "2em",
-										color: "rgb(255,255,255)",
+										textAlign: "center",
 										fontSize: "20px",
 									}}
 								>
@@ -124,6 +127,7 @@ function LearningObjective({ myClassDarkMode }) {
 												objective={objective}
 												onDelete={() => deleteObjective(objective.objective_id)}
 												myClassDarkMode={myClassDarkMode}
+												handleRefresh={handleRefresh}
 											/>
 										</td>
 									</tr>

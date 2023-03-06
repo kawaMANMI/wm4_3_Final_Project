@@ -121,59 +121,61 @@ function Mentor({ myClassDarkMode }) {
 				>
 					STUDENTS LIST
 				</h2>
-				<Table className={myClassDarkMode} size="sm" hover responsive="sm">
-					<thead style={{ margin: "1em", color: "rgb(220,53,69)" }}>
-						<tr>
-							<th className="text-center" onClick={sortByName}>
-								Name
-							</th>
-							<th>Class Code</th>
-							{uniqueSkills.map((skill) => (
-								<th key={skill} className="d-none d-sm-table-cell">
-									{skill}
+				<div style={{ maxWidth: "100%", overflowX: "auto" }}>
+					<Table className={myClassDarkMode} size="sm" hover responsive="sm">
+						<thead style={{ margin: "1em", color: "rgb(220,53,69)" }}>
+							<tr>
+								<th className="text-center" onClick={sortByName}>
+									Name
 								</th>
-							))}
-							<th className="text-center" onClick={sortByTotalScore}>
-								Total score {isAscending ? "▲" : "▼"}
-							</th>
-							<th>Student Profile</th>
-						</tr>
-					</thead>
-					<tbody>
-						{sortedStudentNames.map(
-							({ student_id, name, class_code, skills, total_score }, i) => (
-								<tr key={i}>
-									<td className="text-center col-2">{name}</td>
-									<td>{class_code}</td>
-									{uniqueSkills.map((skill) => (
-										<td
-											key={skill}
-											className="text-center col-6 col-sm-4 d-none d-sm-table-cell"
-										>
-											{skills[skill] || "0"}
-										</td>
-									))}
+								<th>Class</th>
+								{uniqueSkills.map((skill) => (
+									<th key={skill} className="d-none d-sm-table-cell">
+										{skill}
+									</th>
+								))}
+								<th className="text-center" onClick={sortByTotalScore}>
+									Total score {isAscending ? "▲" : "▼"}
+								</th>
+								<th>Profile</th>
+							</tr>
+						</thead>
+						<tbody>
+							{sortedStudentNames.map(
+								({ student_id, name, class_code, skills, total_score }, i) => (
+									<tr key={i}>
+										<td className="text-center col-2">{name}</td>
+										<td>{class_code}</td>
+										{uniqueSkills.map((skill) => (
+											<td
+												key={skill}
+												className="text-center col-6 col-sm-4 d-none d-sm-table-cell"
+											>
+												{skills[skill] || "0"}
+											</td>
+										))}
 
-									<td key={i} className="text-center d-none d-sm-table-cell">
-										{total_score}
-									</td>
-									<td
-										className="hidden-sm"
-										style={{ margin: "auto", textAlign: "center" }}
-									>
-										<Button
-											variant="link"
-											onClick={() => handleUser(student_id)}
-											style={{ color: "red" }}
+										<td key={i} className="text-center d-none d-sm-table-cell">
+											{total_score}
+										</td>
+										<td
+											className="hidden-sm"
+											style={{ margin: "auto", textAlign: "center" }}
 										>
-											View More
-										</Button>
-									</td>
-								</tr>
-							)
-						)}
-					</tbody>
-				</Table>
+											<Button
+												variant="link"
+												onClick={() => handleUser(student_id)}
+												style={{ color: "red" }}
+											>
+												View More
+											</Button>
+										</td>
+									</tr>
+								)
+							)}
+						</tbody>
+					</Table>
+				</div>
 			</div>
 		</Container>
 	);

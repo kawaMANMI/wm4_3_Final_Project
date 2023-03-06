@@ -51,7 +51,7 @@ router.get("/skills-by-region", (req, res) => {
 	const region = req.query.region;
 	const classCode = req.query.classCode;
 	const query = `
-SELECT u.id AS student_id, u.name AS student_name, u.class_code AS class_code, r.name AS region_name, s.skill_name, SUM(ulo.score) AS total_score
+SELECT u.id AS student_id, u.name AS student_name, u.class_code AS class_code, r.name AS region_name, s.skill_name, ROUND(AVG(ulo.score)) AS total_score
 FROM user_learning_obj ulo
 JOIN users u ON ulo.user_id = u.id
 JOIN skills s ON ulo.lo_id = s.id
@@ -112,7 +112,7 @@ router.put("/learning_objectives/:id", async (req, res) => {
 		return res.status(400).json({ error: "Objective  is required" });
 	}
 	const currentDate = new Date();
-	const editDate = new Date("2023-02-28");
+	const editDate = new Date("2023-04-04");
 	if (currentDate.getTime() > editDate.getTime()) {
 		return res.status(400).json({ error: "Editing is not allowed" });
 	}
@@ -121,8 +121,10 @@ router.put("/learning_objectives/:id", async (req, res) => {
 			"UPDATE learning_objectives SET objective = $1 WHERE id = $2",
 			[objective, id]
 		);
+
+		return res.status(200);
 	} catch (error) {
-		res.status(500).json({ error: error.message });
+		return res.status(500).json({ error: error.message });
 	}
 });
 //delete  a learning object

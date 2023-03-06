@@ -3,7 +3,13 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import "./LearningObj.css";
 import { Container, Button } from "react-bootstrap";
 
-function ObjectiveRow({ objective, onDelete, onChange, myClassDarkMode }) {
+function ObjectiveRow({
+	objective,
+	onDelete,
+	onChange,
+	handleRefresh,
+	myClassDarkMode,
+}) {
 	const [isEditing, setIsEditing] = useState(false);
 	const [editedObjective, setEditedObjective] = useState(objective.objective);
 	const [isEditingEnabled, setIsEditingEnabled] = useState(true);
@@ -21,7 +27,7 @@ function ObjectiveRow({ objective, onDelete, onChange, myClassDarkMode }) {
 		setEditedObjective(objective.objective);
 	};
 	// Make a PUT request to save the edited objective to the server
-	const updateObjective = (id) => {
+	const updateObjective = async (id, editedObjective) => {
 		fetch(`/api/learning_objectives/${id}`, {
 			method: "PUT",
 			headers: {
@@ -30,7 +36,9 @@ function ObjectiveRow({ objective, onDelete, onChange, myClassDarkMode }) {
 			body: JSON.stringify({ objective: editedObjective }),
 		})
 			.then((response) => {
+				console.log("res", response);
 				if (response.ok) {
+					handleRefresh();
 					return response.json();
 				} else {
 					throw new Error("Failed to update learning objective");
@@ -86,13 +94,15 @@ function ObjectiveRow({ objective, onDelete, onChange, myClassDarkMode }) {
 						>
 							Save
 						</Button>
-						<Button onClick={handleCancel} variant="danger">Cancel</Button>
+						<Button onClick={handleCancel} variant="danger">
+							Cancel
+						</Button>
 					</div>
 				) : (
 					<div>
 						<Button
 							disabled={!isEditingEnabled} // set disabled prop based on isEditingEnabled
-							className="btn btn-secondary"
+							className="btn btn-danger"
 							style={{ marginRight: "10px" }}
 						>
 							<FaEdit style={{ color: "white" }} onClick={handleEdit} />
