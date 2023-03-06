@@ -1,0 +1,24 @@
+.card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.card-title {
+	color: #333;
+	font-weight: bold;
+}
+
+.card-text {
+	color: #666;
+}
+
+.card-body {
+	padding: 20px;
+}
+
+.card {
+	transition: all 0.3s ease-in-out;
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	border: none;
+}

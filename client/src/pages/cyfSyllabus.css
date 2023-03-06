@@ -1,0 +1,66 @@
+.sidebar-nav {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 100;
+	overflow-y: auto;
+	background-color: #dc3545; /* danger color */
+	padding-top: 60px;
+	box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar-nav .nav-link {
+	color: #fff;
+	font-size: 1.2rem;
+	text-align: center;
+	padding: 12px 15px;
+	margin-right: -15px;
+	transition: background-color 0.3s ease;
+}
+
+.sidebar-nav .nav-link:hover,
+.sidebar-nav .nav-link:focus {
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-nav .active > .nav-link,
+.sidebar-nav .nav-link.active,
+.sidebar-nav .nav-link.show,
+.sidebar-nav .show > .nav-link {
+	background-color: rgba(0, 0, 0, 0.1);
+	border-radius: 0;
+	color: #fff;
+}
+
+.sidebar-toggle {
+	color: #fff;
+	border-color: #fff;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	transition: all 0.3s ease;
+}
+
+.sidebar-toggle:hover,
+.sidebar-toggle:focus {
+	color: #dc3545;
+	border-color: #dc3545;
+}
+
+.sidebar-overlay {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 99;
+	background-color: rgba(0, 0, 0, 0.5);
+	opacity: 0;
+	transition: opacity 0.3s ease;
+	pointer-events: none;
+}
+
+.sidebar-overlay.active {
+	opacity: 1;
+	pointer-events: all;
+}

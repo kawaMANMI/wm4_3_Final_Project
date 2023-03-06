@@ -3,7 +3,7 @@ import { useState } from "react";
 import Header from "./pages/Header";
 import Footer from "./pages/Footer";
 import About from "./pages/About";
-import Contact from "./pages/Contact";
+import Cyfsyllabus from "./pages/Cyfsyllabus";
 import HomePage from "./pages/HomePage";
 import Mentor from "./pages/Mentor";
 import Student from "./pages/Student";
@@ -36,8 +36,14 @@ const App = () => {
 					path="/"
 					element={<HomePage myClassDarkMode={myClassDarkMode} />}
 				/>
-				<Route path="/about" element={<About />} />
-				<Route path="/contact" element={<Contact />} />
+				<Route
+					path="/about"
+					element={<About myClassDarkMode={myClassDarkMode} />}
+				/>
+				<Route
+					path="/cyfsyllabus"
+					element={<Cyfsyllabus myClassDarkMode={myClassDarkMode} />}
+				/>
 				<Route
 					path="/mentor"
 					element={<Mentor myClassDarkMode={myClassDarkMode} />}
