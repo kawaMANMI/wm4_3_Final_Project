@@ -21,7 +21,7 @@ function AllResources({ myClassDarkMode }) {
 			className={myClassDarkMode}
 		>
 			<Card.Header
-				className={`card-header ${myClassDarkMode}`}
+				className={"card-header "}
 				as="h4"
 				style={{
 					textAlign: "center",
@@ -29,7 +29,6 @@ function AllResources({ myClassDarkMode }) {
 			>
 				More Resources and Assessment
 			</Card.Header>
-
 			<Card.Body classame={myClassDarkMode} style={{ padding: "20px" }}>
 				<Row className="g-4 mt-2 mb-2">
 					{skills.map((skill) => (
