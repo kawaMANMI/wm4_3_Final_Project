@@ -34,85 +34,96 @@ function Chart({ myClassDarkMode }) {
 	}, []);
 
 	return (
-		<div className={myClassDarkMode} style={{ marginBottom: "30px" }}>
-			{skillScores.length === 0 ? (
-				<span
-					className="d-flex justify-content-center"
-					style={{ fontSize: "1.2rem" }}
-				>
-					Sorry there is no data...
-				</span>
-			) : (
-				<Row
-					xs={1}
-					md={2}
-					className="g-4"
-					style={{
-						paddingLeft: "20px",
-						paddingRight: "20px",
-					}}
-				>
-					{Object.keys(skillScores[0])
-						.slice(1)
-						.map((key) => (
-							<Col key={key}>
-								<Card
-									className={myClassDarkMode}
-									style={{
-										marginTop: "30px",
-										boxShadow: "1px 3px 3px #888888",
-									}}
-								>
-									<Accordion defaultActiveKey="0" className={myClassDarkMode}>
-										<Accordion.Item eventKey="1" className={myClassDarkMode}>
-											<Accordion.Header style={{ border: "red" }}>
-												<strong
-													style={{
-														textShadow: "1px 1px 1px grey",
-														display: "flex",
-														justifyContent: "center",
-														alignItems: "center",
-														flexWrap: "wrap",
-														maxWidth: "100%",
-													}}
-												>
-													{key.toUpperCase()}
-												</strong>
-											</Accordion.Header>
-											<Accordion.Body>
-												<ResponsiveContainer width="100%" height={200}>
-													<LineChart
-														className="d-flex justify-content-center"
-														data={skillScores}
-														syncId="anyId"
-														margin={{
-															top: 10,
-															right: 20,
-															left: 0,
-															bottom: 0,
+		<Card style={{ marginTop: "30px" }}>
+			<Card.Header
+				className={`card-header ${myClassDarkMode}`}
+				as="h4"
+				style={{
+					textAlign: "center",
+				}}
+			>
+				Progress Chart
+			</Card.Header>
+			<div className={myClassDarkMode} style={{ marginBottom: "30px" }}>
+				{skillScores.length === 0 ? (
+					<span
+						className="d-flex justify-content-center"
+						style={{ fontSize: "1.2rem" }}
+					>
+						Sorry there is no data...
+					</span>
+				) : (
+					<Row
+						xs={1}
+						md={2}
+						className="g-4"
+						style={{
+							paddingLeft: "20px",
+							paddingRight: "20px",
+						}}
+					>
+						{Object.keys(skillScores[0])
+							.slice(1)
+							.map((key) => (
+								<Col key={key}>
+									<Card
+										className={myClassDarkMode}
+										style={{
+											marginTop: "30px",
+											boxShadow: "1px 3px 3px #888888",
+										}}
+									>
+										<Accordion defaultActiveKey="0" className={myClassDarkMode}>
+											<Accordion.Item eventKey="1" className={myClassDarkMode}>
+												<Accordion.Header style={{ border: "red" }}>
+													<strong
+														style={{
+															textShadow: "1px 1px 1px grey",
+															display: "flex",
+															justifyContent: "center",
+															alignItems: "center",
+															flexWrap: "wrap",
+															maxWidth: "100%",
 														}}
 													>
-														<CartesianGrid strokeDasharray="3 3" />
-														<XAxis dataKey="date" />
-														<YAxis />
-														<Tooltip />
-														<Line
-															type="monotone"
-															dataKey={key}
-															stroke="#8884d8"
-															fill="#8884d8"
-														/>
-													</LineChart>
-												</ResponsiveContainer>
-											</Accordion.Body>
-										</Accordion.Item>
-									</Accordion>
-								</Card>
-							</Col>
-						))}
-				</Row>
-			)}
-		</div>
+														{key.toUpperCase()}
+													</strong>
+												</Accordion.Header>
+												<Accordion.Body>
+													<ResponsiveContainer width="100%" height={200}>
+														<LineChart
+															className="d-flex justify-content-center"
+															data={skillScores}
+															syncId="anyId"
+															margin={{
+																top: 10,
+																right: 20,
+																left: 0,
+																bottom: 0,
+															}}
+														>
+															<CartesianGrid strokeDasharray="3 3" />
+															<XAxis dataKey="date" />
+															<YAxis />
+															<Tooltip />
+															<Line
+																type="monotone"
+																dataKey={key}
+																stroke="#8884d8"
+																fill="#8884d8"
+															/>
+														</LineChart>
+													</ResponsiveContainer>
+												</Accordion.Body>
+											</Accordion.Item>
+										</Accordion>
+									</Card>
+								</Col>
+							))}
+					</Row>
+				)}
+			</div>
+		</Card>
 	);
 }
 export default Chart;

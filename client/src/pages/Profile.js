@@ -17,34 +17,19 @@ import Chart from "./Chart";
 import TableOfAllScores from "./TableOfAllScores";
 
 function Profile({ myClassDarkMode }) {
-	const [finalScore, setFinalScore] = useState(0);
 	const navigate = useNavigate();
 	const location = useLocation();
-	// profileId taken from the navigate object
-	const profileId = location.state ? location.state.studentId : "";
-	useEffect(() => {
-		axios
-			.get("/api/final-score")
-			.then((resp) => {
-				if (resp.status === 200) {
-					return resp.data;
-				} else {
-					throw new Error("Something is wrong");
-				}
-			})
-			.then((data) => {
-				setFinalScore(data[0]);
-			});
-	}, []);
+
+	const finalScore = location.state;
 
 	function handleChecklist() {
 		navigate("/student");
 	}
+
 	const [userData, setUserData] = useState([]);
-	const id = sessionStorage.getItem("userId");
 	useEffect(() => {
 		axios
-			.get(`/api/user-profile/${profileId}`)
+			.get("/api/user-profile/")
 			.then((response) => {
 				if (response.status === 200) {
 					return response.data;
@@ -56,8 +41,8 @@ function Profile({ myClassDarkMode }) {
 				setUserData(data[0]);
 			})
 			.catch((e) => console.log({ error: e.message }));
-	}, [profileId]);
-	const picLink = `https://robohash.org/${id}.png`;
+	}, []);
+	const picLink = `https://robohash.org/${userData.id}.png`;
 	return (
 		<Container
 			style={{
@@ -105,7 +90,9 @@ function Profile({ myClassDarkMode }) {
 				<Col className="d-flex justify-content-center">
 					<ListGroup.Item>
 						<strong>
-							Current Score Level: {Math.round(finalScore["score"] * 20)}%
+							Current Score Level:
+							{finalScore["percentage"] === null ? 0 : finalScore["percentage"]}
+							%
 						</strong>
 					</ListGroup.Item>
 				</Col>
@@ -115,18 +102,7 @@ function Profile({ myClassDarkMode }) {
 					</Button>
 				</Col>
 			</Row>
-			<Card style={{ marginTop: "30px" }}>
-				<Card.Header
-					className={`card-header ${myClassDarkMode}`}
-					as="h4"
-					style={{
-						textAlign: "center",
-					}}
-				>
-					Progress Chart
-				</Card.Header>
-				<Chart myClassDarkMode={myClassDarkMode} />
-			</Card>
+			<Chart myClassDarkMode={myClassDarkMode} />
 			<TableOfAllScores myClassDarkMode={myClassDarkMode} />
 		</Container>
 	);

@@ -5,7 +5,7 @@ import axios from "axios";
 import UserScores from "./UserScores";
 import Accordion from "react-bootstrap/Accordion";
 
-function Student() {
+function Student({ myClassDarkMode }) {
 	const [skills, setSkills] = useState([]);
 	const [selectedScore, setSelectedScore] = useState({});
 
@@ -53,7 +53,10 @@ function Student() {
 	};
 
 	return (
-		<Container style={{ marginTop: "50px", marginBottom: "200px" }}>
+		<Container
+			className={myClassDarkMode}
+			style={{ marginTop: "50px", marginBottom: "200px" }}
+		>
 			<Row
 				as="h1"
 				style={{
@@ -64,8 +67,8 @@ function Student() {
 			>
 				Course Topics Checklist
 			</Row>
-			<Accordion defaultActiveKey="0">
-				<Accordion.Item eventKey="1">
+			<Accordion defaultActiveKey="0" className={myClassDarkMode}>
+				<Accordion.Item eventKey="1" className={myClassDarkMode}>
 					<Accordion.Header>
 						<h5 style={{ color: "#DC143C", textShadow: "1px 1px 1px grey" }}>
 							How to use this checklist
@@ -81,9 +84,9 @@ function Student() {
 					</Accordion.Body>
 				</Accordion.Item>
 			</Accordion>
-			<Row>
+			<Row className={myClassDarkMode}>
 				{skills.map((skill) => (
-					<Row key={skill.skill_name}>
+					<Row key={skill.skill_name} className={myClassDarkMode}>
 						<Skills
 							skill={skill}
 							selectedScore={selectedScore}
@@ -92,7 +95,7 @@ function Student() {
 					</Row>
 				))}
 			</Row>
-			<div className="d-flex justify-content-center">
+			<div className={`d-flex justify-content-center ${myClassDarkMode}`}>
 				<Button
 					variant="danger"
 					style={{ marginTop: "50px" }}
