@@ -48,7 +48,7 @@ function MoreResources() {
 							<a
 								href={resource.url}
 								key={resource.id}
-								style={{ textDecoration: "none" }}
+								style={{ textDecorationColor: "#DC143C" }}
 							>
 								<ListGroup.Item key={resource.title}>
 									{resource.title}

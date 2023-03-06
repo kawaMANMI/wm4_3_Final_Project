@@ -30,7 +30,7 @@ function LandingPage() {
 		navigate("/student");
 	}
 	function handleGoToProfile() {
-		navigate("/user-profile", { state: finalScore });
+		navigate("/user-profile");
 	}
 	return (
 		<Container

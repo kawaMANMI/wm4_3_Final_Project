@@ -142,11 +142,39 @@ router.delete("/learning_objectives/:id", (req, res) => {
 router.get("/user-profile/:id", (req, res) => {
 	const user_Id = req.params.id;
 	db.query(
-		"SELECT users.name, users.username, users.class_code, region.name AS region FROM users INNER JOIN region ON users.region_id = region.id AND users.id=$1",
+		"SELECT users.id,users.name, users.username, users.class_code, region.name AS region FROM users INNER JOIN region ON users.region_id = region.id AND users.id=$1",
 		[user_Id]
 	)
 		.then((result) => res.json(result.rows))
 		.catch((error) => res.status(500).json({ Error: error.message }));
+});
+
+// Get the percentage of average scores for all skills for user id (MENTOR)
+router.get("/final-score/:id", (req, res) => {
+	const user_Id = req.params.id;
+	db.query(
+		`SELECT ROUND((AVG(average_score))*20) AS percentage
+FROM
+	(SELECT S.SKILL_NAME,
+			ROUND(AVG(ULO.SCORE)) AS AVERAGE_SCORE
+		FROM
+			(SELECT LO.SKILL_ID,
+					ULO.*
+				FROM USER_LEARNING_OBJ AS ULO
+				JOIN
+					(SELECT LO_ID,
+							MAX(SUBMITTED_AT) AS RECENT_SUBMITTED_AT
+						FROM USER_LEARNING_OBJ
+						WHERE USER_ID = ${user_Id}
+						GROUP BY LO_ID) AS RECENT_ULO ON ULO.LO_ID = RECENT_ULO.LO_ID
+				AND ULO.SUBMITTED_AT = RECENT_ULO.RECENT_SUBMITTED_AT
+				JOIN LEARNING_OBJECTIVES AS LO ON ULO.LO_ID = LO.ID) AS ULO
+		JOIN SKILLS AS S ON ULO.SKILL_ID = S.ID
+		GROUP BY S.SKILL_NAME
+		ORDER BY S.SKILL_NAME) as DATA;`
+	)
+		.then((result) => res.json(result.rows))
+		.catch((error) => res.status(500).json({ error: error.message }));
 });
 
 // Cookie
@@ -405,7 +433,7 @@ router.get("/all-scores", async (req, res) => {
 		.catch((error) => res.status(500).json({ error: error.message }));
 });
 
-// Get the final average scores for all skills for user id
+// Get the percentage of average scores for all skills for user id
 router.get("/final-score", async (req, res) => {
 	const userID = req.session.userId;
 	db.query(
@@ -479,4 +507,5 @@ router.get("/assessment/:skill/:id", async (req, res) => {
 		.then((result) => res.json(result.rows))
 		.catch((error) => res.status(500).json({ error: error.message }));
 });
+
 export default router;

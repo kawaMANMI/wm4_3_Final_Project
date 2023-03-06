@@ -49,7 +49,7 @@ function Assessment() {
 							<a
 								href={data.coursework}
 								key={data.id}
-								style={{ textDecoration: "none" }}
+								style={{ textDecorationColor: "#DC143C" }}
 							>
 								<ListGroup.Item key={data.id}>
 									Assessment-{index + 1}
