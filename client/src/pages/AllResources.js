@@ -18,7 +18,7 @@ function AllResources({ myClassDarkMode }) {
 				marginBottom: "20px",
 				boxShadow: "1px 3px 3px #888888",
 			}}
-			calssName={myClassDarkMode}
+			className={myClassDarkMode}
 		>
 			<Card.Header
 				className={`card-header ${myClassDarkMode}`}
