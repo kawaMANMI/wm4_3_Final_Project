@@ -34,9 +34,9 @@ function Chart({ myClassDarkMode }) {
 	}, []);
 
 	return (
-		<Card style={{ marginTop: "30px" }}>
+		<Card className={myClassDarkMode} style={{ marginTop: "30px" }}>
 			<Card.Header
-				className={`card-header ${myClassDarkMode}`}
+				className={"card-header "}
 				as="h4"
 				style={{
 					textAlign: "center",

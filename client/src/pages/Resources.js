@@ -3,7 +3,8 @@ import axios from "axios";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 
-function Resources({ finalScore }) {
+function Resources({ myClassDarkMode, finalScore }) {
+	// const profileId = location.state ? location.state.studentId : "";
 	const [resources, setResources] = useState([]);
 
 	useEffect(() => {
@@ -23,7 +24,7 @@ function Resources({ finalScore }) {
 	}, []);
 
 	return (
-		<Card style={{ marginTop: "30px" }}>
+		<Card className={myClassDarkMode} style={{ marginTop: "30px" }}>
 			<Card.Header
 				className="card-header"
 				as="h4"
@@ -40,10 +41,10 @@ function Resources({ finalScore }) {
 					Based on your current score level, we recommend the following
 					resources:
 				</Card.Text>
-				<ListGroup variant="flush">
+				<ListGroup variant="flush" className={myClassDarkMode}>
 					{resources.map((variant) => (
-						<a href={variant.url} key={variant.url}>
-							<ListGroup.Item key={variant.title}>
+						<a href={variant.url} key={variant.url} style={{ color: "red" }}>
+							<ListGroup.Item key={variant.title} className={myClassDarkMode}>
 								{variant.title}({variant.reading_time}min)
 							</ListGroup.Item>
 						</a>

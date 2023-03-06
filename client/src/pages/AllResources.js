@@ -4,7 +4,7 @@ import { Row, Card, Col, Collapse } from "react-bootstrap";
 import skills from "./Skill.json";
 import "./AllResources.css";
 
-function AllResources() {
+function AllResources({ myClassDarkMode }) {
 	const [openCollapseId, setOpenCollapseId] = useState("");
 
 	const handleCardClick = (id) => {
@@ -18,9 +18,10 @@ function AllResources() {
 				marginBottom: "20px",
 				boxShadow: "1px 3px 3px #888888",
 			}}
+			className={myClassDarkMode}
 		>
 			<Card.Header
-				className="card-header"
+				className={"card-header "}
 				as="h4"
 				style={{
 					textAlign: "center",
@@ -28,7 +29,7 @@ function AllResources() {
 			>
 				More Resources and Assessment
 			</Card.Header>
-			<Card.Body style={{ padding: "20px" }}>
+			<Card.Body classame={myClassDarkMode} style={{ padding: "20px" }}>
 				<Row className="g-4 mt-2 mb-2">
 					{skills.map((skill) => (
 						<Col
@@ -38,7 +39,10 @@ function AllResources() {
 							key={skill.id}
 							className="d-flex justify-content-center"
 						>
-							<Card border="light" className="card-with-fixed-height">
+							<Card
+								border="light"
+								className={`card-with-fixed-height ${myClassDarkMode}`}
+							>
 								<Card.Img
 									variant="top"
 									src={skill.url}

@@ -30,9 +30,10 @@ function TableOfAllScores({ myClassDarkMode }) {
 				marginBottom: "20px",
 				boxShadow: "1px 3px 3px #888888",
 			}}
+			className={myClassDarkMode}
 		>
 			<Card.Header
-				className={`card-header ${myClassDarkMode}`}
+				className={"card-header "}
 				as="h4"
 				style={{
 					textAlign: "center",
