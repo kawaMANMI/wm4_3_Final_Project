@@ -16,7 +16,7 @@ function getClassName(score, selectedScore) {
 		return "outline-secondary";
 	}
 }
-function Skills({ skill, selectedScore, handleSelectScore }) {
+function Skills({ skill, selectedScore, handleSelectScore, myClassDarkMode }) {
 	return (
 		<Card
 			style={{
@@ -24,17 +24,18 @@ function Skills({ skill, selectedScore, handleSelectScore }) {
 				marginTop: "15px",
 				boxShadow: "1px 3px 3px #888888",
 			}}
+			className={myClassDarkMode}
 		>
-			<Card.Body>
+			<Card.Body className={myClassDarkMode}>
 				<Card.Header
 					as="h4"
 					style={{ color: "#DC143C", textShadow: "1px 1px 1px grey" }}
 				>
 					{skill.skill_name}
 				</Card.Header>
-				<ListGroup variant="flush">
+				<ListGroup variant="flush" className={myClassDarkMode}>
 					{skill.objectives.map((obj) => (
-						<ListGroup.Item key={obj.objective_id}>
+						<ListGroup.Item key={obj.objective_id} className={myClassDarkMode}>
 							{obj.objective}
 							<div style={{ float: "right" }}>
 								{[1, 2, 3, 4, 5].map((score) => (
