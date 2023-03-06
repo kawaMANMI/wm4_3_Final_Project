@@ -19,6 +19,7 @@ function Mentor({ myClassDarkMode }) {
 	const [selectedRegion, setSelectedRegion] = useState("");
 	const [isAscending, setIsAscending] = useState(true);
 	const [selectedClassCode, setSelectedClassCode] = useState("");
+	const [sortScores, setSortScores] = useState("");
 
 	useEffect(() => {
 		axios
@@ -70,7 +71,18 @@ function Mentor({ myClassDarkMode }) {
 	let sortedStudentNames = Object.values(studentScores).sort((a, b) => {
 		return a.name.localeCompare(b.name);
 	});
-
+	// Sort by total score
+	if (sortScores === "total_score") {
+		sortedStudentNames.sort((a, b) => {
+			return isAscending
+				? a.total_score - b.total_score
+				: b.total_score - a.total_score;
+		});
+	}
+	const sortByTotalScore = () => {
+		setIsAscending(!isAscending);
+		setSortScores("total_score");
+	};
 	const sortByName = () => {
 		const sortedScores = [...scores];
 		if (isAscending) {
@@ -116,7 +128,6 @@ function Mentor({ myClassDarkMode }) {
 						<tr>
 							<th className="text-center" onClick={sortByName}>
 								Name
-								{/* {isAscending ? "▲" : "▼"} */}
 							</th>
 							<th>Class Code</th>
 							{uniqueSkills.map((skill) => (
@@ -124,7 +135,9 @@ function Mentor({ myClassDarkMode }) {
 									{skill}
 								</th>
 							))}
-							<th className="d-none d-sm-table-cell"> Total score</th>
+							<th className="text-center" onClick={sortByTotalScore}>
+								Total score {isAscending ? "▲" : "▼"}
+							</th>
 							<th>Student Profile</th>
 						</tr>
 					</thead>
