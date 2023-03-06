@@ -94,7 +94,11 @@ function AddNewObjective({ handleSubmitObj }) {
 						onChange={handleChangeObj}
 					/>
 				</Form.Group>
-				<Button variant="danger" type="submit" style={{marginBottom:"1em",width:"15em"}}>
+				<Button
+					variant="danger"
+					type="submit"
+					style={{ marginBottom: "1em", width: "15em" }}
+				>
 					Submit Objective
 				</Button>
 			</Form>
