@@ -44,7 +44,7 @@ function Resources({ finalScore }) {
 					{resources.map((variant) => (
 						<a href={variant.url} key={variant.url}>
 							<ListGroup.Item key={variant.title}>
-								{variant.title}
+								{variant.title}({variant.reading_time}min)
 							</ListGroup.Item>
 						</a>
 					))}

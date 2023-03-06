@@ -117,7 +117,7 @@ function SignupForm({ onDismiss, myClassDarkMode }) {
 						<Form.Control
 							type="text"
 							placeholder="Enter Name"
-							value={username}
+							value={username.toLowerCase()}
 							onChange={handleUserNameChange}
 							className={myClassDarkMode}
 							required
