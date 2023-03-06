@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Container, Card, ListGroup } from "react-bootstrap";
 
-function Assessment() {
+function Assessment({ myClassDarkMode }) {
 	const { skill_name, skill_id } = useParams();
 	console.log(skill_id);
 	const [assessment, setAssessment] = useState([]);
@@ -26,14 +26,16 @@ function Assessment() {
 	}, [skill_name, skill_id]);
 
 	return (
-		<Container>
+		<Container className={myClassDarkMode}>
 			<Card
 				style={{
 					marginTop: "15px",
 					boxShadow: "1px 3px 3px #888888",
+					marginBottom: "15px",
 				}}
+				className={myClassDarkMode}
 			>
-				<Card.Body>
+				<Card.Body className={myClassDarkMode}>
 					<Card.Header
 						as="h4"
 						style={{
@@ -44,14 +46,14 @@ function Assessment() {
 					>
 						{skill_name.toUpperCase()}-Assessment
 					</Card.Header>
-					<ListGroup variant="flush">
+					<ListGroup variant="flush" className={myClassDarkMode}>
 						{assessment.map((data, index) => (
 							<a
 								href={data.coursework}
 								key={data.id}
 								style={{ textDecoration: "none" }}
 							>
-								<ListGroup.Item key={data.id}>
+								<ListGroup.Item key={data.id} className={myClassDarkMode}>
 									Assessment-{index + 1}
 								</ListGroup.Item>
 							</a>

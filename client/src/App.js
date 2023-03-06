@@ -77,11 +77,11 @@ const App = () => {
 				/>
 				<Route
 					path="/more-resources/:skill_name/:skill_id"
-					element={<MoreResources />}
+					element={<MoreResources myClassDarkMode={myClassDarkMode} />}
 				/>
 				<Route
 					path="/assessment/:skill_name/:skill_id"
-					element={<Assessment />}
+					element={<Assessment myClassDarkMode={myClassDarkMode} />}
 				/>
 			</Routes>
 			<Footer myClassDarkMode={myClassDarkMode} />

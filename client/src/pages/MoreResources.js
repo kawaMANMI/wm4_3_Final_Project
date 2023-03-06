@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Container, Card, ListGroup } from "react-bootstrap";
 
-function MoreResources() {
+function MoreResources({ myClassDarkMode }) {
 	const { skill_name, skill_id } = useParams();
 	const [resources, setResources] = useState([]);
 
@@ -30,9 +30,11 @@ function MoreResources() {
 				style={{
 					marginTop: "15px",
 					boxShadow: "1px 3px 3px #888888",
+					marginBottom: "15px",
 				}}
+				className={myClassDarkMode}
 			>
-				<Card.Body>
+				<Card.Body className={myClassDarkMode}>
 					<Card.Header
 						as="h4"
 						style={{
@@ -43,14 +45,17 @@ function MoreResources() {
 					>
 						{skill_name.toUpperCase()}-Resources
 					</Card.Header>
-					<ListGroup variant="flush">
+					<ListGroup variant="flush" className={myClassDarkMode}>
 						{resources.map((resource) => (
 							<a
 								href={resource.url}
 								key={resource.id}
 								style={{ textDecoration: "none" }}
 							>
-								<ListGroup.Item key={resource.title}>
+								<ListGroup.Item
+									key={resource.title}
+									className={myClassDarkMode}
+								>
 									{resource.title}
 								</ListGroup.Item>
 							</a>
