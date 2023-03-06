@@ -96,7 +96,9 @@ export function Login({ myClassDarkMode, myClassDarkModeForNavbar }) {
 							placeholder="Username"
 							value={username}
 							id="username"
-							onChange={(event) => setUsername(event.target.value.toLowerCase())}
+							onChange={(event) =>
+								setUsername(event.target.value.toLowerCase())
+							}
 							className={myClassDarkMode}
 							required
 						/>
