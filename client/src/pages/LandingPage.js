@@ -1,7 +1,6 @@
-import { React, useState, useEffect } from "react";
+import React from "react";
 import Resources from "./Resources";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import Chart from "./Chart";
 import TableOfAllScores from "./TableOfAllScores";
@@ -9,21 +8,6 @@ import AllResources from "./AllResources";
 
 function LandingPage() {
 	const navigate = useNavigate();
-	const [finalScore, setFinalScore] = useState(0);
-	useEffect(() => {
-		axios
-			.get("/api/final-score")
-			.then((resp) => {
-				if (resp.status === 200) {
-					return resp.data;
-				} else {
-					throw new Error("Something is wrong");
-				}
-			})
-			.then((data) => {
-				setFinalScore(data[0]);
-			});
-	}, []);
 
 	function handleChecklist() {
 		navigate("/student");

@@ -434,7 +434,6 @@ FROM
 		.catch((error) => res.status(500).json({ error: error.message }));
 });
 
-
 //CRUD ENDPOINTS FOR RESOURCES
 // GET all resources for skill id
 router.get("/all-resources/:skill/:id", async (req, res) => {
