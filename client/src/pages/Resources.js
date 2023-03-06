@@ -4,7 +4,7 @@ import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 
 function Resources({ myClassDarkMode, finalScore }) {
-	const profileId = location.state ? location.state.studentId : "";
+	// const profileId = location.state ? location.state.studentId : "";
 	const [resources, setResources] = useState([]);
 
 	useEffect(() => {
