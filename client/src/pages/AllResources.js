@@ -39,7 +39,10 @@ function AllResources({ myClassDarkMode }) {
 							key={skill.id}
 							className="d-flex justify-content-center"
 						>
-							<Card border="light" className="card-with-fixed-height">
+							<Card
+								border="light"
+								className={`card-with-fixed-height ${myClassDarkMode}`}
+							>
 								<Card.Img
 									variant="top"
 									src={skill.url}
