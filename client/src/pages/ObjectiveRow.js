@@ -3,7 +3,7 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import "./LearningObj.css";
 import { Container, Button } from "react-bootstrap";
 
-function ObjectiveRow({ objective, onDelete, onChange }) {
+function ObjectiveRow({ objective, onDelete, onChange, myClassDarkMode }) {
 	const [isEditing, setIsEditing] = useState(false);
 	const [editedObjective, setEditedObjective] = useState(objective.objective);
 	const [isEditingEnabled, setIsEditingEnabled] = useState(true);
@@ -56,7 +56,7 @@ function ObjectiveRow({ objective, onDelete, onChange }) {
 	}, []);
 
 	return (
-		<Container fluid>
+		<Container fluid className={myClassDarkMode}>
 			{isEditing ? (
 				<input
 					type="text"
@@ -64,7 +64,7 @@ function ObjectiveRow({ objective, onDelete, onChange }) {
 					onChange={(e) => setEditedObjective(e.target.value)}
 				/>
 			) : (
-				<Container>{objective.objective}</Container>
+				<Container className={myClassDarkMode}>{objective.objective}</Container>
 			)}
 			<div
 				style={{
@@ -75,17 +75,18 @@ function ObjectiveRow({ objective, onDelete, onChange }) {
 				}}
 			>
 				{isEditing ? (
-					<div className="button-container">
+					<div className={`button-container ${myClassDarkMode}`}>
 						<Button
 							disabled={!isEditingEnabled} // set disabled prop based on isEditingEnabled
 							onClick={updateObjective(objective.objective_id, editedObjective)}
+							variant="danger"
 							// onClick={() =>
 							// 	updateObjective(objective.objective_id, editedObjective)
 							// }
 						>
 							Save
 						</Button>
-						<Button onClick={handleCancel}>Cancel</Button>
+						<Button onClick={handleCancel} variant="danger">Cancel</Button>
 					</div>
 				) : (
 					<div>
@@ -94,10 +95,10 @@ function ObjectiveRow({ objective, onDelete, onChange }) {
 							className="btn btn-secondary"
 							style={{ marginRight: "10px" }}
 						>
-							<FaEdit style={{ color: "black" }} onClick={handleEdit} />
+							<FaEdit style={{ color: "white" }} onClick={handleEdit} />
 						</Button>
 						<Button className="btn btn-danger" onClick={() => onDelete()}>
-							<FaTrash style={{ color: "black" }} />
+							<FaTrash style={{ color: "white" }} />
 						</Button>
 					</div>
 				)}

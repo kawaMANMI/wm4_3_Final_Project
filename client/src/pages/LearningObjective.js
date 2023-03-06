@@ -7,7 +7,7 @@ import AddNewObjective from "./AddNewObjective";
 import "./LearningObj.css";
 import { Button } from "react-bootstrap";
 
-function LearningObjective() {
+function LearningObjective({ myClassDarkMode }) {
 	const [learningObjective, setLearningObjective] = useState([]);
 	const [isVisible, setIsVisible] = useState(false);
 
@@ -49,7 +49,7 @@ function LearningObjective() {
 	};
 
 	return (
-		<div className="learning-objective-wrapper">
+		<div className={`learning-objective-wrapper ${myClassDarkMode}`}>
 			<div className="toggle-container">
 				<div>
 					<Button
@@ -69,17 +69,28 @@ function LearningObjective() {
 
 				<div>
 					{isVisible && (
-						<AddNewObjective handleAddObjective={handleSubmitObj} />
+						<AddNewObjective
+							handleAddObjective={handleSubmitObj}
+							myClassDarkMode={myClassDarkMode}
+						/>
 					)}
 				</div>
 			</div>
 
-			<Container fluid className="learning-objective-container">
+			<Container
+				fluid
+				className={`learning-objective-container ${myClassDarkMode}`}
+			>
 				<div>
 					<h2 style={{ color: "rgb(220,53,69)" }}>
 						Skill and Learning Objectives
 					</h2>
-					<Table hover size="sm" responsive="sm" className="table-responsive">
+					<Table
+						hover
+						size="sm"
+						responsive="sm"
+						className={`table-responsive  ${myClassDarkMode}`}
+					>
 						<thead>
 							<tr>
 								<th
@@ -112,6 +123,7 @@ function LearningObjective() {
 												onChange={getLearningObj}
 												objective={objective}
 												onDelete={() => deleteObjective(objective.objective_id)}
+												myClassDarkMode={myClassDarkMode}
 											/>
 										</td>
 									</tr>

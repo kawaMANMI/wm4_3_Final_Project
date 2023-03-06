@@ -107,12 +107,10 @@ function Mentor({ myClassDarkMode }) {
 				<RegionDropdown
 					setSelectedRegion={setSelectedRegion}
 					selectedRegion={selectedRegion}
-					myClassDarkMode={myClassDarkMode}
 				/>
 				<ClassCodeDropdown
 					setSelectedClassCode={setSelectedClassCode}
 					selectedClassCode={selectedClassCode}
-					myClassDarkMode={myClassDarkMode}
 				/>
 			</div>
 			<div className={`table-wrapper ${myClassDarkMode}`}>
@@ -166,6 +164,7 @@ function Mentor({ myClassDarkMode }) {
 										<Button
 											variant="link"
 											onClick={() => handleUser(student_id)}
+											style={{ color: "red" }}
 										>
 											View More
 										</Button>
