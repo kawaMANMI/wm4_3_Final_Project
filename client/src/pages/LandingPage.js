@@ -69,7 +69,10 @@ function LandingPage({ myClassDarkMode }) {
 					md={6}
 					className={`d-flex justify-content-center ${myClassDarkMode}`}
 				>
-					<Resources myClassDarkMode={myClassDarkMode} />
+					<Resources
+						myClassDarkMode={myClassDarkMode}
+						finalScore={finalScore}
+					/>
 				</Col>
 			</Row>
 			<Row style={{ marginTop: "30px" }}>
@@ -86,7 +89,7 @@ function LandingPage({ myClassDarkMode }) {
 			</Row>
 			<Card className={myClassDarkMode} style={{ marginTop: "30px" }}>
 				<Card.Header
-					className="card-header"
+					className={`card-header ${myClassDarkMode}`}
 					as="h4"
 					style={{
 						textAlign: "center",

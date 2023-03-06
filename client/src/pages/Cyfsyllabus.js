@@ -183,7 +183,7 @@ const CYFSyllabusPage = ({ myClassDarkMode }) => {
 										target="_blank"
 										rel="noopener noreferrer"
 									>
-										Learn More
+										Link Course
 									</a>
 								</Card.Body>
 							</Card>
