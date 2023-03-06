@@ -1,19 +1,36 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Resources from "./Resources";
 import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import Chart from "./Chart";
 import TableOfAllScores from "./TableOfAllScores";
 import AllResources from "./AllResources";
+import axios from "axios";
 
 function LandingPage() {
 	const navigate = useNavigate();
+	const [finalScore, setFinalScore] = useState(0);
+
+	useEffect(() => {
+		axios
+			.get("/api/final-score")
+			.then((resp) => {
+				if (resp.status === 200) {
+					return resp.data;
+				} else {
+					throw new Error("Something is wrong");
+				}
+			})
+			.then((data) => {
+				setFinalScore(data[0]);
+			});
+	}, []);
 
 	function handleChecklist() {
 		navigate("/student");
 	}
 	function handleGoToProfile() {
-		navigate("/user-profile");
+		navigate("/user-profile", { state: finalScore });
 	}
 	return (
 		<Container
@@ -26,9 +43,13 @@ function LandingPage() {
 		>
 			<Row>
 				<Col sm={12} md={6} className="d-flex justify-content-center">
-					<Card style={{ marginTop: "30px" }}>
-						<Card.Header className="card-header" as="h4">
-							Welcome to CodeYourFuture Knowledge Checklist
+					<Card bg="light" border="light" style={{ marginTop: "30px" }}>
+						<Card.Header
+							className="border-0"
+							as="h4"
+							style={{ textAlign: "center" }}
+						>
+							Welcome to CYF Knowledge Checklist
 						</Card.Header>
 						<Card.Body>
 							We are excited to help you track your learning progress and
@@ -43,7 +64,7 @@ function LandingPage() {
 					</Card>
 				</Col>
 				<Col sm={12} md={6} className="d-flex justify-content-center">
-					<Resources />
+					<Resources finalScore={finalScore} />
 				</Col>
 			</Row>
 			<Row style={{ marginTop: "30px" }}>
@@ -58,18 +79,7 @@ function LandingPage() {
 					</Button>
 				</Col>
 			</Row>
-			<Card style={{ marginTop: "30px" }}>
-				<Card.Header
-					className="card-header"
-					as="h4"
-					style={{
-						textAlign: "center",
-					}}
-				>
-					Progress Chart
-				</Card.Header>
-				<Chart />
-			</Card>
+			<Chart />
 			<TableOfAllScores />
 			<AllResources />
 		</Container>

@@ -373,11 +373,10 @@ router.get("/recent-scores", (req, res) => {
 });
 
 router.get("/user-profile", (req, res) => {
-	// const [userIdent, setUserIdent] = use
 	const user_Id = req.session.userId;
-	// const user_Id = req.params.id;
+
 	db.query(
-		"SELECT users.name, users.username, users.class_code, region.name AS region FROM users INNER JOIN region ON users.region_id = region.id AND users.id=$1",
+		"SELECT users.id,users.name, users.username, users.class_code, region.name AS region FROM users INNER JOIN region ON users.region_id = region.id AND users.id=$1",
 		[user_Id]
 	)
 		.then((result) => res.json(result.rows))
@@ -410,7 +409,7 @@ router.get("/all-scores", async (req, res) => {
 router.get("/final-score", async (req, res) => {
 	const userID = req.session.userId;
 	db.query(
-		`SELECT AVG(AVERAGE_SCORE) AS SCORE
+		`SELECT ROUND((AVG(average_score))*20) AS percentage
 FROM
 	(SELECT S.SKILL_NAME,
 			ROUND(AVG(ULO.SCORE)) AS AVERAGE_SCORE
@@ -445,8 +444,8 @@ router.get("/all-resources/:skill/:id", async (req, res) => {
 
 // GET endpoints for resources per student
 router.get("/resources", async (req, res) => {
-	// const userID = req.session.userId;
-	const userID = 1;
+	const userID = req.session.userId;
+
 	db.query(
 		`SELECT title, url, reading_time, AVERAGE_SCORE FROM
 (SELECT S.id AS skill_id,
