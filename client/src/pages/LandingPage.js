@@ -7,7 +7,7 @@ import TableOfAllScores from "./TableOfAllScores";
 import AllResources from "./AllResources";
 import axios from "axios";
 
-function LandingPage() {
+function LandingPage({ myClassDarkMode }) {
 	const navigate = useNavigate();
 	const [finalScore, setFinalScore] = useState(0);
 
@@ -40,16 +40,17 @@ function LandingPage() {
 				borderRadius: "5px",
 				boxShadow: "1px 3px 3px #888888",
 			}}
+			className={myClassDarkMode}
 		>
 			<Row>
-				<Col sm={12} md={6} className="d-flex justify-content-center">
-					<Card bg="light" border="light" style={{ marginTop: "30px" }}>
-						<Card.Header
-							className="border-0"
-							as="h4"
-							style={{ textAlign: "center" }}
-						>
-							Welcome to CYF Knowledge Checklist
+				<Col
+					sm={12}
+					md={6}
+					className={`d-flex justify-content-center ${myClassDarkMode}`}
+				>
+					<Card className={myClassDarkMode} style={{ marginTop: "30px" }}>
+						<Card.Header className="card-header" as="h4">
+							Welcome to CodeYourFuture Knowledge Checklist
 						</Card.Header>
 						<Card.Body>
 							We are excited to help you track your learning progress and
@@ -63,25 +64,40 @@ function LandingPage() {
 						</Card.Body>
 					</Card>
 				</Col>
-				<Col sm={12} md={6} className="d-flex justify-content-center">
-					<Resources finalScore={finalScore} />
+				<Col
+					sm={12}
+					md={6}
+					className={`d-flex justify-content-center ${myClassDarkMode}`}
+				>
+					<Resources myClassDarkMode={myClassDarkMode} />
 				</Col>
 			</Row>
 			<Row style={{ marginTop: "30px" }}>
-				<Col className="d-flex justify-content-center">
+				<Col className={`d-flex justify-content-center ${myClassDarkMode}`}>
 					<Button variant="danger" onClick={handleGoToProfile}>
 						View Profile
 					</Button>
 				</Col>
-				<Col className="d-flex justify-content-center">
+				<Col className={`d-flex justify-content-center ${myClassDarkMode}`}>
 					<Button variant="danger" onClick={handleChecklist}>
 						Go to Course Topic Checklist
 					</Button>
 				</Col>
 			</Row>
-			<Chart />
-			<TableOfAllScores />
-			<AllResources />
+			<Card className={myClassDarkMode} style={{ marginTop: "30px" }}>
+				<Card.Header
+					className="card-header"
+					as="h4"
+					style={{
+						textAlign: "center",
+					}}
+				>
+					Progress Chart
+				</Card.Header>
+				<Chart myClassDarkMode={myClassDarkMode} />
+			</Card>
+			<TableOfAllScores myClassDarkMode={myClassDarkMode} />
+			<AllResources myClassDarkMode={myClassDarkMode} />
 		</Container>
 	);
 }
