@@ -82,7 +82,7 @@ function About({ myClassDarkMode }) {
 						<p className="card-text">
 							At CodeYourFuture, we believe that everyone should have access to
 							quality education and mentorship regardless of their background.
-							We're committed to providing a supportive and inclusive learning
+							We are committed to providing a supportive and inclusive learning
 							environment that empowers our students to achieve their goals and
 							become successful programmers.
 						</p>
