@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Row, Card, Accordion, Col, Collapse } from "react-bootstrap";
 import skills from "./Skill.json";
+import "./AllResources.css";
 
 function AllResources() {
 	const [openCollapseId, setOpenCollapseId] = useState("");
@@ -25,7 +26,7 @@ function AllResources() {
 					textAlign: "center",
 				}}
 			>
-				More Resources and Course work
+				More Resources and Assessment
 			</Card.Header>
 			<Accordion defaultActiveKey="0">
 				<Accordion.Item eventKey="1">
@@ -61,11 +62,13 @@ function AllResources() {
 										<Collapse in={openCollapseId === skill.id}>
 											<div id={skill.id}>
 												<div className="d-flex justify-content-around mb-2 mt-2">
-													<Link to={`/more-resources/${skill.id}`}>
+													<Link
+														to={`/more-resources/${skill.title}/${skill.id}`}
+													>
 														Resources
 													</Link>
-													<Link to={`/more-coursework/${skill.id}`}>
-														Coursework
+													<Link to={`/assessment/${skill.title}/${skill.id}`}>
+														Assessment
 													</Link>
 												</div>
 											</div>
