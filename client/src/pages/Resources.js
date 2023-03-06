@@ -26,7 +26,7 @@ function Resources() {
 	return (
 		<Card style={{ marginTop: "30px" }}>
 			<Card.Header className="card-header" as="h4">
-				Current Score Level:
+				Current Score Level
 			</Card.Header>
 			<Card.Body>
 				<Card.Title>Recommended Resources</Card.Title>

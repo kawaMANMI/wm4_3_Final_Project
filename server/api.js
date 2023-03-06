@@ -406,6 +406,35 @@ router.get("/all-scores", async (req, res) => {
 		.catch((error) => res.status(500).json({ error: error.message }));
 });
 
+// Get the final average scores for all skills for user id
+router.get("/final-score", async (req, res) => {
+	const userID = req.session.userId;
+	db.query(
+		`SELECT AVG(AVERAGE_SCORE) AS SCORE
+FROM
+	(SELECT S.SKILL_NAME,
+			ROUND(AVG(ULO.SCORE)) AS AVERAGE_SCORE
+		FROM
+			(SELECT LO.SKILL_ID,
+					ULO.*
+				FROM USER_LEARNING_OBJ AS ULO
+				JOIN
+					(SELECT LO_ID,
+							MAX(SUBMITTED_AT) AS RECENT_SUBMITTED_AT
+						FROM USER_LEARNING_OBJ
+						WHERE USER_ID = ${userID}
+						GROUP BY LO_ID) AS RECENT_ULO ON ULO.LO_ID = RECENT_ULO.LO_ID
+				AND ULO.SUBMITTED_AT = RECENT_ULO.RECENT_SUBMITTED_AT
+				JOIN LEARNING_OBJECTIVES AS LO ON ULO.LO_ID = LO.ID) AS ULO
+		JOIN SKILLS AS S ON ULO.SKILL_ID = S.ID
+		GROUP BY S.SKILL_NAME
+		ORDER BY S.SKILL_NAME) as DATA;`
+	)
+		.then((result) => res.json(result.rows))
+		.catch((error) => res.status(500).json({ error: error.message }));
+});
+
+
 //CRUD ENDPOINTS FOR RESOURCES
 // GET all resources for skill id
 router.get("/all-resources/:skill/:id", async (req, res) => {

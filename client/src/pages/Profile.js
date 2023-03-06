@@ -17,10 +17,24 @@ import Chart from "./Chart";
 import TableOfAllScores from "./TableOfAllScores";
 
 function Profile({ myClassDarkMode }) {
+	const [finalScore, setFinalScore] = useState(0);
 	const navigate = useNavigate();
 	const location = useLocation();
 	// profileId taken from the navigate object
 	const profileId = location.state ? location.state.studentId : "";
+	useEffect(() => {
+		axios.get("/api/final-score")
+		.then((resp) => {
+			if(resp.status === 200) {
+				return resp.data;
+			} else {
+				throw new Error("Something is wrong");
+			}
+		})
+		.then((data) => {
+			setFinalScore(data[0]);
+		});
+	},[]);
 
 	function handleChecklist() {
 		navigate("/student");
@@ -89,7 +103,7 @@ function Profile({ myClassDarkMode }) {
 			<Row style={{ marginTop: "30px" }}>
 				<Col className="d-flex justify-content-center">
 					<ListGroup.Item>
-						<strong>Current Score Level:</strong>
+						<strong>Current Score Level: { Math.round(finalScore["score"] * 20) }%</strong>
 					</ListGroup.Item>
 				</Col>
 				<Col className="d-flex justify-content-center">
