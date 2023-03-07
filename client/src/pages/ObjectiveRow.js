@@ -3,13 +3,7 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import "./LearningObj.css";
 import { Container, Button } from "react-bootstrap";
 
-function ObjectiveRow({
-	objective,
-	onDelete,
-	onChange,
-	handleRefresh,
-	myClassDarkMode,
-}) {
+function ObjectiveRow({ objective, onDelete, onChange, myClassDarkMode }) {
 	const [isEditing, setIsEditing] = useState(false);
 	const [editedObjective, setEditedObjective] = useState(objective.objective);
 	const [isEditingEnabled, setIsEditingEnabled] = useState(true);
@@ -38,7 +32,6 @@ function ObjectiveRow({
 			.then((response) => {
 				console.log("res", response);
 				if (response.ok) {
-					handleRefresh();
 					return response.json();
 				} else {
 					throw new Error("Failed to update learning objective");

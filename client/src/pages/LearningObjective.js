@@ -75,6 +75,8 @@ function LearningObjective({ myClassDarkMode }) {
 						<AddNewObjective
 							myClassDarkMode={myClassDarkMode}
 							handleRefresh={handleRefresh}
+							setLearningObjective={setLearningObjective}
+							learningObjective={learningObjective}
 						/>
 					)}
 				</div>
@@ -118,8 +120,8 @@ function LearningObjective({ myClassDarkMode }) {
 						</thead>
 						<tbody>
 							{learningObjective.map((skill) =>
-								skill.objectives.map((objective) => (
-									<tr key={objective.objective_id}>
+								skill.objectives.map((objective, index) => (
+									<tr key={index}>
 										<td>{skill.skill_name}</td>
 										<td>
 											<ObjectiveRow
@@ -127,7 +129,6 @@ function LearningObjective({ myClassDarkMode }) {
 												objective={objective}
 												onDelete={() => deleteObjective(objective.objective_id)}
 												myClassDarkMode={myClassDarkMode}
-												handleRefresh={handleRefresh}
 											/>
 										</td>
 									</tr>

@@ -6,11 +6,23 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import "./LearningObj.css";
 import { Container, Button } from "react-bootstrap";
 
-function AddNewObjective({ handleRefresh, myClassDarkMode }) {
+function AddNewObjective({
+	handleRefresh,
+	myClassDarkMode,
+	setLearningObjective,
+	learningObjective,
+}) {
 	const [obj, setObj] = useState("");
 	const [selectedOption, setSelectedOption] = useState("option1");
 	const handleOptionChange = (event) => setSelectedOption(event.target.value);
-
+	const listSkills = [
+		"HTML/CSS",
+		"GIT",
+		"JavaScript",
+		"React",
+		"Node",
+		"Database-Postgres",
+	];
 	function handleChangeObj(e) {
 		setObj(e.target.value);
 	}
@@ -30,6 +42,16 @@ function AddNewObjective({ handleRefresh, myClassDarkMode }) {
 				handleRefresh();
 
 				alert(res.data.message);
+				const dd = {
+					skill_id: parseInt(selectedOption.slice(-1)),
+					skill_name: listSkills[selectedOption.slice(-1) - 1],
+					objectives: [
+						{ objective: obj },
+						...learningObjective[selectedOption.slice(-1) - 1].objectives,
+					],
+				};
+				learningObjective[selectedOption.slice(-1) - 1] = dd;
+				setLearningObjective(learningObjective);
 			} else {
 				throw new Error("Failed to save the objective");
 			}
@@ -51,7 +73,7 @@ function AddNewObjective({ handleRefresh, myClassDarkMode }) {
 				<DropdownButton
 					variant="danger"
 					id="dropdown-basic-button"
-					title={"Skill"}
+					title={listSkills[selectedOption.slice(-1) - 1]}
 				>
 					<Dropdown.Item
 						onClick={() => handleOptionChange({ target: { value: "option1" } })}
