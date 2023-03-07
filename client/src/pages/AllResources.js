@@ -56,13 +56,13 @@ function AllResources({ myClassDarkMode }) {
 										<div className="d-flex justify-content-around mb-2 mt-2">
 											<Link
 												to={`/more-resources/${skill.title}/${skill.id}`}
-												style={{ color: "#DC143C" }}
+												style={{ color: "#DC143C", fontSize: "1.2rem" }}
 											>
 												Resources
 											</Link>
 											<Link
 												to={`/assessment/${skill.title}/${skill.id}`}
-												style={{ color: "#DC143C" }}
+												style={{ color: "#DC143C", fontSize: "1.2rem" }}
 											>
 												Assessment
 											</Link>

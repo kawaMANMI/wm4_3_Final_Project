@@ -106,7 +106,7 @@ function Student({ myClassDarkMode }) {
 					Save & Submit
 				</Button>
 			</div>
-			<UserScores />
+			<UserScores myClassDarkMode={myClassDarkMode} />
 		</Container>
 	);
 }

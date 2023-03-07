@@ -151,6 +151,34 @@ router.get("/user-profile/:id", (req, res) => {
 		.catch((error) => res.status(500).json({ Error: error.message }));
 });
 
+//Get percentage for average score of all the skills for user id(from mentor page)
+router.get("/percentage/:id", (req, res) => {
+	const user_Id = req.params.id;
+	db.query(
+		`SELECT ROUND((AVG(average_score))*20) AS percentage
+FROM
+	(SELECT S.SKILL_NAME,
+			ROUND(AVG(ULO.SCORE)) AS AVERAGE_SCORE
+		FROM
+			(SELECT LO.SKILL_ID,
+					ULO.*
+				FROM USER_LEARNING_OBJ AS ULO
+				JOIN
+					(SELECT LO_ID,
+							MAX(SUBMITTED_AT) AS RECENT_SUBMITTED_AT
+						FROM USER_LEARNING_OBJ
+						WHERE USER_ID = ${user_Id}
+						GROUP BY LO_ID) AS RECENT_ULO ON ULO.LO_ID = RECENT_ULO.LO_ID
+				AND ULO.SUBMITTED_AT = RECENT_ULO.RECENT_SUBMITTED_AT
+				JOIN LEARNING_OBJECTIVES AS LO ON ULO.LO_ID = LO.ID) AS ULO
+		JOIN SKILLS AS S ON ULO.SKILL_ID = S.ID
+		GROUP BY S.SKILL_NAME
+		ORDER BY S.SKILL_NAME) as DATA;`
+	)
+		.then((result) => res.json(result.rows))
+		.catch((error) => res.status(500).json({ error: error.message }));
+});
+
 // Cookie
 // router.get("/testCookie", async (req, res) => {
 // 	const userId = req.session.userId;
@@ -407,8 +435,8 @@ router.get("/all-scores", async (req, res) => {
 		.catch((error) => res.status(500).json({ error: error.message }));
 });
 
-// Get the final average scores for all skills for user id
-router.get("/final-score", async (req, res) => {
+// //Get percentage for average score of all the skills for user id
+router.get("/percentage", async (req, res) => {
 	const userID = req.session.userId;
 	db.query(
 		`SELECT ROUND((AVG(average_score))*20) AS percentage

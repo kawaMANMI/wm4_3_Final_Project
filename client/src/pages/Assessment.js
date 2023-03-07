@@ -51,7 +51,7 @@ function Assessment({ myClassDarkMode }) {
 							<a
 								href={data.coursework}
 								key={data.id}
-								style={{ textDecoration: "none" }}
+								style={{ textDecorationColor: "#DC143C" }}
 							>
 								<ListGroup.Item key={data.id} className={myClassDarkMode}>
 									Assessment-{index + 1}

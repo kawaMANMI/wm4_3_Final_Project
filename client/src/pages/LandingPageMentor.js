@@ -3,7 +3,7 @@ import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import AllResources from "./AllResources";
 
-function LandingPageMentor() {
+function LandingPageMentor({ myClassDarkMode }) {
 	const navigate = useNavigate();
 
 	function handleSkill() {
@@ -20,10 +20,11 @@ function LandingPageMentor() {
 					borderRadius: "5px",
 					boxShadow: "1px 3px 3px #888888",
 				}}
+				className={myClassDarkMode}
 			>
 				<Row>
 					{/* <Col sm={12} md={6}> */}
-					<Card style={{ marginTop: "30px" }}>
+					<Card className={myClassDarkMode} style={{ marginTop: "30px" }}>
 						<Card.Header
 							className="card-header"
 							as="h4"
@@ -43,24 +44,20 @@ function LandingPageMentor() {
 							professional career.
 						</Card.Body>
 					</Card>
-					{/* </Col> */}
-					<Col sm={12} md={6} className="d-flex justify-content-center"></Col>
 				</Row>
 				<Row style={{ marginTop: "30px" }}>
-					<Col className="d-flex justify-content-center">
+					<Col className={`d-flex justify-content-center ${myClassDarkMode}`}>
 						<Button variant="danger" onClick={handleStudents}>
 							View Students List
 						</Button>
 					</Col>
-					<Col className="d-flex justify-content-center">
+					<Col className={`d-flex justify-content-center ${myClassDarkMode}`}>
 						<Button variant="danger" onClick={handleSkill}>
 							Go to Learning Objectives
 						</Button>
 					</Col>
 				</Row>
-				<Card style={{ marginTop: "30px" }}>
-					<AllResources />
-				</Card>
+				<AllResources myClassDarkMode={myClassDarkMode} />
 			</Container>
 		</div>
 	);

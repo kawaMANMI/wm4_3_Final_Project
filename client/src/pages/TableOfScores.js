@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Table from "react-bootstrap/Table";
 
-function TableOfScores() {
+function TableOfScores({ myClassDarkMode }) {
 	const [recentScores, setRecentScores] = useState([]);
 
 	useEffect(() => {
@@ -36,7 +36,7 @@ function TableOfScores() {
 				Your recent scores for each skill
 			</h3>
 			<Table
-				striped
+				className={myClassDarkMode}
 				bordered
 				hover
 				style={{ boxShadow: "5px 10px 8px #888888", borderRadius: "5px" }}
