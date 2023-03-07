@@ -19,8 +19,23 @@ import TableOfAllScores from "./TableOfAllScores";
 function Profile({ myClassDarkMode }) {
 	const navigate = useNavigate();
 	const location = useLocation();
+	const profileId = location.state ? location.state.studentId : "";
+	const [finalScore, setFinalScore] = useState(0);
 
-	const finalScore = location.state;
+	useEffect(() => {
+		axios
+			.get(`/api/percentage/${profileId}`)
+			.then((resp) => {
+				if (resp.status === 200) {
+					return resp.data;
+				} else {
+					throw new Error("Something is wrong");
+				}
+			})
+			.then((data) => {
+				setFinalScore(data[0]);
+			});
+	}, [profileId]);
 
 	function handleChecklist() {
 		navigate("/student");
@@ -29,7 +44,7 @@ function Profile({ myClassDarkMode }) {
 	const [userData, setUserData] = useState([]);
 	useEffect(() => {
 		axios
-			.get("/api/user-profile/")
+			.get(`/api/user-profile/${profileId}`)
 			.then((response) => {
 				if (response.status === 200) {
 					return response.data;
@@ -41,7 +56,8 @@ function Profile({ myClassDarkMode }) {
 				setUserData(data[0]);
 			})
 			.catch((e) => console.log({ error: e.message }));
-	}, []);
+	}, [profileId]);
+
 	const picLink = `https://robohash.org/${userData.id}.png`;
 	return (
 		<Container

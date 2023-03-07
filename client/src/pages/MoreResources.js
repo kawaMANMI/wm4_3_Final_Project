@@ -50,7 +50,7 @@ function MoreResources({ myClassDarkMode }) {
 							<a
 								href={resource.url}
 								key={resource.id}
-								style={{ textDecoration: "none" }}
+								style={{ textDecorationColor: "#DC143C" }}
 							>
 								<ListGroup.Item
 									key={resource.title}

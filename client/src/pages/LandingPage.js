@@ -13,7 +13,7 @@ function LandingPage({ myClassDarkMode }) {
 
 	useEffect(() => {
 		axios
-			.get("/api/final-score")
+			.get("/api/percentage")
 			.then((resp) => {
 				if (resp.status === 200) {
 					return resp.data;
@@ -30,7 +30,7 @@ function LandingPage({ myClassDarkMode }) {
 		navigate("/student");
 	}
 	function handleGoToProfile() {
-		navigate("/user-profile", { state: finalScore });
+		navigate("/user-profile");
 	}
 	return (
 		<Container
@@ -49,8 +49,8 @@ function LandingPage({ myClassDarkMode }) {
 					className={`d-flex justify-content-center ${myClassDarkMode}`}
 				>
 					<Card className={myClassDarkMode} style={{ marginTop: "30px" }}>
-						<Card.Header as="h4">
-							Welcome to CodeYourFuture Knowledge Checklist
+						<Card.Header as="h4" style={{ textAlign: "center" }}>
+							Welcome to CYF Knowledge Checklist
 						</Card.Header>
 						<Card.Body>
 							We are excited to help you track your learning progress and
@@ -87,18 +87,7 @@ function LandingPage({ myClassDarkMode }) {
 					</Button>
 				</Col>
 			</Row>
-			<Card className={myClassDarkMode} style={{ marginTop: "30px" }}>
-				<Card.Header
-					className={"card-header "}
-					as="h4"
-					style={{
-						textAlign: "center",
-					}}
-				>
-					Progress Chart
-				</Card.Header>
-				<Chart myClassDarkMode={myClassDarkMode} />
-			</Card>
+			<Chart myClassDarkMode={myClassDarkMode} />
 			<TableOfAllScores myClassDarkMode={myClassDarkMode} />
 			<AllResources myClassDarkMode={myClassDarkMode} />
 		</Container>
