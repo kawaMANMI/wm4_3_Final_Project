@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import TableOfScores from "./TableOfScores";
 
-function UserScores() {
+function UserScores({ myClassDarkMode }) {
 	const [showToS, setShowToS] = useState(false);
 
 	const handleShowToS = () => {
@@ -21,7 +21,7 @@ function UserScores() {
 					Check your Scores
 				</Button>
 			</div>
-			{showToS && <TableOfScores />}
+			{showToS && <TableOfScores myClassDarkMode={myClassDarkMode} />}
 		</div>
 	);
 }
