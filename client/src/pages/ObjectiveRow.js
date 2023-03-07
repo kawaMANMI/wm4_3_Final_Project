@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import "./LearningObj.css";
 import { Container, Button } from "react-bootstrap";
+import axios from "axios";
 
-function ObjectiveRow({ objective, onDelete, onChange, myClassDarkMode }) {
+function ObjectiveRow({ objective, onDelete, onSave, myClassDarkMode }) {
 	const [isEditing, setIsEditing] = useState(false);
 	const [editedObjective, setEditedObjective] = useState(objective.objective);
 	const [isEditingEnabled, setIsEditingEnabled] = useState(true);
@@ -21,25 +22,14 @@ function ObjectiveRow({ objective, onDelete, onChange, myClassDarkMode }) {
 		setEditedObjective(objective.objective);
 	};
 	// Make a PUT request to save the edited objective to the server
-	const updateObjective = async (id, editedObjective) => {
-		fetch(`/api/learning_objectives/${id}`, {
-			method: "PUT",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ objective: editedObjective }),
-		})
-			.then((response) => {
-				console.log("res", response);
-				if (response.ok) {
-					return response.json();
-				} else {
-					throw new Error("Failed to update learning objective");
-				}
+	const updateObjective = (id, editedObjective) => {
+		setIsEditing(false);
+		axios
+			.put(`/api/learning_objectives/${id}`, {
+				objective: editedObjective,
 			})
 			.then(() => {
-				setIsEditing(false);
-				onChange();
+				onSave();
 			})
 			.catch((error) => {
 				console.error(error);
@@ -78,12 +68,11 @@ function ObjectiveRow({ objective, onDelete, onChange, myClassDarkMode }) {
 				{isEditing ? (
 					<div className={`button-container ${myClassDarkMode}`}>
 						<Button
-							disabled={!isEditingEnabled} // set disabled prop based on isEditingEnabled
-							onClick={updateObjective(objective.objective_id, editedObjective)}
+							disabled={!isEditingEnabled}
 							variant="danger"
-							// onClick={() =>
-							// 	updateObjective(objective.objective_id, editedObjective)
-							// }
+							onClick={() =>
+								updateObjective(objective.objective_id, editedObjective)
+							}
 						>
 							Save
 						</Button>
@@ -94,7 +83,7 @@ function ObjectiveRow({ objective, onDelete, onChange, myClassDarkMode }) {
 				) : (
 					<div>
 						<Button
-							disabled={!isEditingEnabled} // set disabled prop based on isEditingEnabled
+							disabled={!isEditingEnabled}
 							className="btn btn-danger"
 							style={{ marginRight: "10px" }}
 						>
