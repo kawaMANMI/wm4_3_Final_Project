@@ -86,11 +86,12 @@ function Student({ myClassDarkMode }) {
 			</Accordion>
 			<Row className={myClassDarkMode}>
 				{skills.map((skill) => (
-					<Row key={skill.skill_name} className={myClassDarkMode}>
+					<Row key={skill.skill_name}>
 						<Skills
 							skill={skill}
 							selectedScore={selectedScore}
 							handleSelectScore={handleSelectScore}
+							myClassDarkMode={myClassDarkMode}
 						/>
 					</Row>
 				))}

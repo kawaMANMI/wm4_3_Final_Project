@@ -51,6 +51,7 @@ function Profile({ myClassDarkMode }) {
 				borderRadius: "5px",
 				boxShadow: "1px 3px 3px #888888",
 			}}
+			className={myClassDarkMode}
 		>
 			<Row className={myClassDarkMode}>
 				<Col sm={12} md={6} className="d-flex justify-content-center">

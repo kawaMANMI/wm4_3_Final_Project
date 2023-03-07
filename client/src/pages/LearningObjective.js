@@ -52,7 +52,7 @@ function LearningObjective({ myClassDarkMode }) {
 	};
 	console.log("fkdmg", learningObjective);
 	return (
-		<div className="learning-objective-wrapper">
+		<div className={`learning-objective-wrapper ${myClassDarkMode}`}>
 			<div className="toggle-container">
 				<div>
 					<Button
@@ -71,7 +71,12 @@ function LearningObjective({ myClassDarkMode }) {
 				</div>
 
 				<div>
-					{isVisible && <AddNewObjective handleRefresh={handleRefresh} />}
+					{isVisible && (
+						<AddNewObjective
+							myClassDarkMode={myClassDarkMode}
+							handleRefresh={handleRefresh}
+						/>
+					)}
 				</div>
 			</div>
 
@@ -83,7 +88,12 @@ function LearningObjective({ myClassDarkMode }) {
 					<h2 style={{ color: "rgb(220,53,69)", marginTop: "1em" }}>
 						Skills and Learning Objectives
 					</h2>
-					<Table hover size="sm" responsive="sm" className="table-responsive">
+					<Table
+						hover
+						size="sm"
+						responsive="sm"
+						className={`table-responsive  ${myClassDarkMode}`}
+					>
 						<thead>
 							<tr>
 								<th
@@ -116,6 +126,7 @@ function LearningObjective({ myClassDarkMode }) {
 												onChange={getLearningObj}
 												objective={objective}
 												onDelete={() => deleteObjective(objective.objective_id)}
+												myClassDarkMode={myClassDarkMode}
 												handleRefresh={handleRefresh}
 											/>
 										</td>

@@ -6,7 +6,7 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import "./LearningObj.css";
 import { Container, Button } from "react-bootstrap";
 
-function AddNewObjective({ handleRefresh }) {
+function AddNewObjective({ handleRefresh, myClassDarkMode }) {
 	const [obj, setObj] = useState("");
 	const [selectedOption, setSelectedOption] = useState("option1");
 	const handleOptionChange = (event) => setSelectedOption(event.target.value);
@@ -45,6 +45,7 @@ function AddNewObjective({ handleRefresh }) {
 				borderRadius: "5px",
 				boxShadow: "1px 3px 3px #888888",
 			}}
+			className={myClassDarkMode}
 		>
 			<Form onSubmit={handleSubmitPost}>
 				<DropdownButton
@@ -86,7 +87,7 @@ function AddNewObjective({ handleRefresh }) {
 
 				<Form.Group className="mb-3">
 					<Form.Control
-						className="form-control"
+						className={`form-control ${myClassDarkMode}`}
 						style={{ marginTop: "1em" }}
 						required
 						placeholder=" New Learning Objective"

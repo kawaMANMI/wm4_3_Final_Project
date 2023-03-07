@@ -56,12 +56,18 @@ const App = () => {
 					path="/user-profile"
 					element={<Profile myClassDarkMode={myClassDarkMode} />}
 				/>
-				<Route path="/user-profile/:id" element={<Profile />} />
+				<Route
+					path="/user-profile/:id"
+					element={<Profile myClassDarkMode={myClassDarkMode} />}
+				/>
 				<Route
 					path="/student"
 					element={<Student myClassDarkMode={myClassDarkMode} />}
 				/>
-				<Route path="skills" element={<LearningObjective />} />
+				<Route
+					path="skills"
+					element={<LearningObjective myClassDarkMode={myClassDarkMode} />}
+				/>
 				<Route
 					path="/landing-page"
 					element={<LandingPage myClassDarkMode={myClassDarkMode} />}
@@ -77,11 +83,11 @@ const App = () => {
 				/>
 				<Route
 					path="/more-resources/:skill_name/:skill_id"
-					element={<MoreResources />}
+					element={<MoreResources myClassDarkMode={myClassDarkMode} />}
 				/>
 				<Route
 					path="/assessment/:skill_name/:skill_id"
-					element={<Assessment />}
+					element={<Assessment myClassDarkMode={myClassDarkMode} />}
 				/>
 			</Routes>
 			<Footer myClassDarkMode={myClassDarkMode} />
