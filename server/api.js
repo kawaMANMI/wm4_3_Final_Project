@@ -121,8 +121,7 @@ router.put("/learning_objectives/:id", async (req, res) => {
 			"UPDATE learning_objectives SET objective = $1 WHERE id = $2",
 			[objective, id]
 		);
-
-		return res.status(200);
+		return res.status(201).json({ msg: "done" });
 	} catch (error) {
 		return res.status(500).json({ error: error.message });
 	}

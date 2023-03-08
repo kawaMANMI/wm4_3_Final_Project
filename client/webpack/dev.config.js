@@ -3,7 +3,7 @@ const { merge } = require("webpack-merge");
 const common = require("./common.config");
 
 module.exports = merge(common, {
-	devtool: "inline-source-map",
+	devtool: "source-map",
 	devServer: {
 		historyApiFallback: {
 			disableDotRule: true,
@@ -14,4 +14,7 @@ module.exports = merge(common, {
 		},
 	},
 	mode: "development",
+	optimization: {
+		minimize: false,
+	},
 });

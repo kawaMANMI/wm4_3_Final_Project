@@ -35,12 +35,7 @@ function AddNewObjective({
 				objective: obj,
 			});
 			if (res.status === 200) {
-				// const newObjective = {
-				// 	skill_id: selectedOption.slice(-1),
-				// 	objective: obj,
-				// };
 				handleRefresh();
-
 				alert(res.data.message);
 				const dd = {
 					skill_id: parseInt(selectedOption.slice(-1)),

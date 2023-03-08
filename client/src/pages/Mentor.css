@@ -22,9 +22,9 @@ h2 {
 	text-align: center;
 }
 
-.table_container {
+/* .table_container {
 	width: auto;
-}
+} */
 @media (max-width: 768px) {
 	.table_container {
 		padding: 10px;
@@ -42,9 +42,9 @@ h2 {
 		margin-left: 0;
 	}
 
-	.table-wrapper {
+	/* .table-wrapper {
 		max-width: 100%;
-	}
+	} */
 
 	th,
 	td {
