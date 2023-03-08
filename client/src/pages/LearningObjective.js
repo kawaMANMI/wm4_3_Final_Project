@@ -5,7 +5,7 @@ import ObjectiveRow from "./ObjectiveRow";
 import AddNewObjective from "./AddNewObjective";
 import "./LearningObj.css";
 import { Button } from "react-bootstrap";
-import { Card, Table } from "react-bootstrap";
+import { Card, ListGroup } from "react-bootstrap";
 
 function LearningObjective({ myClassDarkMode }) {
 	const [learningObjective, setLearningObjective] = useState([]);
@@ -39,6 +39,10 @@ function LearningObjective({ myClassDarkMode }) {
 			getLearningObj();
 		});
 	};
+	const getUniqueSkills = () => {
+		return [...new Set(learningObjective.map((skill) => skill.skill_name))];
+	};
+
 	return (
 		<Card
 			style={{
@@ -97,30 +101,28 @@ function LearningObjective({ myClassDarkMode }) {
 							Skills and Learning Objectives
 						</Card.Header>
 
-						<Table
-							hover
-							size="sm"
-							responsive="sm"
-							className={`table-responsive  ${myClassDarkMode}`}
-						>
-							<thead>
-								<tr>
-									{/* <th
-									>
-										SKILLS
-									</th>
-									<th	>
-										LEARNING OBJECTIVES
-									</th> */}
-								</tr>
-							</thead>
-							<tbody>
-								{learningObjective.map((skill) =>
-									skill.objectives.map((objective, index) => (
-										<tr key={index}>
-											<td>{skill.skill_name}</td>
-											<td>
+						<ListGroup className={`list-group-flush ${myClassDarkMode}`}>
+							{getUniqueSkills().map((skillName, index) => {
+								const skillObjectives = learningObjective
+									.filter((skill) => skill.skill_name === skillName)
+									.flatMap((skill) => skill.objectives);
+
+								return (
+									<ListGroup.Item key={index}>
+										<h5
+											className={"card-header "}
+											style={{
+												textAlign: "center",
+												marginTop: "2em",
+												marginBottom: "2em",
+											}}
+										>
+											{skillName}
+										</h5>
+										<ListGroup>
+											{skillObjectives.map((objective, index) => (
 												<ObjectiveRow
+													key={index}
 													onSave={() => getLearningObj()}
 													objective={objective}
 													onDelete={() =>
@@ -128,12 +130,12 @@ function LearningObjective({ myClassDarkMode }) {
 													}
 													myClassDarkMode={myClassDarkMode}
 												/>
-											</td>
-										</tr>
-									))
-								)}
-							</tbody>
-						</Table>
+											))}
+										</ListGroup>
+									</ListGroup.Item>
+								);
+							})}
+						</ListGroup>
 					</div>
 				</Container>
 			</div>
