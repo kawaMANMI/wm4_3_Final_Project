@@ -16,6 +16,8 @@ function LandingPageMentor({ myClassDarkMode }) {
 		<div>
 			<Container
 				style={{
+					marginTop: "30px",
+					marginBottom: "30px",
 					border: "1px solid grey",
 					borderRadius: "5px",
 					boxShadow: "1px 3px 3px #888888",
