@@ -26,9 +26,9 @@ h2 {
 	width: auto;
 } */
 @media (max-width: 768px) {
-	.table_container {
+	/* .table_container {
 		padding: 10px;
-	}
+	} */
 
 	.button_container {
 		flex-direction: column;
@@ -46,14 +46,14 @@ h2 {
 		max-width: 100%;
 	} */
 
-	th,
+	/* th,
 	td {
 		padding: 5px;
-	}
+	} */
 }
-.table-container {
+/* .table-container {
 	overflow-x: auto;
 }
 .table {
 	width: 100%;
-}
+} */

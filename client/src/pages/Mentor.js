@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Button from "react-bootstrap/Button";
 import "./Mentor.css";
-import { Container } from "react-bootstrap";
+import { Container, Card, Table, Button } from "react-bootstrap";
 import RegionDropdown from "./RegionDropdown";
 import ClassCodeDropdown from "./ClassCodeDropdown";
-import { Card, Table } from "react-bootstrap";
 
 function Mentor({ myClassDarkMode }) {
 	const navigate = useNavigate();
@@ -91,11 +89,7 @@ function Mentor({ myClassDarkMode }) {
 	};
 
 	return (
-		<Container
-			fluid
-			responsive="sm"
-			className={`table_container ${myClassDarkMode}`}
-		>
+		<Container className={`border-0 ${myClassDarkMode}`}>
 			<div
 				className="button_container"
 				style={{ justifyContent: "space-around" }}
@@ -113,91 +107,58 @@ function Mentor({ myClassDarkMode }) {
 				style={{
 					marginTop: "30px",
 					marginBottom: "20px",
-					marginLeft: "5em",
-					marginRight: "5em",
 					boxShadow: "1px 3px 3px #888888",
 				}}
 				className={myClassDarkMode}
 			>
-				<div className={`table-wrapper ${myClassDarkMode}`}>
-					<Card.Header
-						className={"card-header "}
-						as="h4"
-						style={{
-							textAlign: "center",
-						}}
-					>
-						STUDENTS LIST
-					</Card.Header>
-
-					<div>
-						<Table
-							className={myClassDarkMode}
-							size="sm"
-							bordered
-							hover
-							responsive="sm"
-						>
-							<thead>
-								<tr style={{ color: "#DC143C" }}>
-									<th className="text-center" onClick={sortByName}>
-										Name
-									</th>
-									<th>Class</th>
+				<Card.Header
+					className="card-header"
+					as="h4"
+					style={{
+						textAlign: "center",
+					}}
+				>
+					STUDENTS LIST
+				</Card.Header>
+				<Table className={myClassDarkMode} bordered hover responsive>
+					<thead>
+						<tr style={{ color: "#DC143C", textAlign: "center" }}>
+							<th onClick={sortByName}>Name</th>
+							<th>Class</th>
+							{uniqueSkills.map((skill) => (
+								<th key={skill}>{skill}</th>
+							))}
+							<th onClick={sortByTotalScore}>
+								Total score {isAscending ? "▲" : "▼"}
+							</th>
+							<th>Profile</th>
+						</tr>
+					</thead>
+					<tbody>
+						{sortedStudentNames.map(
+							({ student_id, name, class_code, skills, total_score }, i) => (
+								<tr key={i}>
+									<td>{name}</td>
+									<td>{class_code}</td>
 									{uniqueSkills.map((skill) => (
-										<th key={skill} className="d-none d-sm-table-cell">
-											{skill}
-										</th>
+										<td key={skill}>{skills[skill] || "0"}</td>
 									))}
-									<th className="text-center" onClick={sortByTotalScore}>
-										Total score {isAscending ? "▲" : "▼"}
-									</th>
-									<th>Profile</th>
-								</tr>
-							</thead>
-							<tbody>
-								{sortedStudentNames.map(
-									(
-										{ student_id, name, class_code, skills, total_score },
-										i
-									) => (
-										<tr key={i}>
-											<td className="text-center col-2">{name}</td>
-											<td>{class_code}</td>
-											{uniqueSkills.map((skill) => (
-												<td
-													key={skill}
-													className="text-center col-6 col-sm-4 d-none d-sm-table-cell"
-												>
-													{skills[skill] || "0"}
-												</td>
-											))}
 
-											<td
-												key={i}
-												className="text-center d-none d-sm-table-cell"
-											>
-												{total_score}
-											</td>
-											<td
-												className="hidden-sm"
-												style={{ margin: "auto", textAlign: "center" }}
-											>
-												<Button
-													variant="link"
-													onClick={() => handleUser(student_id)}
-													style={{ color: "red" }}
-												>
-													View More
-												</Button>
-											</td>
-										</tr>
-									)
-								)}
-							</tbody>
-						</Table>
-					</div>
-				</div>
+									<td key={i}>{total_score}</td>
+									<td style={{ textAlign: "center" }}>
+										<Button
+											variant="link"
+											onClick={() => handleUser(student_id)}
+											style={{ color: "red" }}
+										>
+											View More
+										</Button>
+									</td>
+								</tr>
+							)
+						)}
+					</tbody>
+				</Table>
 			</Card>
 		</Container>
 	);
