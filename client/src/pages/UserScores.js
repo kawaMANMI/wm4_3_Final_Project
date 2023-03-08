@@ -6,7 +6,7 @@ function UserScores({ myClassDarkMode }) {
 	const [showToS, setShowToS] = useState(false);
 
 	const handleShowToS = () => {
-		setShowToS(true);
+		setShowToS(!showToS);
 	};
 
 	return (
@@ -14,11 +14,11 @@ function UserScores({ myClassDarkMode }) {
 			<div className="d-flex justify-content-center">
 				<Button
 					variant="success"
-					style={{ marginTop: "20px", marginBottom: "50px" }}
+					style={{ marginTop: "20px", marginBottom: "10px" }}
 					className="mx-auto"
 					onClick={handleShowToS}
 				>
-					Check your Scores
+					{!showToS ? "See your Scores" : "Hide your scores"}
 				</Button>
 			</div>
 			{showToS && <TableOfScores myClassDarkMode={myClassDarkMode} />}
