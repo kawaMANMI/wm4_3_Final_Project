@@ -105,24 +105,30 @@ function Profile({ myClassDarkMode }) {
 					</Card>
 				</Col>
 			</Row>
-			<Row style={{ marginTop: "30px" }}>
-				<Col className="d-flex justify-content-center">
-					<ListGroup.Item>
-						<strong>
-							Current Score Level:
-							{finalScore["percentage"] === null ? 0 : finalScore["percentage"]}
-							%
-						</strong>
-					</ListGroup.Item>
-				</Col>
-				<Col className="d-flex justify-content-center">
-					<Button variant="danger" onClick={handleChecklist}>
-						Course Topic Checklist
-					</Button>
-				</Col>
-			</Row>
-			<Chart myClassDarkMode={myClassDarkMode} />
-			<TableOfAllScores myClassDarkMode={myClassDarkMode} />
+			{userData["role"] == "Trainee" ? (
+				<>
+					<Row style={{ marginTop: "30px" }}>
+						<Col className="d-flex justify-content-center">
+							<ListGroup.Item>
+								<strong>
+									Current Score Level:
+									{finalScore["percentage"] === null
+										? 0
+										: finalScore["percentage"]}
+									%
+								</strong>
+							</ListGroup.Item>
+						</Col>
+						<Col className="d-flex justify-content-center">
+							<Button variant="danger" onClick={handleChecklist}>
+								Course Topic Checklist
+							</Button>
+						</Col>
+					</Row>
+					<Chart myClassDarkMode={myClassDarkMode} />
+					<TableOfAllScores myClassDarkMode={myClassDarkMode} />
+				</>
+			) : null}
 		</Container>
 	);
 }
