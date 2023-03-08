@@ -21,7 +21,7 @@ function Footer({ myClassDarkMode }) {
 			// }
 			await axios.post("/api/subscribe", { subEmail }).then((response) => {
 				msg = response.data;
-				setSubEmail("");
+				setSubEmail(" ");
 				alert(msg);
 			});
 		} catch (error) {
