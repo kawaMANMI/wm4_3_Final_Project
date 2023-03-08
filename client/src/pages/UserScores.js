@@ -18,7 +18,7 @@ function UserScores({ myClassDarkMode }) {
 					className="mx-auto"
 					onClick={handleShowToS}
 				>
-					{!showToS ? "See your Scores" : "Hide your scores"}
+					{!showToS ? "Check your Scores" : "Hide your scores"}
 				</Button>
 			</div>
 			{showToS && <TableOfScores myClassDarkMode={myClassDarkMode} />}
