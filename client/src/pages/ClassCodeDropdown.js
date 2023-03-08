@@ -10,9 +10,12 @@ function ClassCodeDropdown({
 		<div>
 			<Dropdown>
 				<Dropdown.Toggle variant="danger" id="dropdown-basic">
-					{selectedClassCode ? selectedClassCode : "All Classes"}
+					{!selectedClassCode ? "All Classes" : selectedClassCode}
 				</Dropdown.Toggle>
 				<Dropdown.Menu className={myClassDarkMode}>
+					<Dropdown.Item onClick={() => setSelectedClassCode("")}>
+						All Classes
+					</Dropdown.Item>
 					<Dropdown.Item onClick={() => setSelectedClassCode("WM3")}>
 						WM3
 					</Dropdown.Item>

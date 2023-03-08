@@ -108,7 +108,7 @@ function LearningObjective({ myClassDarkMode }) {
 									.flatMap((skill) => skill.objectives);
 
 								return (
-									<ListGroup.Item key={index}>
+									<ListGroup.Item key={index} className={myClassDarkMode}>
 										<h5
 											className={"card-header "}
 											style={{
@@ -119,7 +119,7 @@ function LearningObjective({ myClassDarkMode }) {
 										>
 											{skillName}
 										</h5>
-										<ListGroup>
+										<ListGroup className={myClassDarkMode}>
 											{skillObjectives.map((objective, index) => (
 												<ObjectiveRow
 													key={index}
