@@ -66,7 +66,7 @@ function TableOfAllScores({ myClassDarkMode }) {
 							}}
 						>
 							<thead>
-								<tr style={{ color: "#DC143C" }}>
+								<tr style={{ color: "#DC143C", textAlign: "center" }}>
 									<th>#</th>
 									<th>Date</th>
 									<th>HTML/CSS</th>

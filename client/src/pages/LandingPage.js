@@ -35,6 +35,8 @@ function LandingPage({ myClassDarkMode }) {
 	return (
 		<Container
 			style={{
+				marginTop: "30px",
+				marginBottom: "30px",
 				border: "1px solid grey",
 				padding: "30px",
 				borderRadius: "5px",
