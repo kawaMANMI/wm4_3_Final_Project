@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Table from "react-bootstrap/Table";
+import { Card, Table } from "react-bootstrap";
 
 function TableOfScores({ myClassDarkMode }) {
 	const [recentScores, setRecentScores] = useState([]);
@@ -24,25 +24,32 @@ function TableOfScores({ myClassDarkMode }) {
 	}, []);
 
 	return (
-		<div style={{ marginLeft: "auto", marginRight: "auto" }}>
-			<h3
+		<Card
+			style={{
+				margin: "30px",
+				boxShadow: "1px 3px 3px #888888",
+			}}
+			className={myClassDarkMode}
+		>
+			<Card.Header
+				className={"card-header "}
+				as="h4"
 				style={{
-					color: "#DC143C",
 					textAlign: "center",
-					marginBottom: "20px",
-					textShadow: "1px 1px 1px grey",
 				}}
 			>
 				Your recent scores for each skill
-			</h3>
+			</Card.Header>
+
 			<Table
+				responsive
 				className={myClassDarkMode}
 				bordered
 				hover
-				style={{ boxShadow: "5px 10px 8px #888888", borderRadius: "5px" }}
+				style={{ borderRadius: "5px" }}
 			>
 				<thead>
-					<tr style={{ color: "#DC143C" }}>
+					<tr style={{ color: "#DC143C", textAlign: "center" }}>
 						<th>#</th>
 						<th>Skills</th>
 						<th>Average Scores</th>
@@ -58,7 +65,8 @@ function TableOfScores({ myClassDarkMode }) {
 					))}
 				</tbody>
 			</Table>
-		</div>
+			{/* </div> */}
+		</Card>
 	);
 }
 

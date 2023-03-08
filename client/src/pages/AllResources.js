@@ -29,7 +29,7 @@ function AllResources({ myClassDarkMode }) {
 			>
 				More Resources and Assessment
 			</Card.Header>
-			<Card.Body classame={myClassDarkMode} style={{ padding: "20px" }}>
+			<Card.Body className={myClassDarkMode} style={{ padding: "20px" }}>
 				<Row className="g-4 mt-2 mb-2">
 					{skills.map((skill) => (
 						<Col
@@ -46,6 +46,7 @@ function AllResources({ myClassDarkMode }) {
 								<Card.Img
 									variant="top"
 									src={skill.url}
+									alt={`${skill.title}image`}
 									crossOrigin="anonymous"
 									onClick={() => handleCardClick(skill.id)}
 									aria-controls={skill.id}

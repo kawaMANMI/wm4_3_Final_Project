@@ -55,7 +55,7 @@ function Student({ myClassDarkMode }) {
 	return (
 		<Container
 			className={myClassDarkMode}
-			style={{ marginTop: "50px", marginBottom: "200px" }}
+			style={{ marginTop: "50px", marginBottom: "30px" }}
 		>
 			<Row
 				as="h1"
