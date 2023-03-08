@@ -509,4 +509,34 @@ router.get("/assessment/:skill/:id", async (req, res) => {
 		.then((result) => res.json(result.rows))
 		.catch((error) => res.status(500).json({ error: error.message }));
 });
+
+// Add emails of subscribers
+router.post("/subscribe", async (req, res) => {
+	// res.json({ requestBody: req.body });
+	const addr = req.body.subEmail;
+	// const addr = "hayat4islam@gmail.com";
+	try {
+		// Check if the email has already subscribed
+		const subscriber = await db.query(
+			"SELECT * FROM subscription WHERE email_add = $1",
+			[addr]
+		);
+
+		if (subscriber.rowCount > 0) {
+			return res.status(200).send("Email has already subscribed!");
+		}
+		const result_id = await db.query("SELECT MAX(id) FROM subscription");
+		const lastId = result_id.rows[0].max;
+		// const result =
+		await db.query("INSERT INTO subscription (id, email_add) VALUES ($1,$2)", [
+			lastId + 1,
+			addr,
+		]);
+		res.status(200).json("Subscription completed!");
+		// return;
+	} catch (err) {
+		logger.error(err);
+		res.status(500).json({ message: "Something went wrong" });
+	}
+});
 export default router;

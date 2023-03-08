@@ -1,10 +1,33 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
-import React from "react";
+import { React, useState } from "react";
+import axios from "axios";
 import { Container, Form, Button } from "react-bootstrap";
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 import "./Footer.css";
 
 function Footer({ myClassDarkMode }) {
+	const [subEmail, setSubEmail] = useState("");
+	const handleSubEmailChange = (event) => {
+		setSubEmail(event.target.value);
+	};
+	let msg;
+	const handleSubscribe = async (event) => {
+		event.preventDefault();
+		try {
+			// const res = await axios.post("/api/subscribe", { subEmail });
+			// if(res.status === 200){
+			// 	alert(res.data);
+			// 	console.log(subEmail);
+			// }
+			await axios.post("/api/subscribe", { subEmail }).then((response) => {
+				msg = response.data;
+				setSubEmail("");
+				alert(msg);
+			});
+		} catch (error) {
+			console.error(error);
+		}
+	};
 	return (
 		<footer className={`footer ${myClassDarkMode}`}>
 			<div className="header_line"></div>
@@ -28,7 +51,10 @@ function Footer({ myClassDarkMode }) {
 			</Container>
 			<div className="footer-subscribe">
 				<Container>
-					<Form className="d-flex justify-content-center align-items-center mb-3">
+					<Form
+						onSubmit={handleSubscribe}
+						className="d-flex justify-content-center align-items-center mb-3"
+					>
 						<Form.Group
 							controlId="formBasicEmail"
 							style={{
@@ -36,7 +62,12 @@ function Footer({ myClassDarkMode }) {
 								marginRight: "10px",
 							}}
 						>
-							<Form.Control type="email" placeholder="Enter email" />
+							<Form.Control
+								type="text"
+								placeholder="Enter email"
+								value={subEmail}
+								onChange={handleSubEmailChange}
+							/>
 						</Form.Group>
 						<Button
 							type="submit"
