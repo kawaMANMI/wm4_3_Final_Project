@@ -26,39 +26,62 @@ ORDER BY total_score DESC;
 		});
 });
 //get skills and scores for all students and region
-router.get("/skills-scores", (req, res) => {
-	db.query(
-		`SELECT u.id AS student_id, u.name AS student_name, r.name AS region_name, s.skill_name, SUM(ulo.score) AS total_score
-FROM user_learning_obj ulo
-JOIN users u ON ulo.user_id = u.id
-JOIN skills s ON ulo.lo_id = s.id
-JOIN region r ON u.region_id = r.id
-WHERE r.name IN ('North West', 'London', 'West Midlands', 'Cape Town')
-GROUP BY u.id, u.name, r.name, s.skill_name
-ORDER BY u.name, s.skill_name ASC;
-	`
-	)
-		.then((result) => {
-			res.json(result.rows);
-		})
-		.catch((err) => {
-			res.status(500).json(err);
-		});
-});
+// router.get("/skills-scores", (req, res) => {
+// 	db.query(
+// 		`SELECT u.id AS student_id, u.name AS student_name, r.name AS region_name, s.skill_name, SUM(ulo.score) AS total_score
+// FROM user_learning_obj ulo
+// JOIN users u ON ulo.user_id = u.id
+// JOIN skills s ON ulo.lo_id = s.id
+// JOIN region r ON u.region_id = r.id
+// WHERE r.name IN ('North West', 'London', 'West Midlands', 'Cape Town')
+// GROUP BY u.id, u.name, r.name, s.skill_name
+// ORDER BY u.name, s.skill_name ASC;
+// 	`
+// 	)
+// 		.then((result) => {
+// 			res.json(result.rows);
+// 		})
+// 		.catch((err) => {
+// 			res.status(500).json(err);
+// 		});
+// });
 
 // get skill by region filter and class
 router.get("/skills-by-region", (req, res) => {
 	const region = req.query.region;
 	const classCode = req.query.classCode;
 	const query = `
-SELECT u.id AS student_id, u.name AS student_name, u.class_code AS class_code, r.name AS region_name, s.skill_name, ROUND(AVG(ulo.score)) AS total_score
-FROM user_learning_obj ulo
-JOIN users u ON ulo.user_id = u.id
-JOIN skills s ON ulo.lo_id = s.id
+SELECT u.id AS student_id,u.name AS student_name, u.class_code,
+  ROUND(AVG(CASE WHEN s.skill_name = 'Database-Postgres' THEN avg_score ELSE NULL END)) AS Database_Postgres,
+  ROUND(AVG(CASE WHEN s.skill_name = 'Git' THEN avg_score ELSE NULL END)) AS Git,
+  ROUND(AVG(CASE WHEN s.skill_name = 'HTML/CSS' THEN avg_score ELSE NULL END)) AS HTML_CSS,
+  ROUND(AVG(CASE WHEN s.skill_name = 'JavaScript' THEN avg_score ELSE NULL END)) AS JavaScript,
+  ROUND(AVG(CASE WHEN s.skill_name = 'Node' THEN avg_score ELSE NULL END)) AS Node,
+  ROUND(AVG(CASE WHEN s.skill_name = 'React' THEN avg_score ELSE NULL END)) AS React,
+  ROUND(AVG(avg_score)) AS Total_score
+FROM (
+  SELECT u.id, s.skill_name, ROUND(AVG(ulo.score)) AS avg_score
+  FROM (
+    SELECT lo.skill_id, ulo.*
+    FROM user_learning_obj as ulo
+    JOIN (
+      SELECT user_id, lo_id, MAX(submitted_at) AS recent_submitted_at
+      FROM user_learning_obj
+      GROUP BY user_id, lo_id
+    ) as recent_ulo ON ulo.user_id = recent_ulo.user_id AND ulo.lo_id = recent_ulo.lo_id 
+      AND ulo.submitted_at = recent_ulo.recent_submitted_at
+    JOIN learning_objectives as lo ON ulo.lo_id = lo.id
+  ) as ulo
+  JOIN users u ON u.id = ulo.user_id
+  JOIN skills as s ON ulo.skill_id = s.id
+  GROUP BY u.id, s.skill_name
+) AS user_skill_avg
+JOIN users u ON u.id = user_skill_avg.id
 JOIN region r ON u.region_id = r.id
+JOIN skills as s ON user_skill_avg.skill_name = s.skill_name
 WHERE ($1::text IS NULL OR r.name = $1::text)
-AND ($2::text IS NULL OR u.class_code = $2::text)
-GROUP BY u.id, u.name, r.name, s.skill_name
+    AND ($2::text IS NULL OR u.class_code = $2::text)
+GROUP BY u.id, u.name, u.class_code
 ORDER BY u.name ASC
   `;
 	const params = [region || null, classCode || null];

@@ -105,7 +105,7 @@ function Profile({ myClassDarkMode }) {
 					</Card>
 				</Col>
 			</Row>
-			{userData["role"] == "Trainee" ? (
+			{!userData["role"] !== "Mentor" ? (
 				<>
 					<Row style={{ marginTop: "30px" }}>
 						<Col className="d-flex justify-content-center">
