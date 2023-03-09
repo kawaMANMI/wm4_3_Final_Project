@@ -35,15 +35,15 @@ function LandingPageMentor({ myClassDarkMode }) {
 							Welcome to CYF Knowledge Checklist
 						</Card.Header>
 						<Card.Body>
-							The aim of this application is to give learner support whilst they
-							study some basic technical skills and inspiring students to
-							continue with their self study. The goal of this is to provide
+							The aim of this application is to give CYF trainees support whilst
+							they study some basic technical skills and inspire students to
+							continue with their self-study. The goal of this is to provide
 							students with an opportunity to learn new skills and to improve
-							their knowledge. Provide a tech foundation in the world of
-							programming through the development of HTML , CSS and JavaScript
-							skills. This builds the fundamental skills needed to learn and
-							succeed on any of the CodeYourFuture courses and also in a
-							professional career.
+							their knowledge. It also provides a Tech foundation in the world
+							of programming through the development of HTML , CSS and
+							JavaScript skills. This builds the fundamental skills needed to
+							learn and succeed in any of the CodeYourFuture courses and also in
+							a professional career.
 						</Card.Body>
 					</Card>
 				</Row>
