@@ -12,12 +12,12 @@ import {
 import axios from "axios";
 import "./Chart.css";
 
-function Chart({ myClassDarkMode }) {
+function Chart({ myClassDarkMode, profileId }) {
 	const [skillScores, setSkillScores] = useState([]);
-
+	const id = profileId ? profileId : "";
 	useEffect(() => {
 		axios
-			.get("/api/all-scores")
+			.get(`/api/all-scores/${id}`)
 			.then((res) => {
 				if (res.status === 200) {
 					return res.data;
@@ -31,7 +31,7 @@ function Chart({ myClassDarkMode }) {
 			.catch((error) => {
 				console.error({ error: error.message });
 			});
-	}, []);
+	}, [id]);
 
 	return (
 		<Card className={myClassDarkMode} style={{ marginTop: "30px" }}>

@@ -58,7 +58,9 @@ function Profile({ myClassDarkMode }) {
 			.catch((e) => console.log({ error: e.message }));
 	}, [profileId]);
 
-	const picLink = `https://robohash.org/${userData.id}.png`;
+	const userId = profileId ? profileId : userData.id;
+	const picLink = `https://robohash.org/${userId}.png`;
+
 	return (
 		<Container
 			style={{
@@ -105,7 +107,7 @@ function Profile({ myClassDarkMode }) {
 					</Card>
 				</Col>
 			</Row>
-			{!userData["role"] !== "Mentor" ? (
+			{userData["role"] !== "Mentor" ? (
 				<>
 					<Row style={{ marginTop: "30px" }}>
 						<Col className="d-flex justify-content-center">
@@ -125,8 +127,11 @@ function Profile({ myClassDarkMode }) {
 							</Button>
 						</Col>
 					</Row>
-					<Chart myClassDarkMode={myClassDarkMode} />
-					<TableOfAllScores myClassDarkMode={myClassDarkMode} />
+					<Chart myClassDarkMode={myClassDarkMode} profileId={profileId} />
+					<TableOfAllScores
+						myClassDarkMode={myClassDarkMode}
+						profileId={profileId}
+					/>
 				</>
 			) : null}
 		</Container>
