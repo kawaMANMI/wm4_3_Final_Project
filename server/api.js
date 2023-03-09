@@ -143,7 +143,7 @@ router.delete("/learning_objectives/:id", (req, res) => {
 router.get("/user-profile/:id", (req, res) => {
 	const user_Id = req.params.id;
 	db.query(
-		"SELECT users.name, users.username, users.class_code, region.name AS region FROM users INNER JOIN region ON users.region_id = region.id AND users.id=$1",
+		"SELECT users.name, users.username, users.class_code, users.role,  region.name AS region FROM users INNER JOIN region ON users.region_id = region.id AND users.id=$1",
 		[user_Id]
 	)
 		.then((result) => res.json(result.rows))
@@ -406,7 +406,7 @@ router.get("/user-profile", (req, res) => {
 	const user_Id = req.session.userId;
 
 	db.query(
-		"SELECT users.id,users.name, users.username, users.class_code, region.name AS region FROM users INNER JOIN region ON users.region_id = region.id AND users.id=$1",
+		"SELECT users.id,users.name, users.username, users.class_code, users.role, region.name AS region FROM users INNER JOIN region ON users.region_id = region.id AND users.id=$1",
 		[user_Id]
 	)
 		.then((result) => res.json(result.rows))
