@@ -26,7 +26,7 @@ function About({ myClassDarkMode }) {
 				help students keep track of their progress and improve their
 				understanding of the material covered in the course. It was developed by
 				the <span style={{ color: "red" }}>DevDreamer</span> group as the final
-				project in the WM4 course in 2023.
+				project in the WM4 Cohort in 2023.
 			</p>
 
 			<motion.div

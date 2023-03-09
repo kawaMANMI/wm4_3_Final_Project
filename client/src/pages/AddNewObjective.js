@@ -118,7 +118,7 @@ function AddNewObjective({
 					type="submit"
 					style={{ marginBottom: "1em", width: "15em" }}
 				>
-					Submit Objective
+					Submit New Objective
 				</Button>
 			</Form>
 		</Container>

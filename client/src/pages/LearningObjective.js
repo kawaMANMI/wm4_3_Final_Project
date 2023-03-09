@@ -68,7 +68,7 @@ function LearningObjective({ myClassDarkMode }) {
 							className="btn btn-danger"
 							onClick={toggleVisibility}
 						>
-							Add Objective
+							Add New Objective
 						</Button>
 					</div>
 
