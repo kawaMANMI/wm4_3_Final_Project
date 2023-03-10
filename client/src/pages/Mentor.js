@@ -41,29 +41,8 @@ function Mentor({ myClassDarkMode }) {
 		? scores.filter((score) => score.class_code === selectedClassCode)
 		: scores;
 
-	const uniqueSkills = filteredScores
-		.map((score) => score.skill_name)
-		.filter((value, index, array) => array.indexOf(value) === index);
-	const studentScores = {};
-	scores.forEach(
-		({ student_id, student_name, class_code, skill_name, total_score }) => {
-			if (student_id in studentScores) {
-				studentScores[student_id].totalScore =
-					Number(studentScores[student_id].totalScore) + Number(total_score);
-				studentScores[student_id].skills[skill_name] = total_score;
-			} else {
-				studentScores[student_id] = {
-					student_id: student_id,
-					class_code: class_code,
-					name: student_name,
-					total_score: total_score,
-					skills: { [skill_name]: total_score },
-				};
-			}
-		}
-	);
-	let sortedStudentNames = Object.values(studentScores).sort((a, b) => {
-		return a.name.localeCompare(b.name);
+	let sortedStudentNames = Object.values(filteredScores).sort((a, b) => {
+		return a.student_name.localeCompare(b.student_name);
 	});
 	// Sort by total score
 	if (sortScores === "total_score") {
@@ -77,16 +56,16 @@ function Mentor({ myClassDarkMode }) {
 		setIsAscending(!isAscending);
 		setSortScores("total_score");
 	};
-	const sortByName = () => {
-		const sortedScores = [...scores];
-		if (isAscending) {
-			sortedScores.sort((a, b) => a.student_name.localeCompare(b.student_name));
-		} else {
-			sortedScores.sort((a, b) => b.student_name.localeCompare(a.student_name));
-		}
-		setScores(sortedScores);
-		setIsAscending(!isAscending);
-	};
+	// const sortByName = () => {
+	// 	const sortedScores = [...scores];
+	// 	if (isAscending) {
+	// 		sortedScores.sort((a, b) => a.student_name.localeCompare(b.student_name));
+	// 	} else {
+	// 		sortedScores.sort((a, b) => b.student_name.localeCompare(a.student_name));
+	// 	}
+	// 	setScores(sortedScores);
+	// 	setIsAscending(!isAscending);
+	// };
 
 	return (
 		<Container className={`border-0 ${myClassDarkMode}`}>
@@ -123,11 +102,14 @@ function Mentor({ myClassDarkMode }) {
 				<Table className={myClassDarkMode} bordered hover responsive>
 					<thead>
 						<tr style={{ color: "#DC143C", textAlign: "center" }}>
-							<th onClick={sortByName}>Name</th>
+							<th>Name</th>
 							<th>Class</th>
-							{uniqueSkills.map((skill) => (
-								<th key={skill}>{skill}</th>
-							))}
+							<th>HTML/CSS</th>
+							<th>GIT</th>
+							<th>JAVASCRIPT</th>
+							<th>REACT</th>
+							<th>NODE</th>
+							<th>DATABASE_POSTGRES</th>
 							<th onClick={sortByTotalScore}>
 								Total score {isAscending ? "▲" : "▼"}
 							</th>
@@ -135,28 +117,28 @@ function Mentor({ myClassDarkMode }) {
 						</tr>
 					</thead>
 					<tbody>
-						{sortedStudentNames.map(
-							({ student_id, name, class_code, skills, total_score }, i) => (
-								<tr key={i}>
-									<td>{name}</td>
-									<td>{class_code}</td>
-									{uniqueSkills.map((skill) => (
-										<td key={skill}>{skills[skill] || "0"}</td>
-									))}
-
-									<td key={i}>{total_score}</td>
-									<td style={{ textAlign: "center" }}>
-										<Button
-											variant="link"
-											onClick={() => handleUser(student_id)}
-											style={{ color: "red" }}
-										>
-											View More
-										</Button>
-									</td>
-								</tr>
-							)
-						)}
+						{sortedStudentNames.map((score, index) => (
+							<tr key={index}>
+								<td>{score.student_name}</td>
+								<td>{score.class_code}</td>
+								<td>{score.html_css ? score.html_css : 0}</td>
+								<td>{score.git ? score.git : 0}</td>
+								<td>{score.javascript ? score.javascript : 0}</td>
+								<td>{score.react ? score.react : 0}</td>
+								<td>{score.node ? score.node : 0}</td>
+								<td>{score.database_postgres ? score.database_postgres : 0}</td>
+								<td>{score.total_score ? score.total_score : 0}</td>
+								<td style={{ textAlign: "center" }}>
+									<Button
+										variant="link"
+										onClick={() => handleUser(score.student_id)}
+										style={{ color: "red" }}
+									>
+										View More
+									</Button>
+								</td>
+							</tr>
+						))}
 					</tbody>
 				</Table>
 			</Card>

@@ -51,14 +51,37 @@ router.get("/skills-by-region", (req, res) => {
 	const region = req.query.region;
 	const classCode = req.query.classCode;
 	const query = `
-SELECT u.id AS student_id, u.name AS student_name, u.class_code AS class_code, r.name AS region_name, s.skill_name, ROUND(AVG(ulo.score)) AS total_score
-FROM user_learning_obj ulo
-JOIN users u ON ulo.user_id = u.id
-JOIN skills s ON ulo.lo_id = s.id
+SELECT u.id AS student_id,u.name AS student_name, u.class_code,
+  ROUND(AVG(CASE WHEN s.skill_name = 'Database-Postgres' THEN avg_score ELSE NULL END)) AS Database_Postgres,
+  ROUND(AVG(CASE WHEN s.skill_name = 'Git' THEN avg_score ELSE NULL END)) AS Git,
+  ROUND(AVG(CASE WHEN s.skill_name = 'HTML/CSS' THEN avg_score ELSE NULL END)) AS HTML_CSS,
+  ROUND(AVG(CASE WHEN s.skill_name = 'JavaScript' THEN avg_score ELSE NULL END)) AS JavaScript,
+  ROUND(AVG(CASE WHEN s.skill_name = 'Node' THEN avg_score ELSE NULL END)) AS Node,
+  ROUND(AVG(CASE WHEN s.skill_name = 'React' THEN avg_score ELSE NULL END)) AS React,
+  ROUND(AVG(avg_score)) AS Total_score
+FROM (
+  SELECT u.id, s.skill_name, ROUND(AVG(ulo.score)) AS avg_score
+  FROM (
+    SELECT lo.skill_id, ulo.*
+    FROM user_learning_obj as ulo
+    JOIN (
+      SELECT user_id, lo_id, MAX(submitted_at) AS recent_submitted_at
+      FROM user_learning_obj
+      GROUP BY user_id, lo_id
+    ) as recent_ulo ON ulo.user_id = recent_ulo.user_id AND ulo.lo_id = recent_ulo.lo_id 
+      AND ulo.submitted_at = recent_ulo.recent_submitted_at
+    JOIN learning_objectives as lo ON ulo.lo_id = lo.id
+  ) as ulo
+  JOIN users u ON u.id = ulo.user_id
+  JOIN skills as s ON ulo.skill_id = s.id
+  GROUP BY u.id, s.skill_name
+) AS user_skill_avg
+JOIN users u ON u.id = user_skill_avg.id
 JOIN region r ON u.region_id = r.id
+JOIN skills as s ON user_skill_avg.skill_name = s.skill_name
 WHERE ($1::text IS NULL OR r.name = $1::text)
-AND ($2::text IS NULL OR u.class_code = $2::text)
-GROUP BY u.id, u.name, r.name, s.skill_name
+    AND ($2::text IS NULL OR u.class_code = $2::text)
+GROUP BY u.id, u.name, u.class_code
 ORDER BY u.name ASC
   `;
 	const params = [region || null, classCode || null];
@@ -173,6 +196,28 @@ FROM
 		JOIN SKILLS AS S ON ULO.SKILL_ID = S.ID
 		GROUP BY S.SKILL_NAME
 		ORDER BY S.SKILL_NAME) as DATA;`
+	)
+		.then((result) => res.json(result.rows))
+		.catch((error) => res.status(500).json({ error: error.message }));
+});
+
+//Get all the average scores(old and new) of each skills for the user id(from mentor page)
+router.get("/all-scores/:id", async (req, res) => {
+	const user_Id = req.params.id;
+	db.query(
+		`SELECT TO_CHAR(user_learning_obj.submitted_at,'Mon-DD') AS date,
+    ROUND(AVG(CASE WHEN skills.skill_name = 'HTML/CSS' THEN user_learning_obj.score ELSE NULL END)) AS HTML_CSS,
+      ROUND(AVG(CASE WHEN skills.skill_name = 'Git' THEN user_learning_obj.score ELSE NULL END)) AS Git,
+      ROUND(AVG(CASE WHEN skills.skill_name = 'JavaScript' THEN user_learning_obj.score ELSE NULL END)) AS JavaScript,
+      ROUND(AVG(CASE WHEN skills.skill_name = 'React' THEN user_learning_obj.score ELSE NULL END)) AS React,
+      ROUND(AVG(CASE WHEN skills.skill_name = 'Node' THEN user_learning_obj.score ELSE NULL END)) AS Node,
+      ROUND(AVG(CASE WHEN skills.skill_name = 'Database-Postgres' THEN user_learning_obj.score ELSE NULL END)) AS Database_Postgres
+    FROM user_learning_obj
+    JOIN learning_objectives ON user_learning_obj.lo_id = learning_objectives.id
+    JOIN skills ON learning_objectives.skill_id = skills.id
+    WHERE user_learning_obj.user_id = ${user_Id}
+    GROUP BY TO_CHAR(user_learning_obj.submitted_at,'Mon-DD')
+    ORDER BY TO_CHAR(user_learning_obj.submitted_at,'Mon-DD')`
 	)
 		.then((result) => res.json(result.rows))
 		.catch((error) => res.status(500).json({ error: error.message }));
@@ -413,7 +458,7 @@ router.get("/user-profile", (req, res) => {
 		.catch((error) => res.status(500).json({ Error: error.message }));
 });
 
-//Get all the scores for user id
+//Get all the average scores(old and new) of each skills for the user id
 router.get("/all-scores", async (req, res) => {
 	const userID = req.session.userId;
 	db.query(
@@ -435,7 +480,7 @@ router.get("/all-scores", async (req, res) => {
 		.catch((error) => res.status(500).json({ error: error.message }));
 });
 
-// //Get percentage for average score of all the skills for user id
+//Get percentage for average score of all the skills for user id
 router.get("/percentage", async (req, res) => {
 	const userID = req.session.userId;
 	db.query(
